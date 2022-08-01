@@ -736,4 +736,323 @@ AO={
                 c:undefined
             } 
 ```
-##
+## 立即执行函数IIFE：immediately invoked function expression
+> 特点：自动执行，执行完成后立即释放
+>            用处：初始化函数
+>            写法：   1.(function(){})()
+>                    2.(function(){}())
+>            新增知识点：()里放任何东西都能形成表达式
+>           一定是表达式才能被执行符号()执行,这样function test(){return 1;}();不能执行
+>            所以立即执行函数里的函数需要是表达式
+>            函数声明变成表达式的方法：+ - ! || &&
+
+
+```javascript
+        (function(a,b){
+                console.log(a+b);
+        })(3,2)//立即执行函数传参
+        
+        // 接收立即执行函数函数的返回值
+        var sum = (function(a,b){
+                return a + b;
+        })(3,2)
+        console.log(sum);
+```
+
+注意！
+```javascript
+function test(){}();//报错，因为表达式才可以立即执行
+function test(){}(6);//不报错，因为会把(6)看成表达式而不是立即执行符号
+```
+
+## 逗号运算符：对它的每个操作数求值（从左到右），并返回最后一个操作数的值。
+
+```javascript
+        let x = 1;
+        x = (x++, x);
+        console.log(x);//2  
+```
+
+## 闭包
+>    当内部函数被返回到外部并保存时，一定会产生闭包。
+>    闭包会产生原来的作用域链不释放。
+>    过度的闭包可能会导致内存泄漏或加载过慢
+
+```javascript
+		function test1(){
+            function test2(){
+                var b = 2;
+                console.log(a);
+            }
+            var a = 1;
+            return test2();
+        }
+        var c = 3;
+        var test3 = test1();
+        test3();
+```
+
+### 闭包的案例：
+```javascript
+        // 打印是10个10
+         function test(){
+            var arr = [];
+            for(var i = 0; i < 10; i++){
+                arr[i] = function(){
+                    document.write(i + ' ');
+                }
+            }
+            return arr;
+        }
+        var myArr = test();
+        
+        for(var j = 0 ;j < 10;j++){
+            myArr[j]()//结果是10个10
+        } 
+
+        // 打印0-9的两个方法：
+
+         function test(){
+            var arr = [];
+            for(var i = 0; i < 10; i++){
+                arr[i] = function(num){
+                    document.write(num + ' ');
+                }
+            }
+            return arr;
+        }
+        var myArr = test();
+        
+        for(var j = 0 ;j < 10;j++){
+            myArr[j](j)//结果是0-9
+        } 
+
+        // 常用：
+        function test(){
+            var arr = [];
+            for(var i = 0; i < 10; i++){
+                (function (j){
+                    arr[j] = function(){
+                        document.write(j + ' ');
+                    }
+                })(i)
+            }
+            return arr;
+        }
+        var myArr = test();
+        
+        for(var j = 0 ;j < 10;j++){
+            myArr[j]()//结果是0-9
+        }
+```
+
+## 一些面试题
+```javascript
+<body>
+    <!-- 一系列面试题 -->
+
+    <!-- 1.点击li弹出li下标 -->
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <script>
+         var oLi =  document.querySelectorAll('li');
+        	for(var i = 0;i < oLi.length; i++){
+            	oLi[i].onclick = function () {
+                console.log(i);//点击哪个都输出5，而不是0-4
+            }
+        } 
+        var oLi =  document.querySelectorAll('li');
+        for(var i = 0;i < oLi.length; i++){
+            (function(j){
+                oLi[j].onclick = function () {
+                    console.log(j);//输出0-4,正解
+                }
+            })(i)
+        }
+
+
+        // 2.逗号运算符 + typeof + 立即执行函数
+           var fn = (
+            function test1(){
+                return 1;
+            },
+            function test2(){
+                return '2';
+            }
+        )();
+        console.log(typeof(fn));//string 
+
+        // 3.函数表达式:忽略函数的名字 + typeof
+        var a = 10;
+        if(function b(){}){
+            a += typeof(b);
+        }
+        console.log(a);//10undeined
+
+        /* 
+        (function b(){})是表达式，函数表达式会忽略函数的名字b,所以b没有声明报b is not defined ，typeof(b)是undefined
+         */
+    </script>
+</body>
+```
+
+## 对象
+```javascript
+        var person = {
+        name:'joeyee',
+        sex:'female',
+        height:160,
+        weight:108,
+        eat:function(){
+            this.weight++;
+            console.log("eating....",this.weight);
+        },
+        study:function(){
+            this.weight--;
+            console.log("studying....",this.weight);
+        },
+        sleep:function(){
+            console.log("sleeping...");
+        }
+    }
+    // 删除属性
+    delete person.height;
+    // 删除方法：注意！！面试题
+    delete person.sleep //√
+    // delete person.sleep() //×
+
+    person.eat();
+    person.eat();
+    person.study();
+```
+
+
+```javascript
+     var attendance  = {
+        students:[],
+        total:3,
+        join:function(name){
+            this.students.push(name);
+            if(this.students.length === this.total){
+                console.log(name + '已到，学生已到齐');
+            }else{
+                console.log(name + '已到，学生未到齐');
+            }
+            console.log(this.students);
+        },
+        leave:function(name){
+            var idx = this.students.indexOf(name);
+            if(idx !== -1){
+                this.students.splice(idx,1);
+                console.log(name + '已早退');
+            }
+            console.log(this.students);
+        },
+        classOver:function () {
+            this.students = [];
+            console.log("已下课");
+        }
+    }
+    attendance.join("joe")
+    attendance.join("yee")
+    attendance.join("joeyee")
+    attendance.leave("joe") 
+```
+
+## 构造函数
+
+```javascript
+    // 自定义构造函数,构造函数名规范是大驼峰命名
+    function Person(){
+        this.name = "joeyee";
+        this.sex = "female";
+        this.height = 160;
+        this.weight = 108;
+        this.eat = function(){
+            this.weight++;
+            console.log("eating....",this.weight);
+        }
+        this.study = function(){
+            this.weight--;
+            console.log("studying....",this.weight);
+        }
+        this.sleep = function(){
+            console.log("sleeping...");
+        }
+    }
+
+    var girl1 = new Person();
+    var girl2 = new Person();
+
+    girl1.name = "joe"
+
+    console.log(girl,girl2);
+```
+
+**传参版：**
+
+```javascript
+function Person(name,sex,height,weight){
+        this.name = name;
+        this.sex = sex;
+        this.height = height;
+        this.weight = weight;
+        this.eat = function(){
+            this.weight++;
+            console.log("eating....",this.weight);
+        }
+        this.study = function(){
+            this.weight--;
+            console.log("studying....",this.weight);
+        }
+        this.sleep = function(){
+            console.log("sleeping...");
+        }
+    }
+
+    var girl1 = new Person("joe","female",175,110);
+    var girl2 = new Person("joeyee","female",158,108);
+
+    console.log(girl1,girl2);
+```
+
+**传参升级版---含对象解构**
+```javascript
+function Person({name,sex,height,weight}){
+        this.name = name;
+        this.sex = sex;
+        this.height = height;
+        this.weight = weight;
+        this.eat = function(){
+            this.weight++;
+            console.log("eating....",this.weight);
+        }
+        this.study = function(){
+            this.weight--;
+            console.log("studying....",this.weight);
+        }
+        this.sleep = function(){
+            console.log("sleeping...");
+        }
+    }
+
+    var girl1 = new Person({
+        name:"joe",
+        sex:"female",
+        height:175,
+        weight:110
+    });
+    var girl2 = new Person({
+        name:"joeyee",
+        sex:"female",
+        height:158,
+        weight:108
+    });
+
+    console.log(girl1,girl2);
+```
