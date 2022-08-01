@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            img {
+                width: 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box"></div>
+        <script>
+            // 编写红绿灯类
+            function trafficLights() {
+                // 默认每个实例最初都是红灯
+                // 红灯1  黄灯2  绿灯3
+                this.color = 1;
+                //调用自己的初始化方法：
+                this.init();
+                // 绑定事件监听
+                this.bindEvent();
+            }
+            // 初始化方法
+            trafficLights.prototype.init = function () {
+                // 创建自己的dom
+                this.dom = document.createElement("img");
+                // img路径
+                this.dom.src = "./images/" + this.color + ".jpg";
+                // 创建的dom上树
+                box.appendChild(this.dom);
+            };
+            // 绑定事件监听
+            trafficLights.prototype.bindEvent = function () {
+                // 备份上下文，这里的this是js实例
+                var self = this;
+                this.dom.addEventListener("click", function () {
+                    // 当被点击时调用changeColor()
+                    // console.log(this);这里的this指的是实例的dom属性
+                    // 有点不明白
+                    // 这里的this是触发dom的事件本身，已经不能指向trafficLights实例了，只有trafficLights实例才能调用到changeColor()
+                    self.changeColor();
+                });
+            };
+
+            // 改变颜色
+            trafficLights.prototype.changeColor = function () {
+                this.color++;
+                if (this.color == 4) {
+                    this.color = 1;
+                }
+                // color属性变了，img属性路径也得跟着换
+                this.dom.src = "./images/" + this.color + ".jpg";
+            };
+
+            var box = document.querySelector("#box");
+            new trafficLights();
+        </script>
+    </body>
+</html>

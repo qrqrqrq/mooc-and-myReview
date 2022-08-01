@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.只能传二维数组，而且必须体现出键和值
+            console.log(
+                new Map([
+                    ["name", "joeyee"],
+                    ["age", 18],
+                ])
+            ); //Map(2) {'name' => 'joeyee', 'age' => 18}
+
+            // 2.Set,Set 中也必须体现出键和值
+            const s = new Set([
+                ["name", "joeyee"],
+                ["age", 18],
+            ]);
+            console.log(new Map(s)); //Map(2) {'name' => 'joeyee', 'age' => 18}
+            console.log(s); //Set(2) {Array(2), Array(2)}
+
+            // 3. Map,等于复制了一个新的 Map
+            const m = new Map([
+                ["name", "joeyee"],
+                ["age", 18],
+            ]);
+            const m1 = new Map(m);
+            console.log(m);
+            console.log(m1);
+            console.log(m === m1); //false
+        </script>
+    </body>
+</html>

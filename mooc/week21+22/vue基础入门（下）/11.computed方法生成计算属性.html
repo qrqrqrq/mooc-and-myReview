@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 38</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // computed计算属性
+        // 当count是基本数据类型时:
+        // const app = Vue.createApp({
+        //     setup() {
+        //         const { ref, computed } = Vue;
+        //         const count = ref(0);
+        //         const handleClick = () => {
+        //             count.value += 1;
+        //         };
+
+        //         // const countAddFive = computed(() => {
+        //         //     return count.value + 5;
+        //         // });
+
+        //         let countAddFive = computed({
+        //             get: () => {
+        //                 return count.value + 5;
+        //             },
+        //             set: (param) => {
+        //                 count.value = param - 5;
+        //             },
+        //         });
+        //         setTimeout(() => {
+        //             countAddFive.value = 100;
+        //         }, 3000);
+        //         return { count, handleClick, countAddFive };
+        //     },
+        //     template: `
+        //                 <div>
+        //                     <span @click="handleClick">{{count}}</span>---{{countAddFive}}
+        //                 </div>
+        //                 `,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // 当countObj是引用数据类型时：
+        const app = Vue.createApp({
+            setup() {
+                const { reactive, computed } = Vue;
+                const countObj = reactive({ count: 0 });
+                const handleClick = () => {
+                    countObj.count += 1;
+                };
+
+                // const countAddFive = computed(() => {
+                //     return count.value + 5;
+                // });
+
+                let countAddFive = computed({
+                    get: () => {
+                        return countObj.count + 5;
+                    },
+                    set: (param) => {
+                        countObj.count = param - 5;
+                    },
+                });
+                setTimeout(() => {
+                    countAddFive.value = 100;
+                }, 3000);
+                return { countObj, handleClick, countAddFive };
+            },
+            template: `
+                        <div>
+                            <span @click="handleClick">{{countObj.count}}</span>---{{countAddFive}}
+                        </div>
+                        `,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

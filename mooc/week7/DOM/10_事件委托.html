@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <button id="btn">按我创建一个新的列表项</button>
+        <ul id="list">
+            <li>列表项</li>
+            <li>列表项</li>
+            <li>列表项</li>
+        </ul>
+        <script>
+            // 事件委托：利用事件冒泡机制，将后代元素事件委托给祖先元素
+            // 事件委托通常需要结合使用e.target属性
+
+            // 属性                      属性描述
+            // target                  触发此事件的最早元素，即“事件源元素”
+            // currentTarget           事件处理程序附加到的元素
+
+            // 事件委托的使用场景：
+            // 1.当有大量类似元素需要批量添加事件监听时，使用事件委托可以减少内存开销
+            // 2.当有动态元素节点上树时，使用事件委托可以让新上树的元素具有事件监听
+
+            // 使用事件委托时需要注意的事项：
+            // 1.不能委托不冒泡的事件给祖先元素  onmouseenter不冒泡，onmouseover冒泡。
+            // 2.最内层元素不能再有额外的内层元素了
+
+            var oBtn = document.querySelector("#btn");
+            var oList = document.querySelector("#list");
+
+            // 事件委托中e.target!=this
+
+            oList.addEventListener("click", function (e) {
+                //这里的this指的是 oList 因为是 oList触发了点击事件
+                // this.style.color = "pink";
+
+                // e.target指的是鼠标点击的是什么，这里指的就是每一项小li
+                e.target.style.color = "pink";
+            });
+
+            // onmouseenter这个属性天生就是“不冒泡”的，相当于你事件处理函数附加给了哪个DOM节点
+            // 就是哪个DOM节点自己触发的事件,没有冒泡过程。
+            // 此处相当于是ul直接触发了这个函数
+
+            // oList.addEventListener("mouseenter", function (e) {
+            //     e.target.style.backgroundColor = "pink";
+            // });
+
+            // oList.addEventListener("mouseover", function (e) {
+            //     e.target.style.backgroundColor = "pink";
+            // });
+
+            oBtn.addEventListener("click", function () {
+                // 创建li
+                var oLi = document.createElement("li");
+                // li里写内容
+                oLi.innerHTML = "我是新来的li";
+                // 将li挂在ul上
+                oList.appendChild(oLi);
+            });
+        </script>
+    </body>
+</html>

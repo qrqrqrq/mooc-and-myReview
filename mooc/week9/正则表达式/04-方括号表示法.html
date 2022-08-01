@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 使用方括号，比如[xyz]，可以创建一个字符集合，表示匹配方括号中的任意字符
+
+            // 可以使用短横-来指定一个字符范围，方括号表示法中^表示否定，元字符中^代表匹配开头
+
+            // 元字符                  功能                                      等价的方括号表示法
+            //     \d              匹配一个数字                                        [0-9]
+            //     \D              匹配一个非数字字符                                  [^0-9]
+            //     \w              匹配一个单字字符（字母、数字或者下划线）              [A-Za-z0-9_]
+            //     \W              匹配一个非单字字符                                  [^A-Za-z0-9_]
+            //     \s              匹配一个空白字符，包括空格、制表符和换行符
+            //     .               任意字符
+            //     ^               匹配开头
+            //     $               匹配结尾
+
+            // 举例：某学校的学号规定：第1位是一个字母，b表示本科生，y表示研究生，后面是7位数字，用正则表示为：
+
+            var regexp1 = /^[yb]\d{7}$/;
+            var regexp11 = new RegExp("^[yb]\\d{7}$");
+            var str1 = "y1234567";
+            var str11 = "b1234568";
+            var str111 = "m1234568";
+            console.log(regexp1.test(str1)); //true
+            console.log(regexp11.test(str11)); //true
+            console.log(regexp1.test(str111)); //false
+
+            // 题目1：请验证某字符串是否是5位字母，大小写均可
+            var regexp2 = /^[A-Za-z]{5}$/;
+            var str2 = "wdWsa";
+            console.log(regexp2.test(str2)); //true
+
+            // 题目2：请验证某字符串是否是5位，且仅有小写字母、点构成
+            var regexp3 = /^[a-z\.]{5}$/;
+            var str3 = "wgc.a";
+            console.log(regexp3.test(str3)); //true
+
+            // 题目3：请验证某字符串是否是4位小写字母，且最后一位不能是m字母(非常易错！！)
+            // 这样写最后一位不能是m但是也没限定了最后一位是字母
+            var regexp4 = /^[a-z]{3}[^m]$/;
+            var str4 = "qsc4";
+            console.log(regexp4.test(str4)); //true,但不满足最后一位不是m
+
+            // 这样写也不能限定最后一位不能是m
+            var regexp44 = /^[a-z]{3}[a-z^m]$/;
+            var str44 = "qscm";
+            console.log(regexp44.test(str44)); //true,但不满足最后一位不是m
+
+            // 正确写法！直接把m刨出去
+            var regexp444 = /^[a-z]{3}[a-ln-z]$/;
+            var str444 = "qscm";
+            var str4444 = "qsca";
+            console.log(regexp444.test(str444)); //false
+            console.log(regexp444.test(str4444)); //true
+        </script>
+    </body>
+</html>

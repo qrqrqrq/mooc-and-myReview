@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function People(name, sex, age) {
+                this.name = name;
+                this.sex = sex;
+                this.age = age;
+                this.arr = [11, 22, 33];
+            }
+            People.prototype.sayHello = function () {
+                console.log("你好，我是" + this.name + "我今年" + this.age + "岁了");
+            };
+            People.prototype.sleep = function () {
+                console.log(this.name + "正在睡觉，zzzzzz");
+            };
+
+            function Student(name, sex, age, school, sid) {
+                // this.name = name;
+                // this.sex = sex;
+                // this.age = age;
+
+                // People(name, sex, age);
+                // 在子类构造函数的内部调用超类的构造函数，但是要注意使用call()绑定上下文
+                // 解决了原型链继承的两大问题
+
+                People.call(this, name, sex, age);
+                this.school = school;
+                this.sid = sid;
+            }
+            var xiaoming = new Student("小明", "男", 12, "小慕学校", 100666);
+            console.log(xiaoming);
+            xiaoming.arr.push(888);
+            console.log(xiaoming.hasOwnProperty(xiaoming.arr));
+            var xiaohong = new Student("小红", "女", 11, "小慕学校", 100667);
+            console.log(xiaohong);
+            console.log(xiaohong.hasOwnProperty(xiaohong.arr));
+
+            // 但是还没有实现继承
+            xiaoming.sleep(); //会报错
+        </script>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+@mixin ipad {
+    @media screen and (min-width: 768px) {
+        @content;
+    }
+}
+.header {
+    width: 1000px;
+    @include ipad {
+        width: 500px;
+    }
+}
+.footer {
+    color: aqua;
+    @include ipad {
+        color: brown;
+    }
+}
+
+// .header {
+//     width: 1000px;
+// }
+// @media screen and (min-width: 768px) {
+//     .header {
+//         width: 500px;
+//     }
+// }
+
+// .footer {
+//     color: aqua;
+// }
+// @media screen and (min-width: 768px) {
+//     .footer {
+//         color: brown;
+//     }
+// }

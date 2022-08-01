@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0728-立即执行函数，闭包深入，逗号运算符</title>
+</head>
+<body>
+    <script>
+        /*  立即执行函数IIFE：immediately invoked function expression
+            特点：自动执行，执行完成后立即释放
+            用处：初始化函数
+            写法：   1.(function(){})()
+                    2.(function(){}())
+            新增知识点：()里放任何东西都能形成表达式
+            一定是表达式才能被执行符号()执行,这样function test(){return 1;}();不能执行
+            所以立即执行函数里的函数需要是表达式
+            函数声明变成表达式的方法：+ - ! || &&
+        */
+
+        /*
+        (function(a,b){
+                console.log(a+b);
+        })(3,2)//立即执行函数传参
+        
+        // 接收立即执行函数函数的返回值
+        var sum = (function(a,b){
+                return a + b;
+        })(3,2)
+        console.log(sum);*/
+
+        /* function test(){}();//报错，因为表达式才可以立即执行
+        function test(){}(6);//不报错，因为会把(6)看成表达式而不是立即执行符号*/
+
+        // 逗号运算符：对它的每个操作数求值（从左到右），并返回最后一个操作数的值。
+        /* let x = 1;
+        x = (x++, x);
+        console.log(x);//2 */
+
+
+        // 打印是10个10
+        /* function test(){
+            var arr = [];
+            for(var i = 0; i < 10; i++){
+                arr[i] = function(){
+                    document.write(i + ' ');
+                }
+            }
+            return arr;
+        }
+        var myArr = test();
+        
+        for(var j = 0 ;j < 10;j++){
+            myArr[j]()//结果是10个10
+        } */
+
+        // 打印0-9的两个方法：
+
+        /* function test(){
+            var arr = [];
+            for(var i = 0; i < 10; i++){
+                arr[i] = function(num){
+                    document.write(num + ' ');
+                }
+            }
+            return arr;
+        }
+        var myArr = test();
+        
+        for(var j = 0 ;j < 10;j++){
+            myArr[j](j)//结果是0-9
+        } 
+
+        function test(){
+            var arr = [];
+            for(var i = 0; i < 10; i++){
+                (function (j){
+                    arr[j] = function(){
+                        document.write(j + ' ');
+                    }
+                })(i)
+            }
+            return arr;
+        }
+        var myArr = test();
+        
+        for(var j = 0 ;j < 10;j++){
+            myArr[j]()//结果是0-9
+        }*/
+
+
+       
+    </script>
+</body>
+</html>

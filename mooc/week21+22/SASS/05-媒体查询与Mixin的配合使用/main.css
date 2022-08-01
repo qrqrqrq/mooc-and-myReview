@@ -1,0 +1,20 @@
+.header {
+  width: 1000px;
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    width: 500px;
+  }
+}
+
+.footer {
+  color: aqua;
+}
+
+@media screen and (min-width: 768px) {
+  .footer {
+    color: brown;
+  }
+}
+/*# sourceMappingURL=main.css.map */

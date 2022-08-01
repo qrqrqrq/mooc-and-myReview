@@ -1,0 +1,14 @@
+.text {
+  width: 600px;
+  overflow: hidden;
+  word-spacing: nowrap;
+  text-overflow: ellipsis;
+}
+
+.content-text {
+  width: 1000px;
+  overflow: hidden;
+  word-spacing: nowrap;
+  text-overflow: ellipsis;
+}
+/*# sourceMappingURL=main.css.map */

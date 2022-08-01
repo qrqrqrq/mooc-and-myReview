@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.为什么需要私有属性和方法
+            // 一般情况下，类的属性和方法都是公开的
+            // 公有的属性和方法可以被外界修改，造成意想不到的错误
+
+            // 2.模拟私有属性和方法
+            // 2.1._ 开头表示私有
+            class Person {
+                constructor(name) {
+                    this._name = name;
+                }
+                speak() {
+                    console.log("speak");
+                }
+                getName() {
+                    return this._name;
+                }
+            }
+            const p = new Person("joeyee");
+            p.name = "zs";
+            console.log(p.getName()); //joeyee
+
+            // 2.2.将私有属性和方法移出类
+            (function () {
+                let name = "";
+                class Person1 {
+                    constructor(username) {
+                        // this.name=name
+                        name = username;
+                    }
+                    speak() {
+                        console.log("speak");
+                    }
+                    getName() {
+                        return name;
+                    }
+                }
+                window.Person1 = Person1;
+            })();
+
+            (function () {
+                const p1 = new Person1("joeyee");
+                console.log(p1.name); //undefined
+                console.log(p1.getName());
+            })();
+        </script>
+    </body>
+</html>

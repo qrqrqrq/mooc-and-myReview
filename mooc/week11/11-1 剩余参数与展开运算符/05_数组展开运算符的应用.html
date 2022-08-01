@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <script>
+            // 1.复制数组
+            const a = [1, 2, 3];
+            // 传统复制方式，复制失败！
+            const b = a;
+            a[0] = 3;
+            console.log(b); //4,2,3
+            // 用展开运算符
+            const c = [...a]; //...a=3,2,3--->const c = [3,2,3]
+            a[0] = 4;
+            console.log(c); //3,2,3
+
+            // 2.合并数组
+            const d = [1, 2, 3];
+            const e = [4, 5];
+            console.log([3, ...d, ...e, ...a]); //[3,1,2,3,4,5,4,2,3]
+
+            // 3.字符串转为数组:字符串可以按照数组的形式展开
+            console.log(..."joeyee"); //j o e y e e
+            console.log([..."joeyee"]); //['j','o','e','y','e','e']
+            // split() 方法使用指定的分隔符字符串将一个String对象分割成子字符串数组，以一个指定的分割字串来决定每个拆分的位置。
+            console.log("joeyee".split("")); //['j','o','e','y','e','e']
+            // join() 方法将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符串。
+
+            // 4.常见的类数组转化为数组  arguments和NodeList
+            function fun() {
+                console.log([...arguments]);
+                console.log([...arguments].push());
+            }
+            fun(1, 2, 3); //[1, 2, 3]
+
+            const NodeLists = document.querySelectorAll("p");
+            console.log([...NodeLists]);
+            console.log([...NodeLists].push());
+        </script>
+    </body>
+</html>

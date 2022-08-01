@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            //padStart() 和 padEnd()补全字符串长度
+
+            // 1.基本用法
+            console.log("x".padStart(5, "ab")); //ababx
+            console.log("x".padEnd(5, "ab")); //xabab
+            console.log("x".padEnd(4, "ab")); //xaba
+
+            // 2.注意事项
+            // 原字符串的长度，等于或大于最大长度，不会消减原字符串，字符串补全不生效，返回原字符串
+            console.log("xxx".padStart(2, "ab")); //xxx
+            console.log("xxx".padEnd(2, "ab")); //xxx
+
+            // 用来补全的字符串与原字符串长度之和超过了最大长度，截去超出位数的补全字符串，原字符串不动
+            console.log("abc".padStart(10, "0123456789")); //0123456abc
+            console.log("abc".padEnd(10, "0123456789")); //abc0123456
+
+            // 如果省略第二个参数，默认使用空格补全长度
+            console.log("x".padStart(4));
+            console.log("x".padEnd(4));
+
+            // 3.应用,显示日期格式2022-2-2---->2022-02-02
+            console.log("2".padStart(2, 0)); //02
+            console.log("10".padStart(2, 0)); //10
+        </script>
+    </body>
+</html>

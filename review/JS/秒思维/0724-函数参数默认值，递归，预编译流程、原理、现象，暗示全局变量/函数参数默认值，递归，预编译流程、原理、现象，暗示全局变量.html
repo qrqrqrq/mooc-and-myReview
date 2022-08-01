@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            // 一、初始化参数，参数默认值：undefined
+            /*   function test(a, b) {
+                            console.log(a, b);
+                        }
+                        test(1); //1,undefined */
+
+            // es6函数参数默认值的生效条件：不传参数，或者明确的传递 undefined 作为参数，只有这两种情况下，默认值才会生效
+            /* function test(a = 2, b) {
+                            console.log(a, b);
+                        }
+                        test(undefined, 3); //2,3 */
+
+            // es5写法：
+            /*  function test(a, b) {
+                            var a = arguments[0] || 1;
+                            var b = arguments[1] || 2;
+                            console.log(a, b);
+                        }
+                        test(undefined); //1,2
+
+                        function test(a, b) {
+                            var a = typeof arguments[0] !== "undefined" ? arguments[0] : 1;
+                            var b = typeof arguments[1] !== "undefined" ? arguments[1] : 2;
+                            console.log(a, b);
+                        }
+                        test(undefined, 5); //1,5*/
+
+            // 二、递归-----找规律，找出口
+
+            // 求n的阶乘 n!= n * (n - 1)!
+            /* function factory(n) {
+                            if (n === 1) {
+                                return 1;
+                            } else {
+                                return n * factory(n - 1);
+                            }
+                        }
+                        console.log(factory(5));
+
+                        // 斐波那契数列 1 1 2 3 5 8 13 ......
+                        function Fibonacci(n) {
+                            if (n === 1 || n === 2) {
+                                return 1;
+                            } else {
+                                return Fibonacci(n - 1) + Fibonacci(n - 2);
+                            }
+                        }
+                        console.log(Fibonacci(7));*/
+
+            // 三、预编译
+            // 1.通篇检查语法错误
+            // 1.5.预编译
+            // 2.解释一行，执行一行
+
+            // 函数声明整体提升;变量只有声明提升，赋值不提升
+            /*          test(); //1
+                        function test() {
+                            console.log(1);
+                        }
+                        console.log(a); //undefined
+                        var a = 10; */
+
+            // 暗示全局变量
+            // 以下两种书写方式的a,b都存在了window对象上
+            /* var a = 1;//用var声明的变量
+                        b = 2;//未声明直接赋值
+
+                        function test() {
+                            var a = (b = 1);
+                        }
+                        test();
+                        console.log(b); //1,挂在了window对象上
+                        console.log(a); //a is not defined,是function test的局部变量，出了test函数就访问不到了
+                        console.log(window.a); //undefined,访问window对象上没有的属性，默认就是undefined。
+                        // 但a和window.a只是因为访问方式不同而答案不同其本质还是一样的 */
+
+            // AO案例一：
+            /*   function test(a) {
+                            console.log(a);
+                            var a = 1;
+                            console.log(a);
+                            function a() {}
+                            console.log(a);
+                            var b = function () {};
+                            console.log(b);
+                            function d() {}
+                        }
+                        test(2); */
+
+            // AO:函数上下文
+            // AO = {
+            //1.寻找函数形参和变量声明
+            //2.把实参参数值赋给形参
+            //3.寻找函数的函数体声明赋值给函数体
+            //4.执行函数
+            // 形参a
+            /*  a: ① undefined -> ② 2 -> ③ function a() {} -> ④ 1
+                                b: ① undefined -> ④ function () {}
+                                d: ③function d() {} */
+            // };
+
+            // AO案例二：
+            /*   function test(a, b) {
+                            console.log(a); //3
+                            c = 0;
+                            var c;
+                            a = 5;
+                            b = 6;
+                            console.log(b); //6
+                            function b() {}
+                            function d() {}
+                            console.log(b); //6
+                        }
+                        test(1); */
+
+            // 解题方法：
+            /* AO={
+                    a:undefined -> 1 -> 5
+                    b:undefined -> function b() {} -> 6
+                    c:undefined -> 0
+                    d:function d() {}
+                } */
+
+            // GO案例一：
+            /*  var a = 1;
+                function a() {
+                    console.log(2);
+                }
+                console.log(a); //1 */
+
+            // GO:全局上下文
+            /* GO = {
+                        //1.寻找变量声明
+                        //2.寻找函数声明
+                        //3.执行
+                        a: undefined -> function a(){} -> 1
+                        }; */
+
+            // GO案例二：
+            /*  console.log(a, b); //function a() {} undefined
+                function a() {}
+                var b = function b() {}; */
+
+            //  解题方法：
+            // GO={
+            // b : undefined -> function b() {}
+            // a : function a() {}
+            // }
+
+            // AO+GO案例一：
+            /*  function test() {
+                var a = (b = 1);
+                console.log(a);
+            }
+            test(); */
+            /* GO = {
+                    b: 1,
+                    };
+                AO = {
+                    a: undefined -> 1
+                }; */
+            /*
+
+                        // AO+GO案例二：
+
+                        var b = 3;
+                        console.log(a); //function a (a){}
+                        function a(a) {
+                            console.log(a); //function a (){}
+                            var a = 2;
+                            console.log(a); //2
+                            function a() {}
+                            var b = 5;
+                            console.log(b); //5
+                        }
+                        a(1);
+            */
+            /*  GO{
+                            b:undefined -> 3
+                            a:function a (a){}
+                        }
+                        AO{
+                            a:undefined -> 1 - >
+                            function a() {
+                                var b = 5;
+                                console.log(b);
+                            }->2
+                            b:undefined ->5
+                        } */
+
+            // AO+GO案例三：
+            /*  a = 1;
+                function test() {
+                    console.log(a); //undefined
+                    a = 2;
+                    console.log(a); //2
+                    var a = 3;
+                    console.log(a); //3
+                }
+                test();
+                var a; */
+
+            /* GO:{
+                    a:undefined -> 1
+                    test: function test() {}
+                }
+                AO:{
+                    a:undefined -> 2 -> 3
+                } */
+
+            /* function test() {
+                    console.log(a); //undefined
+                    a = 2;
+                    console.log(a); //2
+                    var a = 3;
+                    console.log(a); //3
+                }
+                var a;
+                a = 1;
+                test(); */
+
+            // AO+GO案例四：这道题思路错了！
+            /*  function test() {
+                console.log(b); //undefined
+                if (a) {
+                    var b = 2;
+                }
+                c = 3;
+                console.log(c); //3
+            }
+            var a;
+            test();
+            a = 1;
+            console.log(a); //1 */
+
+            /* 错误示范：GO = {
+                    a : undefined -> 1
+                    test : function test(){}
+                };
+                AO = {
+                    a:undefined
+                    b:undefined
+                    c:undefined -> 3
+                }; */
+
+            /* 正解：GO = {
+                    a : undefined -> 1
+                    test : function test(){}
+                    c:undefined -> 3
+                };
+                AO = {
+                    b:undefined
+
+                };
+
+                // AO+GO案例五：
+                console.log(a); //function a(a){}
+                function a(a) {
+                    var a = 10;
+                    var a = function () {};
+                }
+                var a = 1;
+                a(2);
+
+                GO={
+                    a:function a(a){} ->1
+                }
+                AO={
+                    a:undefined -> 2 ->function () {} ->10
+                } */
+
+            // 几道笔试题：
+            /* var a = false + 1;
+            console.log(a); //1
+
+            var b = false == 1;
+            console.log(b); //false
+
+            // 这题错了！c 未定义，typeof c 就是 undefined
+            //  if (typeof c && -true + +undefined + "") ->
+            //  if ('undefined' && -1 + NaN + '') ->
+            //  if ('undefined' && 'NaN') -> 1
+
+            if (typeof c && -true + +undefined + "") {
+                console.log("通过了"); //√
+            } else {
+                console.log("没通过");
+            }
+
+            if (1 + 5 * "3" === 16) {
+                console.log("通过了"); //√
+            } else {
+                console.log("没通过");
+            }
+            // 加法就是要返回一个数！所以才会将ture变成1
+            console.log(!!" " + !!"" - !!false || "没通过"); //1
+            console.log(!!"" + !!"" - !!false || "没通过"); //没通过
+
+            // 这题错了，有坑！
+            // 括号优先级最高所以先算括号里的，这时候window.d赋值为1，再去走逻辑或因为window.d已经赋值为'1'此时返回'1'
+            window.d || (window.d = "1");
+            console.log(window.d); //'1'
+            */
+
+            // 以下均为家庭作业!
+            /* function test() {
+                return a;
+                a = 1;
+                function a() {}
+                var a = 2;
+            }
+            console.log(test()); //function a() {}
+            AO={
+                a:undefined -> function a() {}
+            } */
+
+            /*   function test() {
+                a = 1;
+                function a() {}
+                var a = 2;
+                return a;
+            }
+            console.log(test()); //2
+            AO={
+                a:undefined ->  function a() {} -> 1 -> 2
+            } */
+
+            /* a = 1;
+            function test(e) {
+                function e() {}
+                arguments[0] = 2;
+                console.log(e); //2
+                if (a) {
+                    var b = 3;
+                }
+                var c;
+                a = 4;
+                var a;
+                console.log(b); //undefined
+                f = 5;
+                console.log(c); //undefined
+                console.log(a); //4
+            }
+            var a;
+            test(1);
+
+            GO={
+                a:undefined -> 1
+                f:undefined -> 5
+                test:function test(e){}
+            }
+            AO={
+                e:undefined -> 1 -> function e() {} -> 2
+                a:undefined -> 4
+                b:undefined
+                c:undefined
+            } */
+        </script>
+    </body>
+</html>

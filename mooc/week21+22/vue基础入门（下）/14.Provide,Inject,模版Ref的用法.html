@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 41</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // const app = Vue.createApp({
+        //     setup() {
+        //         const { provide } = Vue;
+        //         provide("name", "joeyee");
+        //         return {};
+        //     },
+        //     template: `
+        //                 <div>
+        //                     <child/>
+        //                 </div>
+        //                 `,
+        // });
+
+        // app.component("child", {
+        //     setup() {
+        //         const { inject } = Vue;
+        //         // 没传name，默认值是hello
+        //         const name = inject("name", "hello");
+        //         return { name };
+        //     },
+        //     template: `<div>{{name}}</div>`,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // 单向数据流方面概念
+        // 子组件不能擅自修改父组件数据，应该是谁的数据让谁修改
+        const app = Vue.createApp({
+            setup() {
+                const { provide, ref, readonly } = Vue;
+                const name = ref("joeyee");
+                // 用readonly限制使用name.value = "yee"修改name
+                provide("name", readonly(name));
+                provide("changeName", (value) => {
+                    name.value = value;
+                });
+                return {};
+            },
+            template: `
+                        <div>
+                            <child/>
+                        </div>
+                        `,
+        });
+
+        app.component("child", {
+            setup() {
+                const { inject } = Vue;
+                // 没传name，默认值是hello
+                const name = inject("name");
+                const changeName = inject("changeName");
+                const handleClick = () => {
+                    // name.value = "yee";
+                    changeName("lee");
+                };
+                return { name, handleClick };
+            },
+            template: `<div @click="handleClick">{{name}}</div>`,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

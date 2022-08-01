@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>lesson 15</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // 父组件向子组件传值message
+        // Non-prop 属性：父组件向子组件传值但是子组件不用 props接收，
+        // 底层会把父组件传递过来的信息放在子组件最外层的dom元素上变成子组件最外层dom上的一个属性
+        // const app = Vue.createApp({
+        //     // <div><div msg="hello joeyee">counter</div></div>
+        //     template: `
+        //             <div>
+        //                 <counter msg="hello joeyee" />
+        //             </div>
+        // `,
+        // });
+
+        // app.component("counter", {
+        //     // props: ["msg"],
+        //     template: `<div>counter</div>`,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // const app = Vue.createApp({
+        //     // <div><div msg="hello joeyee">counter</div></div>
+        //     template: `
+        //             <div>
+        //                 <counter msg="hello joeyee" />
+        //             </div>
+        // `,
+        // });
+
+        // app.component("counter", {
+        //     // props: ["msg"],
+        //     // 不继承父组件传来的Non-prop属性
+        //     inheritAttrs: false,
+        //     template: `<div>counter</div>`,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // 当子组件有多个dom元素时
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             count: 1,
+        //         };
+        //     },
+        //     methods: {
+        //         // 子组件想修改父组件传过来的值，步骤三：
+        //         // handleAddOne(param) {
+        //         //     this.count += param;
+        //         // },
+
+        //         handleAddOne(count) {
+        //             this.count = count;
+        //         },
+        //     },
+        //     // 子组件想修改父组件传过来的值，步骤二 监听事件 事件名-连接：
+        //     template: `
+        //         <div>
+        //             <counter :count="count" @add-one="handleAddOne"/>
+        //         </div>
+        //     `,
+        // });
+
+        // app.component("counter", {
+        //     props: ["count"],
+        //     methods: {
+        //         // 子组件想修改父组件传过来的值，步骤一 触发事件 事件驼峰命名：
+        //         // handleItemClick() {
+        //         //     this.$emit("addOne", 2);
+        //         // },
+
+        //         handleItemClick() {
+        //             this.$emit("addOne", this.count + 3);
+        //         },
+        //     },
+        //     template: `
+        //         <div @click="handleItemClick">{{count}}</div>
+        //         `,
+        // });
+
+        // const vm = app.mount("#root");
+
+        //子组件向外部触发事件
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             count: 1,
+        //         };
+        //     },
+        //     methods: {
+        //         // 子组件想修改父组件传过来的值，步骤三：
+        //         // handleAddOne(param) {
+        //         //     this.count += param;
+        //         // },
+
+        //         handleAddOne(count) {
+        //             this.count = count;
+        //         },
+        //     },
+        //     template: `
+        //         <div>
+        //             <counter :count="count" @add-one="handleAddOne"/>
+        //         </div>
+        //     `,
+        // });
+
+        //子组件向外部触发事件，父子组件存在双向绑定：
+        // app.component("counter", {
+        //     props: ["count"],
+        //     //子组件向外部触发add事件,意义在于看到emits就知道向外触发什么事件
+        //     // emits: ["addOne"],
+
+        //     // 对事件向外触发的参数做校验
+        //     emits: {
+        //         add: (count) => {
+        //             if (count > 0) {
+        //                 return true;
+        //             }
+        //             return false;
+        //         },
+        //     },
+        //     methods: {
+        //         handleItemClick() {
+        //             this.$emit("addOne", this.count + 3);
+        //         },
+        //     },
+        //     template: `
+        //         <div @click="handleItemClick">{{count}}</div>
+        //         `,
+        // });
+
+        // const vm = app.mount("#root");
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    count: 1,
+                };
+            },
+            // 默认值写法：
+            // template: `
+            //         <counter v-model="count"/>
+            // `,
+
+            // 自定义写法：
+            template: `
+                    <counter v-model:app="count"/>
+            `,
+        });
+
+        //子组件向外部触发事件，父子组件存在双向绑定简化版，默认值modelValue写法：：
+        // app.component("counter", {
+        //     props: ["modelValue"],
+        //     methods: {
+        //         handleItemClick() {
+        //             this.$emit("update:modelValue", this.modelValue + 3);
+        //         },
+        //     },
+        //     template: `
+        //         <div @click="handleItemClick">{{modelValue}}</div>
+        //         `,
+        // });
+
+        //子组件向外部触发事件，父子组件存在双向绑定简化版，自定义写法：
+        app.component("counter", {
+            props: ["app"],
+            methods: {
+                handleItemClick() {
+                    this.$emit("update:app", this.app + 3);
+                },
+            },
+            template: `
+                <div @click="handleItemClick">{{app}}</div>
+                `,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

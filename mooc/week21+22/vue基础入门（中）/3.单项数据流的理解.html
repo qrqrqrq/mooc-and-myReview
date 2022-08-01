@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>lesson 16</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        //     // 父向子传多个数据，普通写法：
+        //     const app = Vue.createApp({
+        //         data() {
+        //             return {
+        //                 num: 1234,
+        //                 a: 123,
+        //                 b: 456,
+        //                 c: 789,
+        //             };
+        //         },
+        //         template: `
+        //     <div><test :content="num" :a="a" :b="b" :c="c" /></div>
+        // `,
+        //     });
+
+        //     app.component("test", {
+        //         props: ["content", "a", "b", "c"],
+        //         template: `<div>{{content}}-{{a}}-{{b}}-{{c}}</div>`,
+        //     });
+
+        //     const vm = app.mount("#root");
+
+        // 父向子传多个数据，进阶写法：
+        // v-bind="params"等价于：
+        // :content="params.content" :a="params.a" :b="params.b" :c="params.c"
+
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             params: { content: 1234, a: 123, b: 456, c: 789 },
+        //         };
+        //     },
+        //     template: `
+        //     <div><test v-bind="params" /></div>
+        // `,
+        // });
+
+        // app.component("test", {
+        //     props: ["content", "a", "b", "c"],
+        //     template: `<div>{{content}}-{{a}}-{{b}}-{{c}}</div>`,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // 大小写传参问题：属性传的时候，使用 content-abc 这种命名，接的时候，使用 contentAbc 命名
+
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             content: 1234,
+        //         };
+        //     },
+        //     // 这里<div><test v-bind:content-abc="content" /></div>不能用驼峰命名法，要用-分隔
+        //     template: `
+        //     <div><test v-bind:content-abc="content" /></div>
+        // `,
+        // });
+        // 但子组件接收时要将content-abc转为contentAbc这样才能接收到数据
+        // NAN
+        // app.component("test", {
+        //     props: ["content-abc"],
+        //     template: `<div>{{content-abc}}</div>`,
+        // });
+
+        // 传参成功
+        // app.component("test", {
+        //     props: ["contentAbc"],
+        //     template: `<div>{{contentAbc}}</div>`,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // 单向数据流概念：子组件可以使用父组件传递过来的数据，但是绝对不能修改传递过来的数据
+
+        const app = Vue.createApp({
+            data() {
+                return { num: 1 };
+            },
+            template: `
+                    <div>
+                        <counter :count="num" />
+                    </div>
+        `,
+        });
+
+        app.component("counter", {
+            props: ["count"],
+            // 解决单向数据流问题
+            data() {
+                return { myCount: this.count };
+            },
+            // template: `<div @click="count += 1">{{count}}</div>`,
+            template: `<div @click="myCount += 1">{{myCount}}</div>`,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.接收很多参数的时候
+            // const logUser = (username = "joe", age = 0, sex = "male") => console.log(username, age, sex);
+            // logUser("joeyee", 18, "female");
+            // logUser();
+
+            // 2.接收一个对象作为参数
+            // const logUser = (user) => console.log(user.username, user.age, user.sex);
+            // logUser({ username: "joeyee", age: 18, sex: "female" });
+
+            // 对象的解构赋值做更新：
+            // const logUser = ({ username = "joe", age = 18, sex = "male" }) => console.log(username, age, sex);
+            // 继续做更新，调用函数可以连空对象都不传  ({ username = "joe", age = 18, sex = "male" } = {})   牛！！！
+            const logUser = ({ username = "joe", age = 18, sex = "male" } = {}) => console.log(username, age, sex);
+            logUser({ username: "joeyee", age: 18, sex: "female" });
+            logUser({});
+            //  {username, age, sex}={ username: "joeyee", age: 18, sex: "female" }
+
+            // 继续做更新
+            logUser(); //这次连对象都不传！！怎么设置默认值？
+        </script>
+    </body>
+</html>

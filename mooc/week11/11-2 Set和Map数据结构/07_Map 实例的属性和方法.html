@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.方法
+
+            // (1)set():使用 set 添加的新成员，键如果已经存在，后添加的键值对覆盖已有的
+            const m = new Map();
+            m.set("name", "joeyee").set("age", 18).set("name", "joe");
+            console.log(m); //Map(2) {'name' => 'joe', 'age' => 18}
+
+            // (2)get(): get() 获取不存在的成员，返回 undefined
+            console.log(m.get("name")); //joe
+            console.log(m.get("sex")); //undefined
+
+            // (3)delete(): 使用 delete()删除不存在的成员，什么都不会发生，也不会报错
+            // m.delete("age");
+            m.delete("sex");
+            console.log(m);
+
+            // (4)clear():全部清空Map
+            // m.clear();
+            // console.log(m);
+
+            // (5)forEach()
+            m.forEach(function (value, key, map) {
+                console.log(value, key, map);
+                console.log(this);
+            }, document); //把this指向改成document
+
+            // 2.属性
+            // size：Map键值对个数
+            console.log(m.size); //2
+        </script>
+    </body>
+</html>

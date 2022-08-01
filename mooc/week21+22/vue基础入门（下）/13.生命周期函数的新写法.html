@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 40</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // beforeMount  =>  onBeforeMount
+        // setup()执行就在beforeCreate和created之间
+        // 所以composition API没有提供  beforeCreate，Created
+        // 提供的新函数：onRenderTracked():每次渲染后收集依赖时会自动执行的函数
+        // onRenderTriggered():每次触发页面重新渲染时执行
+        const app = Vue.createApp({
+            setup() {
+                const { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onRenderTracked, onRenderTriggered } = Vue;
+                const name = ref("joeyee");
+                onBeforeMount(() => {
+                    console.log("onBeforeMount");
+                });
+                onMounted(() => {
+                    console.log("onMounted");
+                });
+                onBeforeUpdate(() => {
+                    console.log("onBeforeUpdate");
+                });
+                onUpdated(() => {
+                    console.log("onUpdated");
+                });
+                // 每次渲染后收集依赖时会自动执行的函数
+                onRenderTracked(() => {
+                    console.log("onRenderTracked");
+                });
+                //每次触发页面重新渲染时执行
+                onRenderTriggered(() => {
+                    console.log("onRenderTriggered");
+                });
+                const handleClick = () => {
+                    name.value = "joe";
+                };
+
+                return { name, handleClick };
+            },
+            template: `
+                        <div @click="handleClick">
+                            {{name}}
+                        </div>
+                        `,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

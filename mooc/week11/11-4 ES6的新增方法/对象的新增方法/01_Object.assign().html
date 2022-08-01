@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // Object.assign() 用来合并对象
+
+            // 1.基本用法
+            // Object.assign(目标对象, 源对象1,源对象2,...): 目标对象
+
+            const apple = {
+                color: "红色",
+                shape: "圆形",
+                taste: "甜",
+            };
+            const pen = {
+                color: "黑色",
+                shape: "圆柱形",
+                use: "写字",
+            };
+            // Object.assign() 直接合并到了目标对象中（即第一个参数apple{}），返回的目标对象就是合并后的对象
+            // console.log(Object.assign(apple, pen));//{color: '黑色', shape: '圆柱形', taste: '甜', use: '写字'}
+            // console.log(apple);//{color: '黑色', shape: '圆柱形', taste: '甜', use: '写字'}
+
+            // Object.assign() 直接合并到了目标对象中（即第一个参数{}），返回的目标对象就是合并后的对象
+            console.log(Object.assign({}, apple, pen)); //{color: '黑色', shape: '圆柱形', taste: '甜', use: '写字'}
+            console.log(apple); //{color: '红色', shape: '圆形', taste: '甜'}
+
+            // 2.注意事项
+
+            // 2.1.基本数据类型作为源对象
+            // 与对象的展开类似，基本数据类型先转换成对象，再合并
+
+            console.log(Object.assign({}, undefined)); //{}
+            console.log(Object.assign({}, null)); //{}
+            console.log(Object.assign({}, 1)); //{}
+            console.log(Object.assign({}, true)); //{}
+            console.log(Object.assign({}, "str")); //{0: 's', 1: 't', 2: 'r'}
+
+            // 2.2.同名属性的替换:后面的直接覆盖前面的
+
+            const apple1 = {
+                color: ["红色", "黄色"],
+                shape: "圆形",
+                taste: "甜",
+            };
+            const pen1 = {
+                color: ["黑色", "银色"],
+                shape: "圆柱形",
+                use: "写字",
+            };
+            console.log(Object.assign({}, apple1, pen1));
+            // color: (2)[("黑色", "银色")];
+            // shape: "圆柱形";
+            // taste: "甜";
+            // use: "写字";
+
+            // 3.应用
+            // 合并默认参数和用户参数
+            const logUser = (userOptions) => {
+                const DEFAULTS = {
+                    username: "ZhangSan",
+                    age: 0,
+                    sex: "male",
+                };
+                // const options = Object.assign({}, DEFAULTS, userOptions);
+                // const options = Object.assign({}, DEFAULTS, undefined);
+                // console.log(options);
+
+                //对象的解构赋值
+                const { username, age, sex } = Object.assign({}, DEFAULTS, userOptions);
+                console.log(username, age, sex);
+            };
+            logUser(); //{username: 'ZhangSan', age: 0, sex: 'male'}
+            logUser({}); //{username: 'ZhangSan', age: 0, sex: 'male'}
+            logUser({ username: "joeyee", age: 18, sex: "female" }); //{username: 'joeyee', age: 18, sex: 'female'}
+        </script>
+    </body>
+</html>

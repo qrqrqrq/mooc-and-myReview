@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,OAAO,CAAC;EACJ,KAAK,ECHD,GAAG;CDIV;;AACD,AAAA,QAAQ,CAAC;EACL,KAAK,ECLO,MAAM;CDMrB",
+    "sources": [
+        "代码拆分及引入.scss",
+        "_variable.scss"
+    ],
+    "names": [],
+    "file": "代码拆分及引入.css"
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 定义正则表达式
+            // ^:开头  $:结尾  \d:数字
+            // 按位匹配
+            // 是否是开头结尾一共6位数字的字符串
+            var regexp = /^\d{6}$/;
+            // 是否是以m开头,n结尾中间一共6位数字的字符串
+            var regexp1 = /^m\d{6}n$/;
+
+            var str1 = "123456";
+            var str2 = "1234567";
+            var str3 = "123a456";
+            var str4 = "m123456n";
+
+            console.log(regexp.test(str1)); //true
+            console.log(regexp.test(str2)); //false
+            console.log(regexp1.test(str3)); //false
+            console.log(regexp1.test(str4)); //true
+        </script>
+    </body>
+</html>

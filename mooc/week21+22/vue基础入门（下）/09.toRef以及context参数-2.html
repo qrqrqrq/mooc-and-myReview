@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 36</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // toRef
+
+        const app = Vue.createApp({
+            // attrs.app：None-Props属性
+            // template: `
+            //             <child app='app'/>
+            //             `,
+            methods: {
+                handleChange() {
+                    alert("change emit");
+                },
+            },
+            template: `
+                        <child @change="handleChange">parent</child>
+                        `,
+        });
+
+        // app.component("child", {
+        //     // template: `
+        //     //             <div>child</div>
+        //     //             `,
+        //     mounted() {
+        //         this.$emit("change");
+        //     },
+
+        //     setup(props, context) {
+        //         const { h } = Vue;
+        //         const { attrs, slots, emit } = context;
+        //         // console.log(attrs.app); //None-Props属性
+        //         // return () => h("div", {}, ["123123"]);
+        //         // console.log(slots.default());
+        //         return () => h("div", {}, slots.default());
+        //     },
+
+        app.component("child", {
+            template: `
+                        <div @click="handleClick">123123</div>
+                        `,
+            setup(props, context) {
+                const { h } = Vue;
+                const { attrs, slots, emit } = context;
+                function handleClick() {
+                    emit("change");
+                }
+                return { handleClick };
+            },
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

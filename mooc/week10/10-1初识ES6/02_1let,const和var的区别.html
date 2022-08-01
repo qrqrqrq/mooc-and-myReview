@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.重复声明:已经存在的变量或常量，又声明了一遍
+            // var 允许重复声明，let、const 不允许
+            // let a = 1;
+            // // ...
+            // let a = 2;
+            // console.log(a);
+
+            // 注意!!形参a和语句里a同名也不可以哦，会报错
+            // function func(a) {
+            //   let a = 1;
+            // }
+            // func();
+
+            // 2.变量提升：提示！！养成良好的编程习惯，对于所有的变量或常量，做到先声明，后使用
+            // var定义变量时【先使用后定义】：会提升变量的声明到当前作用域的顶部
+
+            console.log(a); //undefined
+            var a = 1;
+
+            // 相当于
+            // var a;
+            // console.log(a);//undefined
+            // a = 1;
+            // console.log(a);//1
+
+            // let、const 不存在变量提升
+            // console.log(b); //报错
+            let b = 1;
+
+            // 3.暂时性死区：let、const 存在暂时性死区
+            // 只要作用域(块级作用域，函数作用域，全局作用域)内存在 let、const，它们所声明的变量或常量就自动“绑定”这个作用域，不再受到外部作用域的影响
+            // (当此变量在这个作用域找不到的时候也不能向外部作用域寻找)
+            let c = 2;
+            let d = 1;
+            function func() {
+                // func()没有用let/const定义d不存在暂时性死区
+                // 函数作用域不构成独立的作用域即函数的{}不构成独立的作用域,也没有函数的遮蔽效应
+                // d和函数func()以及func()中的输出语句都在全局作用域中，此时当函数中没有定义d时当然可以访问到全局作用域中d的值然后输出1
+                console.log(d); //1,
+                // console.log(c);//这时因为暂时性死区以及func()函数中没有c所以会报错
+                // let c = 1;
+            }
+            func();
+
+            // let 变量在声明之前，不能够读写。
+            // 如果声明中未指定初始值，则变量将使用 undefined 值初始化，在声明之前访问变量会导致 ReferenceError。
+            function test() {
+                var foo = 33;
+
+                if (foo) {
+                    //let+if(){}构成独立的块级作用域
+                    //暂时性死区，foo的值没有初始化，所以没有办法+55
+                    // let foo = foo + 55; // ReferenceError
+
+                    //这样写即可得到值！！
+                    let foo = 10;
+                    foo = foo + 55;
+                    console.log(foo); //65
+                }
+            }
+            test();
+
+            function go(n) {
+                // n here is defined!
+                console.log(n); // Object {a: [1,2,3]}
+
+                //let+for(){}构成独立的块级作用域
+
+                for (let n of n.a) {
+                    //n.a是外部作用域的，在这个作用域中并找不到n.a里的数组没有办法遍历并复制给n,所以会报错
+                    // ReferenceError
+                    console.log(n);
+                }
+            }
+
+            go({ a: [1, 2, 3] });
+
+            // 养成良好的编程习惯，对于所有的变量或常量，做到先声明，后使用
+
+            // 4.window 对象的属性和方法
+            // 全局作用域中，var 声明的变量，通过 function 声明的函数，会自动变成 window 对象的属性或方法
+            // let、const 不会
+
+            // var age = 18;
+            // function add() {}
+            // console.log(window.age);
+            // console.log(window.add === add);
+
+            // let/const
+            // let age = 18;
+            // const add = function () {};
+            // console.log(window.age);
+            // console.log(window.add === add);
+
+            // 5.块级作用域
+        </script>
+    </body>
+</html>

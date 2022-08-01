@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 定义一个函数，计算a到b之间所有整数的和
+            function sum(a, b) {
+                for (var i = a, sum = 0; i <= b; i++) {
+                    sum += i;
+                }
+                console.log("从" + a + "到" + b + "之间所有整数的和为" + sum);
+            }
+
+            sum(1, 100);
+        </script>
+    </body>
+</html>

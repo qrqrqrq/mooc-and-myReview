@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 创建方法一：
+            var regexp1 = /^\d{6}$/;
+
+            // 创建方法二：
+            // 这种方法创建时因为\会转义所以要写两个\\,而且不写//
+            var regexp2 = new RegExp("^\\d{6}$");
+
+            var str = "555444";
+
+            console.log(regexp1.test(str)); //true
+            console.log(regexp2.test(str)); //true
+
+            console.log(typeof regexp1); //object
+            console.log(typeof regexp2); //object
+        </script>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 32</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // plugin 插件, 也是把通用性的功能封装起来
+
+        // 定义插件
+        const myPlugin = {
+            install(app, options) {
+                app.provide("name", "joeyee");
+                // 自定义指令：
+                app.directive("focus", {
+                    mounted(el) {
+                        el.focus();
+                    },
+                });
+                app.mixin({
+                    mounted() {
+                        console.log("mixin");
+                    },
+                });
+                // 对vue全局属性做扩展：
+                app.config.globalProperties.$sayHello = "hello world";
+                // console.log(app, options);
+            },
+        };
+        const app = Vue.createApp({
+            template: `
+                    <my-title/>
+                    `,
+        });
+
+        app.component("my-title", {
+            inject: ["name"],
+            mounted() {
+                console.log(this.$sayHello);
+            },
+            template: `
+                    <div>
+                        {{name}}
+                        <input v-focus/>
+                    </div>
+            `,
+        });
+
+        // 使用插件
+        app.use(myPlugin, { name: "joeyee" });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

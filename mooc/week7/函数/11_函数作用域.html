@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 遮蔽效应
+            // 如果函数中也定义了和全局同名的变量，则函数内的变量会将全局的变量“遮蔽”
+
+            // //全局变量a
+            // var a = 10;
+            // function fun() {
+            //     //局部变量a将全局变量a“遮蔽”了
+            //     var a = 5;
+
+            //     // 改变的是局部变量a的值，不影响全局变量
+            //     a++;
+            //     console.log(a);
+            // }
+            // fun(); //函数不调用不执行
+            // console.log(a);
+
+            // // 形参也是局部变量
+            // var a = 10;
+            // function fun(a) {
+            //     a++;
+            //     console.log(a); //8
+            // }
+            // fun(7);
+            // console.log(a); //10
+
+            // // 不加var将定义全局变量
+            // function fun() {
+            //     a = 3;
+            // }
+            // fun();
+            // //函数外部也能访问到a的值
+            // console.log(a); //3
+
+            // 函数作用域不构成独立的作用域即函数的{}不构成独立的作用域,也没有函数的遮蔽效应
+            // b和函数func()以及func()中的输出语句都在全局作用域中，此时当函数中没有定义b时当然可以访问到全局作用域中b的值然后输出
+            var b = 10;
+            function func() {
+                console.log(b); //10
+                // let b = 10;
+            }
+            let c = 10;
+            function func() {
+                console.log(c); //报错，即暂时性死区
+                let c = 10;
+            }
+            func(); //10
+        </script>
+    </body>
+</html>

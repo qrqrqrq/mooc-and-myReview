@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 31</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        const app = Vue.createApp({
+            template: `
+                    <my-title :level="1">
+                        hello joeyee
+                    </my-title>
+                    `,
+        });
+
+        app.component("my-title", {
+            props: ["level"],
+
+            render() {
+                const { h } = Vue;
+                // return h("h" + this.level, {}, "hello world");
+                return h("h" + this.level, {}, [this.$slots.default(), h("h4", {}, "joeyee")]);
+            },
+
+            // 这么写不优雅
+            // template: `
+            //         <h1 v-if="level === 1">
+            //             <slot></slot>
+            //         </h1>
+            //         <h2 v-if="level === 2">
+            //             <slot></slot>
+            //         </h2>
+            //         <h3 v-if="level === 3">
+            //             <slot></slot>
+            //         </h3>
+            // `,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

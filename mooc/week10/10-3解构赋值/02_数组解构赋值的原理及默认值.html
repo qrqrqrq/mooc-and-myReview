@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // (1)数组解构赋值的原理:
+            // 1.模式（结构）匹配  2.索引值相同的完成赋值   3.不取的，可以直接用逗号跳过
+
+            // 1.模式（结构）匹配(左右都是数组[]，匹配！！)
+            // []=[1,2,3]
+
+            // 2.索引值相同的完成赋值
+            // const [a, b, c] = [1, 2, 3];
+            // console.log(a, b, c);
+
+            // 不取的，可以直接用逗号跳过
+            // const[]=[1,[2,3,4,5],[6,7],8]
+            // 取1，4，7，8
+            // const [a, [, , b], [, c], d] = [1, [2, 3, 4, 5], [6, 7], 8];
+            // console.log(a, b, c, d);
+
+            // const [] = [1, [2, 3, 4], 5, [6, 7]];
+            // // 取1，3，6
+            // const [a, [, b, ], ,[c, ]] = [1, [2, 3, 4], 5, [6, 7]];
+            // console.log(a, b, c);
+
+            //(2)数组解构赋值的默认值
+
+            //满足数组解构赋值默认值生效条件
+
+            // 只有当一个数组成员严格等于（===）undefined 时，对应的默认值才会生效
+
+            // const [a = 1, b = 2] = [3, 0];       //3  0
+            // const [a = 1, b = 2] = [3, null];    //3 null
+            // const [a = 1, b = 2] = [3];          //3 2
+            // console.log(a, b);
+
+            const [a, b] = []; //和const [a, b] = [undefined, undefined];一样
+            console.log(a, b); //undefined undefined
+
+            // 这样设置数组解构赋值默认值
+            const [c = 1, d = 2] = []; //数组解构赋值默认值生效条件,并设置生效时默认值为c=1,d=2
+            console.log(c, d); //1 2
+
+            //  如果设置数组解构赋值默认值是表达式，默认值表达式是惰性求值的
+            const func = () => {
+                console.log("我被执行了");
+                return 2;
+            };
+            const [x = func()] = [1]; //不满足数组解构赋值默认值生效条件，惰性求值，不会执行x=func()
+            console.log(x); //1
+            const [y = func()] = []; //满足数组解构赋值默认值生效条件，此时才会执行x=func()
+            console.log(y); //我被执行了   2
+        </script>
+    </body>
+</html>

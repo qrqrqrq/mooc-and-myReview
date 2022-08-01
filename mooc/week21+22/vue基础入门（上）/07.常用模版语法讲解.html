@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // 生命周期函数：在某一时刻会自动执行的函数
+        // mustache 标记{{}}将替换为msg相应组件实例中的属性值。msg每当属性更改时，它也会更新。
+        const app = Vue.createApp({
+            // data() {
+            //     return {
+            //         message: "<strong>Hello world</strong>",
+            //     };
+            // },
+            // template: `<div v-html="message"></div>`,
+
+            // data() {
+            //     return {
+            //         message: "Hello world",
+            //     };
+            // },
+
+            //
+            // template: `<div v-bind:title="message">Hello world</div>`,
+
+            // data() {
+            //     return {
+            //         disable: false,
+            //     };
+            // },
+            // template: `<input v-bind:disabled="disable"/>`,
+
+            // data() {
+            //     return {
+            //         message: "Hello world",
+            //     };
+            // },
+            // // 可以写js表达式
+            // // template: `<div>{{'a'+'b'}}</div>`,
+            // template: `<div>{{Math.max(1,2)}}</div>`,
+
+            // data() {
+            //     return {
+            //         message: "Hello world",
+            //     };
+            // },
+            // template: `<div v-once>{{message}}</div>`,
+
+            // data() {
+            //     return {
+            //         message: "Hello world",
+            //         show: false,
+            //     };
+            // },
+            // template: `<div v-if="show">{{message}}</div>`,
+
+            // data() {
+            //     return {
+            //         message: "Hello world",
+            //     };
+            // },
+            // methods: {
+            //     handleClick() {
+            //         alert("click");
+            //     },
+            // },
+            // // template: `<div v-on:click="handleClick" v-bind:title="message">{{message}}</div>`,
+            // template: `<div @click="handleClick" :title="message">{{message}}</div>`,
+
+            // data() {
+            //     return {
+            //         message: "Hello world",
+            //         name: "title1",
+            //         event: "click",
+            //     };
+            // },
+            // methods: {
+            //     handleClick() {
+            //         alert("click");
+            //     },
+            // },
+            // template: `<div @[event]="handleClick" :[name]="message">{{message}}</div>`,
+
+            data() {
+                return {
+                    message: "Hello world",
+                    name: "title1",
+                    event: "click",
+                };
+            },
+            methods: {
+                handleClick() {
+                    alert("click");
+                },
+            },
+            template: `
+                <form action="https://www.baidu.com" @click.prevent="handleClick">
+                    <button type="submit">提交</button>
+                </form>`,
+        });
+        const vm = app.mount("#root");
+    </script>
+</html>

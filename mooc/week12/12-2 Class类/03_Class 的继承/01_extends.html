@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.子类继承父类
+            class Person {
+                constructor(name, sex) {
+                    this.name = name;
+                    this.sex = sex;
+                    this.say = function () {
+                        console.log("say");
+                    };
+                }
+                speak() {
+                    console.log("speak");
+                }
+                static speak() {
+                    console.log("static speak");
+                }
+            }
+            Person.version = "1.0";
+
+            // class Programmer extends Person {
+            //     constructor(name, sex) {
+            //         super(name, sex);
+            //     }
+            // }
+            // const zs = new Programmer("zs", "男");
+            // console.log(zs.name);//zs
+            // console.log(zs.sex);//男
+            // zs.say();//say,继承
+            // zs.speak();//speak,继承
+            // Programmer.speak();//static speak,继承
+            // console.log(Programmer.version);//1.0,继承
+
+            // 2.改写继承的属性或方法
+
+            class Programmer extends Person {
+                constructor(name, sex, feature) {
+                    super(name, sex);
+                    // this 操作不能放在 super 前面
+                    this.feature = feature;
+                }
+
+                //同名覆盖
+                speak() {
+                    console.log("Programmer speak");
+                }
+                static speak() {
+                    console.log("Programmer static speak");
+                }
+
+                hi() {
+                    console.log("programmer say hi");
+                }
+            }
+            Programmer.version = "2.0";
+            const zs = new Programmer("zs", "男");
+            console.log(zs.name); //zs
+            console.log(zs.sex); //男
+            zs.say(); //say,继承自Person
+            zs.speak(); //Programmer speak，同名覆盖改写了
+            Programmer.speak(); //Programmer static speak   同名覆盖改写了
+            console.log(Programmer.version); //2.0  同名覆盖改写了
+        </script>
+    </body>
+</html>

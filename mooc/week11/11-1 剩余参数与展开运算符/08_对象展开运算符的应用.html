@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.复制对象
+            const a = { x: 1, y: 2 };
+            const b = { ...a };
+            console.log(b, b === a);
+
+            // 2.用户参数和默认参数   牛！！！
+
+            // add(1, 2);
+            // const logUser = ({
+            //   username = 'ZhangSan',
+            //   age = 0,
+            //   sex = 'male'
+            // } = {}) => {
+            //   console.log(username, age, sex);
+            // };
+
+            const logUser = (userParam) => {
+                const defaultParam = {
+                    username: "ZhangSan",
+                    age: 0,
+                    sex: "male",
+                };
+                const param = { ...defaultParam, ...userParam };
+                // console.log(param.username);
+                // 使用对象的解构赋值
+                const { username, age, sex } = param;
+                console.log(username, age, sex);
+            };
+            logUser(); //等于用户参数是undefined转为对象是空对象{}，空对象和defaultParam合并，参数就是defaultParam
+        </script>
+    </body>
+</html>

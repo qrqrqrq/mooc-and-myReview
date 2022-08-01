@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // 事件修饰符：stop, prevent, capture, self, once, passive
+        const app = Vue.createApp({
+            data() {
+                return {
+                    counter: 0,
+                };
+            },
+            methods: {
+                // 使counter+1的方法二的第二步：
+                // handleAddBtnClick() {
+                //     this.counter += 1;
+                // },
+
+                // 使counter+1的方法二的第二步：
+                // handleAddBtnClick(num, event) {
+                //     console.log(event);
+                //     this.counter += num;
+                // },
+
+                // 调用多个方法
+                // handleAddBtnClick() {
+                //     alert(1);
+                // },
+
+                // handleAddBtnClick1(num, event) {
+                //     alert(2);
+                // },
+
+                // 事件修饰符
+                handleAddBtnClick() {
+                    this.counter += 1;
+                },
+                handleDivClick() {
+                    alert("DivClick");
+                },
+            },
+
+            // 使counter+1的方法一（不推荐）：
+            // template: `
+            //     <div>
+            //         {{counter}}
+            //         <button @click="counter+=1">新增</button>
+            //     </div>
+            // `,
+
+            // 循环遍历对象
+            // 使counter+1的方法二的第一步：
+            // template: `
+            //     <div>
+            //         {{counter}}
+            //         <button @click="handleAddBtnClick(2,$event)">button</button>
+            //     </div>
+            // `,
+
+            // 调用多个方法
+            // template: `
+            //     <div>
+            //         {{counter}}
+            //         <button @click="handleAddBtnClick(),handleAddBtnClick1()">button</button>
+            //     </div>
+            // `,
+
+            // 事件修饰符,停止冒泡修饰符:stop
+            // template: `
+            //     <div>
+            //         {{counter}}
+            //         <div @click="handleDivClick">
+            //             <button @click.stop="handleAddBtnClick(),handleAddBtnClick1()">button</button>
+            //         </div>
+            //     </div>
+            // `,
+
+            //点子元素button不要触发父元素handleDivClick事件，只有点击父元素本身时才触发handleDivClick事件
+            template: `
+                <div>
+                    <div @click.self="handleDivClick">
+                        {{counter}}
+                        <button @click="handleAddBtnClick()">button</button>
+                    </div>
+                </div>
+            `,
+
+            // 事件修饰符,阻止默认行为修饰符:prevent
+            // 事件修饰符,将事件从默认冒泡改为捕获的修饰符:capture
+            // 事件修饰符,事件绑定后只执行一次的修饰符:once
+            //  事件修饰符,和@scroll连用提升滚动性能:passive
+            template: `
+                <div>
+                    <div @scroll.passive="handleDivClick">
+                        {{counter}}
+                        <button @click="handleAddBtnClick()">button</button>
+                    </div>
+                </div>
+            `,
+        });
+        const vm = app.mount("#root");
+    </script>
+</html>

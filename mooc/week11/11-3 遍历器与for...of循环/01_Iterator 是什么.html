@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // Iterator：遍历器（迭代器）是用来遍历的
+
+            // 寻找Iterator
+            // console.log(Iterator); //报错，Uncaught ReferenceError: Iterator is not defined
+            console.log([1, 2][Symbol.iterator]()); //Array Iterator {}
+            // const it = [1, 2][Symbol.iterator]();
+            // console.log(it);
+
+            // 使用 Iterator
+            // it:可遍历对象（可迭代对象）
+            // Symbol.iterator：可遍历对象的生成方法
+            const it = [1, 2][Symbol.iterator]();
+            console.log(it.next()); //{value: 1, done: false}
+            console.log(it.next()); //value: 2, done: false}
+            console.log(it.next()); //{value: undefined, done: true}
+            console.log(it.next()); //{value: undefined, done: true}
+
+            // 什么是 Iterator
+            // Symbol.iterator（可遍历对象的生成方法） -> it（可遍历对象） -> it.next() -> it.next() -> ...（直到 done 为 true）
+        </script>
+    </body>
+</html>

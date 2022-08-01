@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1 id="info">0</h1>
+        <button id="btn1">开始</button>
+        <button id="btn2">暂停</button>
+        <script>
+            // 定时器
+
+            var a = 0;
+            setInterval(function () {
+                console.log(a++);
+            }, 1000);
+
+            // 一个改写：
+            var a = 0;
+            function fn() {
+                console.log(a++);
+            }
+
+            //注意：函数做第一个参数，函数不加圆括号表示传入一个函数！
+            //函数加圆括号表示函数执行
+            setInterval(fn, 1000);
+
+            // setInterval()函数可以接收第3、4……个参数，它们将按顺序传入函数
+            setInterval(
+                function (a, b) {
+                    console.log(a + b);
+                },
+                1000,
+                55,
+                66
+            );
+
+            // 清除定时器
+            var oInfo = document.querySelector("#info");
+            var oBtn1 = document.querySelector("#btn1");
+            var oBtn2 = document.querySelector("#btn2");
+
+            var timer;
+            var b = 0;
+
+            //为了避免快速点击按钮时定时器叠加，所以在设置定时器之前需要先清除定时器
+            clearInterval(timer);
+            oBtn1.addEventListener("click", function () {
+                // 定时器赋给变量
+                timer = setInterval(function () {
+                    oInfo.innerHTML = ++b;
+                }, 1000);
+            });
+
+            // 清除定时器
+            oBtn2.addEventListener("click", function () {
+                clearInterval(timer);
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 41</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // Composition API语法下，获取真是的DOM元素节点
+        // dom  ref操作
+        const app = Vue.createApp({
+            setup() {
+                const { ref, onMounted } = Vue;
+                // 固定写法：
+                const hello = ref(null);
+                onMounted(() => {
+                    console.log(hello.value);
+                });
+                return { hello };
+            },
+            template: `
+                        <div>
+                            <div ref="hello">hello world</div>
+                        </div>
+                        `,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

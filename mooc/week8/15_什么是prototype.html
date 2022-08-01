@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function sum(a, b) {
+                return a + b;
+            }
+            console.log(sum.prototype);
+            console.log(typeof sum.prototype);
+            console.log(sum.prototype.constructor == sum);
+
+            // 构造函数
+            function People(name, age, sex) {
+                this.name = name;
+                this.age = age;
+                this.sex = sex;
+
+                // 把方法直接添加到实例身上的缺点：每个实例和每个实例的方法函数都是内存中不同的函数，造成了内存的浪费
+
+                // this.sayHello = function () {
+                //     console.log("你好，我是" + this.name + "我今年" + this.age + "岁了" + "我是" + this.sex + "生");
+                // };
+                // this.sleep = function () {
+                //     console.log(this.name + "开始睡觉zzzzz");
+                // };
+            }
+
+            // 为了避免内存浪费，我们把构造函数中的方法写到构造函数的prototype属性上
+            People.prototype.sayHello = function () {
+                console.log("你好，我是" + this.name + "我今年" + this.age + "岁了" + "我是" + this.sex + "生");
+            };
+            People.prototype.sleep = function () {
+                console.log(this.name + "开始睡觉zzzzz");
+            };
+
+            // 在构造函数People的prototype上添加nationality属性
+            People.prototype.nationality = "中国";
+
+            // 实例化
+            var xiaoming = new People("小明", 15, "男");
+            var tom = new People("汤姆", 10, "男");
+            // 给tom对象添加自己的nationality属性
+            tom.nationality = "美国";
+
+            // 测试三角关系
+
+            // 构造函数的prototype属性是实例对象的原型(__proto__)
+            console.log(xiaoming.__proto__ == People.prototype);
+
+            // 原型链查找
+            // JavaScript规定：实例可以打点访问它的原型的属性和方法，这被称为“原型链查找”
+            // 实例xiaoming打点访问它的原型People的属性nationality
+            console.log(xiaoming.nationality);
+
+            // 原型链的遮蔽效应
+            // 当tom对象有自己的nationality属性时，就不会查找它的构造函数原型链上的nationality属性了
+            console.log(tom.nationality); //此时因为遮蔽效应输出的就是“美国”而不是“中国”
+
+            // hasOwnProperty('属性名')：检查对象是否真正“自己拥有”某属性或者方法
+            // 参数：要检测的属性的 String 字符串形式表示的名称，或者 Symbol。
+            console.log(xiaoming.hasOwnProperty("age")); //true
+            console.log(xiaoming.hasOwnProperty("nationality")); //false
+            console.log(tom.hasOwnProperty("nationality")); //true
+
+            // in运算符只能检查某个属性或方法是否可以被对象访问，不能检查是否是自己的属性或方法
+            console.log("sex" in xiaoming); // true
+            console.log("nationality" in xiaoming); // true
+
+            //方法要写到构造函数的prototype上,这样节约内存
+            xiaoming.sayHello();
+            console.log(xiaoming.sayHello === tom.sayHello); //true
+            tom.sleep();
+
+            // 原型链的终点
+            // xiaoming.__proto__===People.prototype
+            console.log(xiaoming.__proto__.__proto__ === Object.prototype); //true
+
+            console.log(Object.prototype.hasOwnProperty("toString")); //true
+            console.log(Object.prototype.hasOwnProperty("hasOwnProperty")); //true
+
+            console.log(Object.prototype.__proto__); //null
+        </script>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 寄生式继承就是编写一个函数，它可以“增强对象”，只要
+            // 把对象传入这个函数，这个函数将以此对象为“基础”创建
+            // 出新对象，并为新对象赋予新的预置方法
+
+            // 在主要考虑对象而不是自定义类型和构造函数的情况下，寄生式继承也是一种有用的模式;
+
+            // 寄生式继承缺点：使用寄生式继承来为对象添加函数，会由于不能做到函数复
+            // 用而降低效率，即“方法没有写到prototype上”
+            var o1 = {
+                name: "小明",
+                age: 12,
+                sex: "男",
+            };
+            var o2 = {
+                name: "小红",
+                age: 12,
+                sex: "女",
+            };
+            function f(o) {
+                // 以o为原型创建出新对象
+                var p = Object.create(o);
+                // 补充方法：
+                p.sayHello = function () {
+                    console.log("你好，我是" + this.name + "我今年" + this.age + "岁了" + "我是" + this.sex + "生");
+                };
+                p.sleep = function () {
+                    console.log(this.name + "开始睡觉zzzzz");
+                };
+                return p;
+            }
+
+            var p1 = f(o1);
+            p1.sayHello();
+
+            var p2 = f(o2);
+            p2.sayHello();
+        </script>
+    </body>
+</html>

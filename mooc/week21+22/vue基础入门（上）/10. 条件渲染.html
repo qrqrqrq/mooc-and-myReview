@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        const app = Vue.createApp({
+            // 控制样式
+            data() {
+                return {
+                    show: false,
+                    conditionOne: false,
+                    conditionTwo: false,
+                };
+            },
+            // v-if不显示的效果是通过直接删除dom元素来实现的
+            // v-show不显示的效果是通过给元素增加"display=none"来实现的
+            // template: `
+            //     <div v-if="show">
+            //         Hello joeyee
+            //     </div>
+            //     <div v-show="show">
+            //         show joeyee
+            //     </div>
+            // `,
+
+            // v-if和v-else要写在一起
+            template: `
+                <div v-if="conditionOne">
+                    if
+                </div>
+                <div v-else-if="conditionTwo">
+                    else-if
+                </div>
+                <div v-else>
+                    else
+                </div>
+            `,
+        });
+        const vm = app.mount("#root");
+    </script>
+</html>

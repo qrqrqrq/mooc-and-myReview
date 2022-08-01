@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            //题目：喇叭花数是这样的三位数：其每一位数字的阶乘之和
+            // 恰好等于它本身。即abc = a! + b！+ c！，其中abc表示一 个三位数。
+            // 试寻找所有喇叭花数
+            // 封装一个求数字阶乘的函数
+            function factorial(n) {
+                var result = 1;
+                for (var i = 1; i <= n; i++) {
+                    result *= i;
+                }
+                return result;
+            }
+            // 穷举法，从100-999寻找喇叭花数
+            for (var i = 100; i <= 999; i++) {
+                //把数字变为字符串
+                var i_str = i.toString();
+                // abc分别表示百位十位个位
+                var a = Number(i_str[0]);
+                var b = Number(i_str[1]);
+                var c = Number(i_str[2]);
+                if (factorial(a) + factorial(b) + factorial(c) == i) {
+                    console.log(i);
+                }
+            }
+        </script>
+    </body>
+</html>

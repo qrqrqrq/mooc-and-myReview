@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.基本用法
+
+            const person = {
+                name: "Alex",
+                age: 18,
+            };
+
+            console.log(Object.keys(person)); //['name', 'age']
+            console.log(Object.values(person)); //['Alex', 18]
+            console.log(Object.entries(person));
+            // 0: (2) ['name', 'Alex']
+            // 1: (2) ['age', 18]
+
+            // 2.与数组类似方法的区别
+            // 数组的 keys()、values()、entries() 等方法是实例方法，返回的都是 Iterator
+            // 对象的 Object.keys()、Object.values()、Object.entries() 等方法是构造函数方法，返回的是数组
+
+            // 3.使用 for...of 循环遍历对象
+            // Object.keys()/values()/entires() 并不能保证顺序一定是你看到的样子，这一点和 for in 是一样的
+
+            for (const key of Object.keys(person)) {
+                console.log(key); //name age
+            }
+            for (const value of Object.values(person)) {
+                console.log(value); //Alex 18
+            }
+            for (const entries of Object.entries(person)) {
+                console.log(entries);
+                // (2) ['name', 'Alex']
+                // (2) ['age', 18]
+            }
+            // 数组的解构赋值
+            for (const [key, value] of Object.entries(person)) {
+                console.log(key, value);
+                //name Alex
+                // age 18
+            }
+        </script>
+    </body>
+</html>

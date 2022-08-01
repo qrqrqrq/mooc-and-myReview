@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 使用var arr2 = arr1这样的语句不能实现数组的克隆
+
+            /*对象、数组
+            *当var a = b变量传值时,内存中不产生新的副本，而是让新变量指向同一个对象
+            当用==比较时,比较内存地址是否相同，即比较是否是同一个对象*/
+
+            // 浅克隆：准备一个空的结果数组，然后使用for循环遍历原数组，将遍历到的项都推入结果数组
+            // 浅克隆只克隆数组的一层，如果数组是多维数组，则克隆的项会“藕断丝连”
+            var arr = [1, 2, 3, 4, [5, 6, 7]];
+            var resultArr = [];
+            for (var i = 0; i < arr.length; i++) {
+                resultArr.push(arr[i]);
+            }
+            console.log(resultArr); // [1, 2, 3, 4, [5, 6, 7]]   “藕断丝连”
+            console.log(resultArr == arr); // false
+            console.log(resultArr[4] == arr[4]); // true  “藕断丝连”
+        </script>
+    </body>
+</html>

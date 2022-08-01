@@ -1,0 +1,17 @@
+// 普通写法:修改麻烦
+// div span{
+//     color: red;
+// }
+// div span a{
+//     color: green;
+// }
+
+// 嵌套写法：
+div {
+    span {
+        color: red;
+        a {
+            color: green;
+        }
+    }
+}

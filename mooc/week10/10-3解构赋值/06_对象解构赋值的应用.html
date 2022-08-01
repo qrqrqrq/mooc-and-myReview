@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.函数参数的解构赋值
+            // 普通方式打印对象里的属性值
+            const logPersonInfo = (userObj) => console.log(userObj.name, userObj.age);
+            logPersonInfo({ name: "joeyee", age: 18 });
+
+            // 对象解构赋值方法打印：
+            const logPersonInfo1 = ({ name = "joe", age = 0 }) => console.log(name, age);
+            // { name = "joe", age = 0 }={ name: "joeyee", age: 18 }----> console.log(name, age);
+            logPersonInfo1({ name: "joeyee", age: 18 });
+
+            // 2.复杂的嵌套，易错！！！
+            const obj = {
+                x: 1,
+                y: [2, 3, 4],
+                z: {
+                    a: 5,
+                    b: 6,
+                },
+            };
+            // const { x, y, z } = obj;
+            // console.log(x, y, z);
+            const {
+                y,
+                y: [, yy], //3
+                z,
+                z: { b: bb }, //6
+            } = obj;
+            console.log(y, yy, z, bb);
+        </script>
+    </body>
+</html>

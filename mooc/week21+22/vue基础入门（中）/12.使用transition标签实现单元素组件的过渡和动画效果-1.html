@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>lesson 23</title>
+        <style>
+            /* 过渡入场效果 
+            .v-enter-from {
+                opacity: 0;
+            }
+
+            .v-enter-active {
+                transition: opacity 3s ease-out;
+            }
+
+            .v-enter-to {
+                opacity: 1;
+            }*/
+
+            /* 过渡出场 
+            .v-leave-from {
+                opacity: 1;
+            }
+            .v-leave-active {
+                transition: opacity 3s ease-out;
+            }
+            .v-leave-to {
+                opacity: 0;
+            }*/
+
+            /* 动画 */
+            @keyframes shake {
+                0% {
+                    transform: translateX(-100px);
+                }
+                50% {
+                    transform: translateX(-50px);
+                }
+                100% {
+                    transform: translateX(50px);
+                }
+            }
+            /* .v-leave-active {
+                animation: shake 3s;
+            }
+            .v-enter-active {
+                animation: shake 3s;
+            } */
+            .hello-leave-active {
+                animation: shake 3s;
+            }
+            .hello-enter-active {
+                animation: shake 3s;
+            }
+        </style>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // 单元素，单组件的入场出场动画
+        const app = Vue.createApp({
+            data() {
+                return { show: false };
+            },
+            methods: {
+                handleClick() {
+                    this.show = !this.show;
+                },
+            },
+            // transition没有name时默认指令以v-开头：.v-leave-active
+            // 但当其有name后指令要以name名开头：.hello-leave-active
+            template: `
+            <div>
+                <transition name="hello">
+                    <div v-if="show">hello world</div>
+                </transition>
+                <button @click="handleClick">切换</button>
+            </div>
+                `,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

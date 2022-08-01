@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.includes()基本用法:判断数组中是否含有某个成员
+            console.log([1, 2, 3].includes("2")); //false
+            console.log([1, 2, 3].includes(2)); //true
+            // 第二个参数表示搜索的起始位置，默认值是 0
+            console.log([1, 2, 3].includes(2, 2)); //false
+            // 基本遵循严格相等（===）,但是对于 NaN 的判断与 === 不同，includes 认为 NaN === NaN
+            console.log(NaN === NaN); //false
+            console.log([1, 2, 3, NaN].includes(NaN)); //true
+
+            // 2.应用:去重
+            // 除了将数组转为Set也可以用这种方式！
+            const arr = [];
+            for (const item of [1, 2, 3, 1]) {
+                if (!arr.includes(item)) {
+                    arr.push(item);
+                }
+            }
+            console.log(arr); //[1, 2, 3]
+        </script>
+    </body>
+</html>

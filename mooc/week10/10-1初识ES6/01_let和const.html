@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // let代替var来声明变量:变量初始化之后，还可以重新赋值
+            // const用来声明常量:常量一旦初始化后，就不能重新赋值了，否则就会报错
+
+            // let声明变量后，可修改变量的值
+            let sex = "female";
+            sex = "male";
+            console.log(sex);
+
+            // const声明常量后则不可通过【重新赋值】的方式修改常量的值
+            const age = 18;
+            // age=20;//报错
+
+            //为什么需要const?const 就是为了那些一旦初始化就不希望重新赋值的情况设计的
+
+            //const的注意事项
+            // 注意点（1）：使用const声明常量，一旦声明就需要立即初始化，不能留到以后再赋值
+            // const hobby ;//会报错
+            // hobbies='读书'
+            const hobby = "读书";
+
+            // 注意点（2）：const 声明的常量，允许在【不重新赋值】的情况下修改它的值
+            // 这意味着使用const声明的基本数据类型无法更改
+
+            // 使用const声明的引用类型
+            const person = { username: "joeyee" };
+            // 错误更改法，因为重新赋值了
+            // person = {};
+            // 正确改法：
+            person.username = "qiao";
+            console.log(person);
+
+            //什么时候用 const，什么时候用 let?建议实在纠结不知道用哪个的时候就用【const】
+        </script>
+    </body>
+</html>

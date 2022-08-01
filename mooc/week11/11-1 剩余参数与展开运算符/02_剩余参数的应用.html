@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            //1.用剩余参数完成 add 函数
+            const add = (...args) => {
+                let sum = 0;
+                for (let i = 0; i < args.length; i++) {
+                    sum += args[i];
+                }
+                return sum;
+            };
+            console.log(add()); //0
+            console.log(add(1, 2, 3)); //6
+
+            // 剩余参数与解构赋值结合使用
+            const [num, ...args] = [1, 2, 3, 4];
+            console.log(num, args); //1 [2,3,4]
+
+            const func = ([num, ...args]) => {
+                console.log(num, args);
+            };
+            func([1, 2, 3]);
+
+            const { x1, y1, ...z1 } = { a1: 3, x1: 1, y1: 2, b1: 4 };
+            console.log(x1, y1, z1); //1 2 {a1: 3, b1: 4}
+
+            const func1 = ({ x, y, ...z }) => {
+                console.log(x, y, z);
+            };
+            func1({ x: 1, y: 2, a: 4, b: 4 }); //1 2 {a: 4, b: 4}
+        </script>
+    </body>
+</html>

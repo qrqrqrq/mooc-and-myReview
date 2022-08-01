@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="box">
+            <p>我是段落A</p>
+            <p id="para">我是段落B</p>
+            <p>我是段落C</p>
+        </div>
+        <script>
+            // DOM中，文本节点也属于节点，在使用节点的关系时一定要注意
+            //  在标准的W3C规范中，空白文本节点也应该算作节点，但是在IE8及以前的浏览器中会有一定的兼容问题，它们不把空文本节点当做节点
+            // 排除文本节点的干扰,从IE9开始支持一些“只考虑元素节点”的属性
+
+            // 关系                 考虑所有节点           只考虑元素节点
+            // 子节点               childNodes            children
+            // 父节点               parentNode            同
+            // 第一个子节点          firstChild            firstElementChild
+            // 最后一个子节点        lastChild             lastElementChild
+            // 前一个兄弟节点        previousSibling       previousElementSibling
+            // 后一个兄弟节点        nextSibling           nextElementSibling
+
+            // 节点的nodeType属性可以显示这个节点具体的类型
+
+            // 值              节点类型
+            // 1               元素节点，例如 <p> 和 <div>
+            // 3               文字节点
+            // 8               注释节点
+            // 9               document节点
+            // 10              DTD节点
+
+            var box = document.getElementById("box");
+            var para = document.getElementById("para");
+
+            // 所有子节点
+            console.log(box.childNodes);
+            // 所有的元素子节点(IE9开始兼容)
+            console.log(box.children);
+
+            //第一个子节点
+            console.log(box.firstChild);
+            // 第一个元素子节点(IE9开始兼容);
+            console.log(box.firstElementChild);
+
+            //最后一个子节点
+            console.log(box.lastChild);
+            // 最后一个元素子节点(IE9开始兼容);
+            console.log(box.lastElementChild);
+
+            // 父节点
+            console.log(para.parentNode);
+
+            // 前一个兄弟节点
+            console.log(para.previousSibling);
+            // 前一个元素兄弟节点(IE9开始兼容);
+            console.log(para.previousElementSibling);
+
+            // 后一个兄弟节点
+            console.log(para.nextSibling);
+            // 后一个元素兄弟节点(IE9开始兼容);
+            console.log(para.nextElementSibling);
+        </script>
+    </body>
+</html>

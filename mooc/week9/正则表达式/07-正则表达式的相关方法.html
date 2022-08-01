@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 方法                            简介
+            // test()          测试某字符串是否匹配正则表达式，返回布尔值
+            // exec()          根据正则表达式，在字符串中进行查找，返回结果数组或者null
+
+            // exec() 不加全局搜索符/g
+            var str = "abc123def456ghi789";
+            var regexp = /\d+/; //尽量多的匹配数字
+            // 得到的result是数组
+            var result = regexp.exec(str); //只能得到一次匹配的结果
+            console.log(result);
+
+            //exec()方法的逐条遍历,有g修饰符
+            var str1 = "abc123def456ghi789";
+            var regexp1 = /\d+/g; // 有g修饰符
+            var result1 = regexp1.exec(str1);
+            var result2 = regexp1.exec(str1);
+            var result3 = regexp1.exec(str1);
+            var result4 = regexp1.exec(str1);
+            console.log(result1);
+            console.log(result2);
+            console.log(result3);
+            console.log(result4); //null
+
+            // exec()方法的逐条遍历的优化：
+            var str2 = "abc123def456ghi789";
+            var regexp2 = /\d+/g; // 有g修饰符     +是尽可能多的匹配，贪婪
+            var result;
+            while ((result = regexp2.exec(str2))) {
+                // console.log(result); //输出的是数组
+                console.log(result[0]); //输出的是数组第一项，只有数字
+            }
+        </script>
+    </body>
+</html>

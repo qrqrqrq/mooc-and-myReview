@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    message: "hello",
+                    isChecked: false,
+                    datas: [],
+                    radioData: "",
+                    selectData: "",
+
+                    // options: [
+                    //     {
+                    //         text: "A",
+                    //         value: "A",
+                    //     },
+                    //     {
+                    //         text: "B",
+                    //         value: "B",
+                    //     },
+                    //     {
+                    //         text: "C",
+                    //         value: "C",
+                    //     },
+                    // ],
+
+                    // select神奇之处
+                    options: [
+                        {
+                            text: "A",
+                            value: { value: "A" },
+                        },
+                        {
+                            text: "B",
+                            value: { value: "B" },
+                        },
+                        {
+                            text: "C",
+                            value: { value: "C" },
+                        },
+                    ],
+                };
+            },
+            // input：
+            // template: `
+            //     <div>
+            //         {{message}}
+            //     <input v-model="message"/>
+            //     </div>
+            // `,
+
+            // textarea:
+            // template: `
+            //     <div>
+            //         {{message}}
+            //     <textarea v-model="message"/>
+            //     </div>
+            // `,
+
+            // checkbox：
+            // template: `
+            //     <div>
+            //         {{datas}}
+            //     joe<input type="checkbox" v-model="radioData" value="joe"/>
+            //     yee<input type="checkbox" v-model="radioData" value="yee"/>
+            //     student<input type="checkbox" v-model="radioData" value="student"/>
+            //     </div>
+            // `,
+
+            // radio
+            // template: `
+            //     <div>
+            //         {{datas}}
+            //     joe<input type="radio" v-model="datas" value="joe"/>
+            //     yee<input type="radio" v-model="datas" value="yee"/>
+            //     student<input type="radio" v-model="datas" value="student"/>
+            //     </div>
+            // `,
+
+            // select  multiple做多选
+            // template: `
+            //     <div>
+            //         {{selectData}}
+            //         <select v-model="selectData" multiple>
+            //             <option disabled value="">请选择内容</option>
+            //             <option value="A">A</option>
+            //             <option value="B">B</option>
+            //             <option value="C">C</option>
+            //         </select>
+            //     </div>
+            // `,
+
+            // select做改进，模拟options很多的情况
+            // template: `
+            //     <div>
+            //         {{selectData}}
+            //         <select v-model="selectData" multiple>
+            //             <option v-for="item in options" :value="item.value">{{item.text}}</option>
+            //         </select>
+            //     </div>
+            // `,
+            // select神奇之处
+            template: `
+                <div>
+                    {{selectData}}
+                    <select v-model="selectData" multiple>
+                        <option v-for="item in options" :value="item.value">{{item.text}}</option>
+                    </select>
+                </div>
+            `,
+        });
+        const vm = app.mount("#root");
+    </script>
+</html>

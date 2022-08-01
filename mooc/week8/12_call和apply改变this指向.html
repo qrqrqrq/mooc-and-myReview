@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 函数.call(上下文,参数1,参数2,...);
+            // 函数.apply(上下文,[参数1,参数2...]);
+
+            // 案例一：函数无参时调用这两个方法
+            // function sum1() {
+            //     alert(this.chinese + this.math + this.english);
+            // }
+            // var xiaoming = {
+            //     chinese: 80,
+            //     math: 95,
+            //     english: 93,
+            // };
+            // sum1.call(xiaoming);
+            // sum1.apply(xiaoming);
+
+            // 案例二：函数含参时调用这两个方法
+            // 这也是call()和apply()的区别，即调用时参数的书写形式不同
+
+            // function sum(a, b) {
+            //     alert(this.chinese + this.math + this.english + a + b);
+            // }
+            // var xiaoli = {
+            //     chinese: 80,
+            //     math: 80,
+            //     english: 80,
+            // };
+            // sum.call(xiaoli, 2, 3);
+            // sum.apply(xiaoli, [2, 3]);
+
+            // 案例三：
+            function fun1() {
+                // this是fun1()的上下文，window对象
+                // arguments是类数组，用apply()存参数33，44
+                fun2.apply(this, arguments);
+            }
+            function fun2(a, b) {
+                // window对象里的a和b
+                alert(a + b); //77
+            }
+            // 函数名()方法调用，是规则2 上下文就是window对象
+            fun1(33, 44);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="box">
+            <p id="para">我是原本的段落0</p>
+            <p>我是原本的段落1</p>
+            <ul>
+                <li>牛奶</li>
+                <li>咖啡</li>
+                <li>可乐</li>
+            </ul>
+        </div>
+
+        <div id="box2">
+            <span>我是box2的原有P标签1</span>
+            <span>我是box2的原有P标签2</span>
+        </div>
+
+        <script>
+            var oBox = document.querySelector("npm#box");
+            var oBox2 = document.querySelector("#box2");
+            var oPs = document.querySelectorAll("p");
+            var para = document.querySelector("#para");
+            var spans_inbox2 = document.querySelectorAll("span");
+            var ul_inbox = document.querySelector("ul");
+
+            // 创建节点
+            // 创建孤儿节点
+            var oP = document.createElement("p");
+            // 设置内部文字
+            oP.innerHTML = "我是新来的";
+
+            // 上树语句1：
+            // 父节点.appendChild(孤儿节点);
+            // 孤儿节点成为父节点的最后一个子节点
+            oBox.appendChild(oP); // oP插入到最后
+
+            // 上树语句2：
+            // 父节点.insertBefore(孤儿节点, 标杆节点);
+            // 孤儿节点成为它的“标杆子节点”之前的节点
+            oBox.insertBefore(oP, oPs[0]); // oP插入到oPs[0]之前
+
+            // 移动节点---->一个节点不能同时位于DOM树的两个位置
+            // 方法一：新父节点.appendChild(已经有父亲的节点);
+            oBox2.appendChild(para);
+            // 方法二：新父节点.insertBefore(已经有父亲的节点, 标杆子节点);
+            oBox2.insertBefore(para, spans_inbox2[0]);
+
+            // 删除节点
+            // 父节点.removeChild(要删除的子节点)
+            oBox2.removeChild(spans_inbox2[0]);
+
+            // 克隆节点,克隆出的节点是“孤儿节点”
+            // var 孤儿节点 = 老节点.cloneNode();
+            // var 孤儿节点 = 老节点.cloneNode(true);
+            // 参数是一个布尔值，表示是否采用深度克隆：
+            // 如果为true，则该节点的所有后代节点也都会被克隆，如果为false，则只克隆该节点本身
+
+            //孤儿节点,需要上树。这样只克隆了ul，没有克隆ul里的li
+            var new_ul1 = ul_inbox.cloneNode();
+            oBox2.appendChild(new_ul1);
+
+            // 这样不仅克隆了ul，还克隆了ul里的li
+            var new_ul2 = ul_inbox.cloneNode(true);
+            oBox2.appendChild(new_ul2);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            var obj = {
+                a: 1,
+                b: 2,
+                c: {
+                    d: 33,
+                },
+                e: [444, 555],
+            };
+            // 深克隆方法一：
+            function deepClone1(obj) {
+                //判断o是对象还是数组
+                if (Array.isArray(obj)) {
+                    // 是数组
+                    var result = [];
+                    for (var i = 0; i < obj.length; i++) {
+                        result.push(deepClone1(obj[i]));
+                    }
+                } else if (typeof obj == "object") {
+                    var result = {};
+                    for (var k in obj) {
+                        result[k] = deepClone1(obj[k]);
+                    }
+                } else {
+                    var result = obj;
+                }
+            }
+            deepClone1(obj);
+
+            // 深克隆方法二：
+            function deepClone2(newobj, oldobj) {
+                for (var k in oldobj) {
+                    // 判断拿出来的属性值属于哪种数据类型
+                    var item = oldobj[k];
+                    // 判断是否为数组
+                    if (item instanceof Array) {
+                        newobj[k] = [];
+                        deepClone2(newobj[k], item);
+                    } else if (item instanceof Object) {
+                        // 判断是否为对象
+                        newobj[k] = {};
+                        deepClone2(newobj[k], item);
+                    } else {
+                        // 简单数据类型
+                        newobj[k] = item;
+                    }
+                }
+            }
+
+            // 深克隆方法三：
+            function deepClone3(newobj, oldobj) {
+                var tar = newobj || {};
+                var toStr = Object.prototype.toString;
+                var arrType = "[object Array]";
+
+                for (var k in oldobj) {
+                    if (oldobj.hasOwnProperty(k)) {
+                        if (typeof oldobj[k] === "object" && oldobj[k] != null) {
+                            tar[k] = toStr.call(oldobj[k]) == arrType ? [] : {};
+                            deepClone3(tar[k], oldobj[k]);
+                        } else {
+                            tar[k] = oldobj[k];
+                        }
+                    }
+                }
+                return tar;
+            }
+        </script>
+    </body>
+</html>

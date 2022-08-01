@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // IIFE中的函数，上下文是window对象
+            // IIFE长这样：(function () {})();
+
+            // 例题：
+            var a = 1;
+            var obj = {
+                a: 2,
+                // 立即执行函数里套函数形成闭包,a=1会被记住
+                fun: (function () {
+                    // IIFE里的this是window对象
+                    var a = this.a; //规则四：1
+                    return function () {
+                        // a：1，this.a:2
+                        console.log(a + this.a);
+                    };
+                })(),
+                // fun的本质
+                // fun:function () {
+                //     console.log(a + this.a);
+                // };
+            };
+            obj.fun(); //打点调用，符合规则一this.a:2
+        </script>
+    </body>
+</html>

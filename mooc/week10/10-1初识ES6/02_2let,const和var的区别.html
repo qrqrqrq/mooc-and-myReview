@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 作用域分为：①块级作用域 ②函数作用域 ③全局作用域
+            // 块级作用域:
+
+            // var 没有块级作用域
+            // for (var i = 0; i < 3; i++) {
+            //   // console.log(i);//0,1,2
+            // }
+            // console.log(i);//3
+
+            // let/const 有块级作用域
+            // for (let i = 0; i < 3; i++) {
+            //   // i = i+1
+            //   // console.log(i);//0,1,2
+            // }
+            // console.log(i);//报错
+
+            // 2.作用域链
+            // function func() {
+            //     for (let i = 0; i < 3; i++) {
+            //         // console.log(i);
+            //     }
+            //     console.log(i);//报错
+            // }
+            // func();
+            // console.log(i);//报错
+            // 作用域链：内层作用域->外层作用域->...->全局作用域
+
+            // 3.有哪些块级作用域：
+
+            // {}
+            // for(){}
+            // while(){}
+            // do{}while()
+            // if(){}
+            // switch(){}
+
+            // 注意区分！！！
+            // function(){}--->函数作用域
+            // const person = {---->单独的对象不构成作用域
+            //   getAge: function () {}---->对象里的函数在【调用后】会构成是函数作用域
+            // };
+
+            {
+                let a = 1;
+                {
+                    var a = 10;
+                }
+                console.log(a); //报错
+            }
+            console.log(a); //报错
+
+            // 因为{}产生的块级作用域是针对let/const来说的，所以{var a = 10}没有产生独立的作用域就相当于以下写法
+            // {
+            //     let a = 1;
+
+            //     var a = 10;
+
+            //     console.log(a); //报错
+            // }
+            // 这是因为let定义的变量不能重复声明所以当然会报错啦！
+        </script>
+    </body>
+</html>

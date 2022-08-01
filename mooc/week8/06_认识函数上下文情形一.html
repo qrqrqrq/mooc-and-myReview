@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 情形1：对象打点调用函数，函数中的this指代这个打点的对象
+            // 这个情形解题的关键就是看哪个对象调用了函数
+
+            // 第一题：
+            // function fn() {
+            //     console.log(this.a + this.b);
+            // }
+            // var obj = {
+            //     a: 66,
+            //     b: 33,
+            //     fn: fn,
+            // };
+            // obj.fn();//99
+
+            // 第二题：
+            var obj1 = {
+                a: 1,
+                b: 2,
+                fn: function () {
+                    console.log(this.a + this.b);
+                },
+            };
+            var obj2 = {
+                a: 3,
+                b: 4,
+                fn: obj1.fn,
+            };
+            // 易错！！不管函数写在哪关键是函数是由obj2对象调用的所以里面的this保存的是obj2的上下文
+            obj2.fn(); //7
+
+            // 第三题
+            // function outer() {
+            //     var a = 11;
+            //     var b = 22;
+            //     return {
+            //         a: 33,
+            //         b: 44,
+            //         fn: function () {
+            //             console.log(this.a + this.b);
+            //         },
+            //     };
+            // }
+            // 易错！！函数不能调用方法，是对象调用方法！！
+            // outer是一个函数，函数调用后会返回对象
+            // 所以是返回的对象调用了fn()
+            // outer().fn(); //77
+
+            // 第四题
+            // function fun() {
+            //     console.log(this.a + this.b);
+            // }
+            // var obj = {
+            //     a: 1,
+            //     b: 2,
+            //     c: [
+            //         {
+            //             a: 3,
+            //             b: 4,
+            //             c: fun,
+            //         },
+            //     ],
+            // };
+            // var a = 5;
+            // obj.c[0]是这个对象：
+            // {
+            //     a: 3,
+            //     b: 4,
+            //     c: fun,
+            // }
+            // obj.c[0].c(); //7
+        </script>
+    </body>
+</html>

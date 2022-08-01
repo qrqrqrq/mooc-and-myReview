@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 对象解构赋值的原理:
+
+            // 1.模式（结构）匹配:{}={}
+
+            // 2.属性名相同的完成赋值
+            const { age, username } = { username: "Alex", age: 18 };
+            // 不取别名的默认状况：const { age: age, username: username } = { username: "Alex", age: 18 };
+            console.log(age, username);
+
+            // 取别名：ag,us1
+            const { age1: ag, username1: us1 } = { age1: "joeyee", username1: "20" };
+            console.log(ag, us1); //用别名输出，没起别名就和属性名同名
+        </script>
+    </body>
+</html>

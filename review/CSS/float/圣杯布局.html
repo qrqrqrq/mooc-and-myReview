@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>圣杯布局</title>
+        <style>
+            .top {
+                background-color: aquamarine;
+            }
+            .main {
+                padding: 0 200px;
+            }
+            .left {
+                position: relative;
+                width: 200px;
+                background-color: chocolate;
+                margin-left: -100%;
+                left: -200px;
+            }
+            .center {
+                width: 100%;
+                background-color: chartreuse;
+            }
+            .right {
+                width: 200px;
+                background-color: blueviolet;
+                margin-right: -200px;
+            }
+            .bottom {
+                background-color: cornflowerblue;
+            }
+            .column {
+                float: left;
+            }
+            /* 清除column浮动对bottom的影响 */
+            .clearfix:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="top">This is top</div>
+        <div class="main clearfix">
+            <div class="center column">This is center</div>
+            <div class="left column">This is left</div>
+            <div class="right column">This is right</div>
+        </div>
+        <div class="bottom">This is bottom</div>
+    </body>
+</html>

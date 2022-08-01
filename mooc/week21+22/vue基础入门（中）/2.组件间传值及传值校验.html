@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hello world</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // 父子组件之间传写死的数据
+        // const app = Vue.createApp({
+        //     template: `
+        //     <div>
+        //         123
+        //         <test/>
+        //     </div>
+        //     `,
+        // });
+
+        // // 创建一个全局组件
+        // app.component("test", {
+        //     template: `<div>test</div>`,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // 父子组件之间传自己想传的数据
+
+        // // 1.父组件定义要传的内容
+        // const app = Vue.createApp({
+        //     template: `
+        //     <div>
+        //         123
+        //         <test content="hello world! joeyee"/>
+        //     </div>
+        //     `,
+        // });
+
+        // // 创建一个全局组件
+        // // 2.保存到子组件的props属性中，用在模板里
+        // app.component("test", {
+        //     props: ["content"],
+        //     template: `<div>{{content}}</div>`,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // // 1.父组件定义要传的内容，如这里想传数字要使用v-bind动态传参
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             num: 123,
+        //         };
+        //     },
+        //     template: `
+        //     <div>
+        //         123
+        //         <test v-bind:content="num"/>
+        //     </div>
+        //     `,
+        // });
+
+        // // 创建一个全局组件
+        // // 2.保存到子组件的props属性中，用在模板里
+        // app.component("test", {
+        //     props: ["content"],
+        //     template: `<div>{{typeof content}}</div>`,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // 1.父组件定义要传的内容，如这里想传数字要使用v-bind动态传参
+        const app = Vue.createApp({
+            //type:String
+            // data() {
+            //     return {
+            //         num:"123",
+            //     };
+            // },
+            // template: `
+            // <div>
+            //     123
+            //     <test v-bind:content="num"/>
+            // </div>
+            // `,
+
+            //type:Function
+            // data() {
+            //     return {
+            //         num: () => {
+            //             alert(123);
+            //         },
+            //     };
+            // },
+            // template: `
+            // <div>
+            //     123
+            //     <test v-bind:content="num"/>
+            // </div>
+            // `,
+
+            //type:Number
+            data() {
+                return {
+                    num: 1234,
+                };
+            },
+            template: `
+                <div>
+                    <test v-bind:content="num"/>
+                </div>
+                `,
+        });
+
+        // 子组件类型校验:type:String, Boolean, Array, Object, Function, Symbol
+        // required 必填
+        // default 默认值
+
+        // 创建一个全局组件
+        // 2.保存到子组件的props属性中，用在模板里
+
+        //type:String
+        // app.component("test", {
+        //     props: {
+        //         content: String,
+        //     },
+        //     template: `<div>{{typeof content}}</div>`,
+        // });
+
+        //type:Function
+        // app.component("test", {
+        //     // 类型校验方式一：
+        //     // props: {
+        //     //     content: Function,
+        //     // },
+
+        //     // 类型校验方式二：
+        //     props: {
+        //         content: {
+        //             type: Function,
+        //             // required: true,
+        //             default: function () {
+        //                 return alert(111);
+        //             },
+        //         },
+        //     },
+        //     methods: {
+        //         handleClick() {
+        //             alert(456), this.content();
+        //         },
+        //     },
+        //     template: `<div @click="this.handleClick">{{content}}</div>`,
+        // });
+
+        //type:Number
+        app.component("test", {
+            props: {
+                content: {
+                    type: Number,
+                    validator: function (value) {
+                        return value < 1000;
+                    },
+                    default: function () {
+                        return 456;
+                    },
+                },
+            },
+            template: `<div>{{content}}</div>`,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

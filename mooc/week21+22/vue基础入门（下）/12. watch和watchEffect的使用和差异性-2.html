@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 38</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // watchEffect也是侦听器，偏向于effect
+        // 当name是引用数据类型时：
+        const app = Vue.createApp({
+            setup() {
+                const { reactive, watch, watchEffect, toRefs } = Vue;
+                const nameObj = reactive({ name: "joeyee", englishname: "joe" });
+                // 具备一定的惰性，lazy
+                // 两个参数能拿到改变后的当前值和改变前的原始值
+                // 一个侦听器可以实现侦听多个数据变化的功能
+                // watch(
+                //     //  () => nameObj.name,要注意！！
+                //     // 侦听两个：
+                //     [() => nameObj.name, () => nameObj.englishname],
+                //     ([curName, curEnName], [preName, preEnName]) => {
+                //         console.log("watch:", curName, preName, "----", curEnName, preEnName);
+                //     }
+                // );
+
+                // 使侦听器失效
+                // const stopWatch = watch(
+                //     //  () => nameObj.name,要注意！！
+                //     // 侦听两个：
+                //     [() => nameObj.name, () => nameObj.englishname],
+                //     ([curName, curEnName], [preName, preEnName]) => {
+                //         console.log("watch:", curName, preName, "----", curEnName, preEnName);
+                //         setTimeout(() => {
+                //             stopWatch();
+                //         }, 5000);
+                //     }
+                // );
+
+                // 将watch变为非惰性
+                watch(
+                    //  () => nameObj.name,要注意！！
+                    // 侦听两个：
+                    [() => nameObj.name, () => nameObj.englishname],
+                    ([curName, curEnName], [preName, preEnName]) => {
+                        console.log("watch:", curName, preName, "----", curEnName, preEnName);
+                    },
+                    { immediate: true }
+                );
+
+                // watchEffect立即执行，没有惰性 immediate
+                // 不需要传递你要侦听的内容，自动会感应代码依赖，不需要传递很多参数，只需要传递一个回调函数
+                // 只能拿到改变后的当前值
+                // watchEffect(() => {
+                //     console.log(nameObj.name);
+                //     console.log(nameObj.englishname);
+                // });
+
+                // 使侦听器失效
+                const stop = watchEffect(() => {
+                    console.log(nameObj.name);
+                    console.log(nameObj.englishname);
+                    setTimeout(() => {
+                        stop();
+                    }, 5000);
+                });
+
+                // 对象的解构赋值
+                const { name, englishname } = toRefs(nameObj);
+                return { name, englishname };
+            },
+            template: `
+                        <div>
+                            <div>
+                                name:<input v-model="name"/>
+                            </div>
+                            <div>
+                                name is {{name}}
+                            </div>
+                            <div>
+                                Englishname:<input v-model="englishname"/>
+                            </div>
+                            <div>
+                                Englishname is {{englishname}}
+                            </div>
+                        </div>
+                        `,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

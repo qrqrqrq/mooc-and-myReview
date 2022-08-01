@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>lesson 15</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // 父组件向子组件传值message
+        // Non-prop 属性：父组件向子组件传值但是子组件不用 props接收，
+        // 底层会把父组件传递过来的信息放在子组件最外层的dom元素上变成子组件最外层dom上的一个属性
+        // const app = Vue.createApp({
+        //     // <div><div msg="hello joeyee">counter</div></div>
+        //     template: `
+        //             <div>
+        //                 <counter msg="hello joeyee" />
+        //             </div>
+        // `,
+        // });
+
+        // app.component("counter", {
+        //     // props: ["msg"],
+        //     template: `<div>counter</div>`,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // const app = Vue.createApp({
+        //     // <div><div msg="hello joeyee">counter</div></div>
+        //     template: `
+        //             <div>
+        //                 <counter msg="hello joeyee" />
+        //             </div>
+        // `,
+        // });
+
+        // app.component("counter", {
+        //     // props: ["msg"],
+        //     // 不继承父组件传来的Non-prop属性
+        //     inheritAttrs: false,
+        //     template: `<div>counter</div>`,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // 当子组件有多个dom元素时
+        const app = Vue.createApp({
+            template: `
+                <div>
+                    <counter msg="hello" msg1="hello1" />
+                </div>
+            `,
+        });
+
+        app.component("counter", {
+            //不继承父组件传来的属性
+            // inheritAttrs: false,
+            mounted() {
+                console.log(this.$attrs.msg);
+            },
+            template: `
+                <div :msg="$attrs.msg">Counter</div>
+                <div v-bind="$attrs">Counter</div>
+                <div :msg1="$attrs.msg1">Counter</div>
+                `,
+            // <div>
+            //     <div msg="hello">Counter</div>
+            //     <div msg="hello" msg1="hello1">Counter</div>
+            //     <div msg1="hello1">Counter</div>
+            // </div>
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

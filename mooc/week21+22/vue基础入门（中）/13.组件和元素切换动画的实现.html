@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 25</title>
+        <style></style>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return { show: false };
+            },
+            methods: {
+                handleClick() {
+                    this.show = !this.show;
+                },
+            },
+            template: `
+                <div>
+                    <transition mode="out-in" appear>
+                    <div v-if="show">hello world</div>
+                    <div v-else="show">bye</div>
+                    </transition>
+                    <button @click="handleClick">切换</button>
+                </div>
+    `,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

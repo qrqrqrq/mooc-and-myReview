@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .modal {
+                width: 400px;
+                height: 140px;
+                background-color: pink;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="btn">按我弹出-->弹出层</button>
+        <div class="modal" id="modal"></div>
+
+        <script>
+            // e.stopPropagation()方法用来阻止事件继续传播
+            // 阻止事件冒泡，继续向上传播
+
+            var oBtn = document.querySelector("#btn");
+            var oModal = document.querySelector("#modal");
+            // 点击按钮，弹出层显示
+            oBtn.addEventListener("click", function (e) {
+                // 点击【按钮】显示弹出层，点击空白处，弹出层消失。由于【按钮】是向上传递的，点击后会同时触发  点击空白处弹出层消失事件。所以加e.stopPropagation();
+                e.stopPropagation();
+                oModal.style.display = "block";
+            });
+            // 点击页面任何部分时，弹出层关闭
+            document.addEventListener("click", function () {
+                oModal.style.display = "none";
+            });
+            // 同理点击弹出层时，由于弹出层会向上传递会触发document的点击空白处弹出层消失事件。所以也要加e.stopPropagation();
+            oModal.addEventListener("click", function (e) {
+                e.stopPropagation();
+            });
+        </script>
+    </body>
+</html>

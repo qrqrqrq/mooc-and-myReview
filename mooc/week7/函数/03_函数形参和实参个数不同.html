@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 实参个数小于形参
+            // c没有收到实际参数，值为undefined
+            // undefined进行任何运算结果都是NaN
+            function add(a, b, c) {
+                var sum = a + b + c; //3+5+undefined=NaN
+                console.log(" " + sum);
+            }
+            add(3, 5);
+        </script>
+    </body>
+</html>

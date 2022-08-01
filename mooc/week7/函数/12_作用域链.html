@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.认识函数的嵌套
+            // 函数的嵌套：一个函数内部也可以定义一个函数。
+            // 和局部变量类似，定义在一个函数内部的函数是局部函数。
+
+            // 2.作用域链
+            // 在函数嵌套中，变量会从内到外逐层寻找它的定义
+            var a = 10;
+            var b = 20;
+            function fun() {
+                var c = 30;
+                function inner() {
+                    var a = 40;
+                    var d = 50;
+                    // 使用变量时，JS会从当前层开始，逐层向上寻找定义
+                    console.log(a, b, c, d);
+                }
+                inner();
+            }
+            fun();
+
+            // 案例：
+            var a = 1;
+            var b = 2;
+            function fun() {
+                // 定义时没有加var，是全局变量c
+                c = 3;
+                var b = 4;
+                b++;
+                console.log(b); //5
+                c++;
+            }
+            // 函数不调用不执行
+            fun();
+            console.log(b); //2
+            console.log(c); //4
+        </script>
+    </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.实例属性
+            // 方法就是值为函数的特殊属性
+            class Person {
+                // 实例属性
+                // 默认值
+                name = "joe";
+                age = 0;
+                sex = "male";
+
+                // 实例方法：
+                getSex = function () {
+                    return this.sex;
+                };
+                constructor(name, age, sex) {
+                    // 实例对象的属性
+                    this.name = name;
+                    // 在这里修改实例对象的属性的默认值
+                    // this.age = age;
+                    // this.sex = sex;
+                }
+                //各实例共享的方法
+                speak() {
+                    console.log("speak");
+                }
+            }
+
+            const p = new Person("joeyee");
+            console.log(p.name, p.age, p.sex); //joeyee 0 male
+
+            // 2.静态方法:类的方法
+            class Person1 {
+                constructor(name) {
+                    this.name = name;
+                }
+                speak() {
+                    console.log("speak");
+                    console.log(this); //指向实例对象p1
+                }
+
+                static speak() {
+                    console.log("人类可以说话");
+                    console.log(this); // this 指向Person1类
+                }
+            }
+            const p1 = new Person1("joeyee");
+            console.log(p1.name); //joeyee
+            p1.speak(); //speak   Person1 {name: 'joeyee'}
+            Person1.speak(); //人类可以说话
+            // class Person1 {
+            //     constructor(name) {
+            //         this.name = name;
+            //     }
+            //     speak() {
+            //         console.log("speak");
+            //         console.l…
+
+            // 3.静态属性:类的属性
+
+            class Person2 {
+                constructor(name) {
+                    this.name = name;
+                }
+                //  不要这么写，目前只是提案，有兼容性问题
+                // static 后只能声明方法
+                // static version=1.0
+                //   console.log(Person2.version);
+
+                // 推荐用静态方法来返回静态属性
+                static getVersion() {
+                    return "1.0";
+                }
+            }
+            const p2 = new Person("Alex");
+            console.log(p2.name);
+            console.log(Person2.getVersion());
+        </script>
+    </body>
+</html>

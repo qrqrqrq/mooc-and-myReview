@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 函数内arguments表示它接收到的实参列表，它是一个类
+数组对象
+            function fn() {
+                console.log(arguments);
+                console.log(arguments[0]);
+            }
+            fn(33, 25, 78);
+            // 不管用户输入多少个参数，都能计算它的和
+
+            function sum() {
+                var sum = 0;
+                for (var i = 0; i < arguments.length; i++) {
+                    sum += arguments[i];
+                }
+                console.log(sum);
+            }
+            sum(2, 4, 6);
+        </script>
+    </body>
+</html>

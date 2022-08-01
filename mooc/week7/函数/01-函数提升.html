@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // fun();
+            // // 函数声明在预解析阶段会被提升
+            // function fun() {
+            //     console.log("我执行了");
+            // }
+
+            fun();
+            // 函数表达式在预解析阶段不会被提升
+            var fun = function () {
+                console.log("我执行了");
+            };
+
+            // 注意！
+            // 1.函数优先提升,2.变量声明提升，变量声明提升无法覆盖提升的函数
+            // 变量声明提升是指使用var定义的变量在定义前就使用（变量先使用后定义这是一个不好的编程习惯）
+            // 案例一：
+            fun();
+            var fun = function () {
+                alert("A");
+            };
+            function fun() {
+                alert("B");
+            }
+            fun();
+
+            //  案例一   提升后变成这样
+            function fun() {
+                alert("B");
+            }
+            var fun;
+            fun(); //B
+            fun = function () {
+                alert("A");
+            };
+            fun(); //A
+
+            // 案例二：
+            var a = 10;
+            function fun() {
+                a++;
+                var a = 5;
+                console.log(a); //5
+            }
+            fun();
+            console.log(a); //10
+
+            //  案例二   提升后变成这样
+            function fun() {
+                var a; //undefined
+                a++; //NaN
+                a = 5;
+                console.log(a); //5
+            }
+            var a;
+            a = 10;
+            fun();
+            console.log(a); //10
+        </script>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Cookie 的封装</title>
+    </head>
+    <body>
+        <button id="cn">中文</button>
+        <button id="en">英文</button>
+        <script type="module">
+            // import { set, get, remove } from "./cookie.js";
+            // set("username", "joeyee");
+            // set("用户名", "乔乔");
+            // set("sex", "female", {
+            //     maxAge: 30 * 24 * 3600,
+            // });
+            // console.log(get("username"));
+            // console.log(get("用户名"));
+            // console.log(get("sex"));
+            // remove("用户名");
+            // remove("sex");
+
+            // 使用封装好的 Cookie 实现网站语言切换
+            import { set } from "./cookie.js";
+
+            const cnBtn = document.querySelector("#cn");
+            const enBtn = document.querySelector("#en");
+
+            cnBtn.addEventListener(
+                "click",
+                () => {
+                    set("language", "cn", { maxAge: 30 * 24 * 3600 });
+                    window.location = "./2-6.Cookie 的封装.html";
+                },
+                false
+            );
+            enBtn.addEventListener(
+                "click",
+                () => {
+                    set("language", "en", { maxAge: 30 * 24 * 3600 });
+                    window.location = "./2-6.Cookie 的封装.html";
+                },
+                false
+            );
+        </script>
+    </body>
+</html>

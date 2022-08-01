@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            div {
+                width: 200px;
+                height: 200px;
+                border: 1px solid #000;
+                margin: 20px;
+                float: left;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box1"></div>
+        <div id="box2"></div>
+        <div id="box3"></div>
+        <script>
+            // 事件处理函数的上下文是绑定事件的DOM元素
+            // 如：DOM元素.onclick = function () {
+            // };
+
+            // 案例一：
+            // 请实现效果：点击哪个盒子，哪个盒子就变红，要求使用同 一个事件处理函数实现
+            var box1 = document.querySelector("#box1");
+            var box2 = document.querySelector("#box2");
+            var box3 = document.querySelector("#box3");
+
+            function setColorToRed1() {
+                this.style.backgroundColor = "red";
+            }
+
+            // 只写函数名字相当于取函数所有部分，包括声明:
+            // 例如:btn.onclick=setColorToRed
+            // 　　等价于
+            // 　　btn.onclick=function setColorToRed() {
+            //      this.style.backgroundColor = "red";
+            // }
+
+            // box1.addEventListener("click", setColorToRed1);
+            // box2.addEventListener("click", setColorToRed1);
+            // box3.addEventListener("click", setColorToRed1);
+
+            // 案例二：
+            // 再案例一基础上请实现效果：点击哪个盒子，哪个盒子在2000毫秒后就变红 ，要求使用同一个事件处理函数实现
+
+            function setColorToRed2() {
+                // 备份上下文
+                var self = this;
+                // 点击后延时器调用了函数，所以函数里的this是window对象
+                setTimeout(function () {
+                    // 这还有闭包的产生，能保留self的值
+                    self.style.backgroundColor = "red";
+                }, 2000);
+            }
+
+            box1.addEventListener("click", setColorToRed2);
+            box2.addEventListener("click", setColorToRed2);
+            box3.addEventListener("click", setColorToRed2);
+        </script>
+    </body>
+</html>

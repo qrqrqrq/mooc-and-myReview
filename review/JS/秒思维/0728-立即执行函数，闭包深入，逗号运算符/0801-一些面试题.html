@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 一系列面试题 -->
+
+    <!-- 1.点击li弹出li下标 -->
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <script>
+        /* var oLi =  document.querySelectorAll('li');
+        for(var i = 0;i < oLi.length; i++){
+            oLi[i].onclick = function () {
+                console.log(i);//点击哪个都输出5，而不是0-4
+            }
+        } 
+        var oLi =  document.querySelectorAll('li');
+        for(var i = 0;i < oLi.length; i++){
+            (function(j){
+                oLi[j].onclick = function () {
+                    console.log(j);//输出0-4,正解
+                }
+            })(i)
+        }*/
+
+
+        // 2.逗号运算符 + typeof + 立即执行函数
+        /*   var fn = (
+            function test1(){
+                return 1;
+            },
+            function test2(){
+                return '2';
+            }
+        )();
+        console.log(typeof(fn));//string */
+
+        // 3.函数表达式:忽略函数的名字 + typeof
+        var a = 10;
+        if(function b(){}){
+            a += typeof(b);
+        }
+        console.log(a);//10undeined
+
+        /* 
+        (function b(){})是表达式，函数表达式会忽略函数的名字b,所以b没有声明报b is not defined ，typeof(b)是undefined
+         */
+    </script>
+</body>
+</html>

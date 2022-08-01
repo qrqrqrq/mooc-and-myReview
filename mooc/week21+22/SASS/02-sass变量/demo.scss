@@ -1,0 +1,18 @@
+// sass里的变量,要写在最上边
+$text-color: #444;
+$font-size: 14px+3px;
+$default-font: "microsoft yahei";
+.title {
+    // color: #444;
+    // 将一个颜色变浅20%
+    color: lighten($text-color, 20%);
+    font-family: $default-font;
+}
+.subtitle {
+    // 将一个颜色加深20%
+    color: darken($text-color, 20%);
+}
+.text {
+    color: $text-color;
+    font-size: $font-size;
+}

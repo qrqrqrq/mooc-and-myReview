@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.判断重复的方式:
+            // Set 对重复值的判断基本遵循严格相等（===）
+            // 但是对于 NaN 的判断与 === 不同，Set 中 NaN 等于 NaN
+            const s1 = new Set([1, 2, 1]);
+            console.log(s1); //Set(2) {1, 2}
+            const s2 = new Set([NaN, 2, NaN]);
+            console.log(s2); //Set(2) {NaN, 2}
+
+            console.log(NaN === NaN); //false
+        </script>
+    </body>
+</html>

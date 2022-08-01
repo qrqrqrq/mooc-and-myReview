@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.模板字符串是什么？就是可以得出结果的一个值放入到`${}`里,
+            const username = `joeyee`;
+            console.log(username);
+            // 2.模板字符串与一般字符串的区别：
+            // 和其他东西一起使用的时候，使用模板字符串，方便注入
+            // 其他情况下使用模板字符串或一般字符串都行
+            const person = {
+                username: "joeyee",
+                age: 18,
+                sex: "female",
+            };
+            const info = "我的名字是：" + person.username + ", 性别：" + person.sex + ", 今年" + person.age + "岁了";
+            console.log(info);
+
+            const info1 = `我的名字是：${person.username}, 性别：${person.sex}, 今年${person.age}岁了`;
+            console.log(info1);
+
+            // 模板字符串的三个注意事项：
+
+            // (1)模板字符串中，所有的空格、换行或缩进都会被保留在输出之中
+            // 一般字符串
+            const info2 = "第1行\n第2行";
+            console.log(info2);
+
+            // 模板字符串
+            const info3 = `第1行\n第2行`;
+            const info4 = `第1行
+            第2行`;
+            console.log(info3);
+            console.log(info4);
+
+            // (2)输出 ` 和 \ 等特殊字符在特殊字符前再加一个 \  即可
+            const info5 = `"" \` \\`;
+            console.log(info5);
+
+            // (3)模板字符串的注入${}：只要最终可以得出一个值的就可以通过 ${} 注入到模板字符串中
+            const username1 = "joeyee";
+            const person1 = { age: 18, sex: "female" };
+            const getSex = function (sex) {
+                return sex === "female" ? "女" : "男";
+            };
+            console.log(`${username1},${person1.age + 2},${getSex(person1.sex)}`);
+        </script>
+    </body>
+</html>

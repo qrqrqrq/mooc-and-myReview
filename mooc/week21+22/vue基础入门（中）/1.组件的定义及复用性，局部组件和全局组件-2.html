@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hello world</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // 全局组件：app.component定义的组件，只要定义了，处处可以使用，性能不高，但是使用起来简单，名字建议 小写字母单词，中间用横线间隔
+        const app = Vue.createApp({
+            // 父组件使用子组件，子组件具有复用性，组件里的数据是被自己独享的
+            template: `
+            <div>
+                <div>
+                    <counter-parent/>
+                    <counter/>
+                    <counter/>
+                </div>
+            </div>
+            `,
+        });
+
+        // 定义一个子组件
+        app.component("counte-parent", {
+            template: `<counter/>`,
+        });
+        app.component("counter", {
+            data() {
+                return {
+                    count: 1,
+                };
+            },
+            template: `<div @click="count+=1">{{count}}</div>`,
+        });
+        const vm = app.mount("#root");
+    </script>
+</html>

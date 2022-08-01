@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <script>
+            // 1.数组
+            const s = new Set([1, 2, 1]);
+            console.log(s); //Set(2) {1, 2}
+
+            // 2.字符串、类数组(arguments、NodeList)、Set 等
+            console.log(new Set("hi")); //Set(2) {'h', 'i'}
+
+            function fn() {
+                console.log(new Set(arguments));
+            }
+            fn(1, 2, 3, 1); //Set(3) {1, 2, 3}
+
+            const nodeLists = document.querySelectorAll("p");
+            console.log(new Set(nodeLists));
+
+            console.log(new Set(s)); //Set(2) {1, 2}
+            console.log(new Set(s) === s); //false
+        </script>
+    </body>
+</html>

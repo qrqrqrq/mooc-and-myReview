@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <script>
+            // 1.数组去重
+
+            // (1)数组转为Set
+            const s = new Set([1, 2, 1, 2, 3]);
+            // (2)Set转回数组
+            // 方法一：forEach
+            const arr = [];
+            s.forEach(function (value) {
+                arr.push(value);
+            });
+            console.log(arr); //(3) [1, 2, 3]
+            // 方法二：妙啊！！
+            // 将Set用...展开运算符展开再放到数组中
+            console.log([...s]); //(3) [1, 2, 3]
+
+            // 2.字符串去重
+
+            // (1)字符串转为Set
+            const s1 = new Set("abcdabefd");
+
+            // (2)Set转回字符串-->先转为数组，再从数组转为字符串
+            const arr1 = [...s1];
+            console.log(arr1.join("")); //abcdef
+
+            // 3.存放 DOM 元素
+            const nodeLists = document.querySelectorAll("p");
+            nodeLists.forEach(function (value) {
+                // console.log(value)
+                value.style.color = "pink";
+                value.style.backgroundColor = "skyblue";
+            });
+        </script>
+    </body>
+</html>

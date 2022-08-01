@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>lesson 19</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             count: 1,
+        //         };
+        //     },
+
+        //     // v-once 让某个元素标签只渲染一次
+        //     template: `
+        //     <div @click="count+=1" v-once>
+        //         {{count}}
+        //     </div>
+        //         `,
+        // });
+
+        // // app.component("common-item", {
+        // //     template: `
+        // //         <div>hello world</div>
+        // //         `,
+        // // });
+
+        // const vm = app.mount("#root");
+
+        // // ref
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             count: 1,
+        //         };
+        //     },
+        //     mounted() {
+        //         console.log(this.$refs.count);
+        //     },
+
+        //     // ref 实际上是获取 Dom 节点 / 组件引用 的一个语法
+        //     template: `
+        //     <div>
+        //         <div ref="count">
+        //         {{count}}
+        //         </div>
+        //     </div>
+        //         `,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // // ref
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             count: 1,
+        //         };
+        //     },
+        //     mounted() {
+        //         console.log(this.$refs.common.sayHello());
+        //     },
+
+        //     // ref 实际上是获取 Dom 节点 / 组件引用 的一个语法
+        //     template: `
+        //     <div>
+        //         <common-item ref="common"/>
+        //     </div>
+        //         `,
+        // });
+        // app.component("common-item", {
+        //     methods: {
+        //         sayHello() {
+        //             alert("hello");
+        //         },
+        //     },
+        //     template: `
+        //         <div>hello world</div>
+        //         `,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // provide / inject做多起组件传值的语法
+
+        // 初始实现：
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             count: 1,
+        //         };
+        //     },
+        //     template: `
+        //     <div>
+        //         <child :count="count"/>
+        //     </div>
+        //         `,
+        // });
+        // app.component("child", {
+        //     props: ["count"],
+        //     template: `
+        //         <child-child :count="count"/>
+        //         `,
+        // });
+        // app.component("child-child", {
+        //     props: ["count"],
+        //     template: `
+        //         <div>{{count}}</div>
+        //         `,
+        // });
+
+        // const vm = app.mount("#root");
+
+        //  provide / inject做多起组件传值：
+        const app = Vue.createApp({
+            data() {
+                return {
+                    count: 1,
+                };
+            },
+
+            // provide: { count: 1 },
+
+            provide() {
+                return {
+                    count: this.count,
+                };
+            },
+
+            template: `
+            <div>
+                <child :count="count"/>
+                <button @click="count+=1">add</button>
+            </div>
+                `,
+        });
+        app.component("child", {
+            template: `
+                <child-child />
+                `,
+        });
+        app.component("child-child", {
+            inject: ["count"],
+            template: `
+                <div>{{count}}</div>
+                `,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

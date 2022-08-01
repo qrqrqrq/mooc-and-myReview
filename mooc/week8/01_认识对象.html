@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            var xiaoming = {
+                name: "小明",
+                age: 12,
+                sex: "男",
+                hobbies: ["足球", "编程"],
+                // 属性名是否加""?
+                // 对象的属性键名不符合JS标识符命名规范，则这个键名必须用引号包裹
+                // "favorite-book"此时这个整体作为属性名
+
+                // "favorite-book": "舒克和贝塔",
+
+                // 方括号语法可以写在对象字面量中
+                ["favorite-book"]: "舒克和贝塔",
+                // 一个方法
+                sayHello: function () {
+                    console.log("您好，我是" + xiaoming.name);
+                },
+            };
+            // 属性的访问1：
+
+            // 方法一：对象名.属性名（打点调用法）
+            console.log(xiaoming.name);
+            console.log(xiaoming.age);
+            console.log(xiaoming.sex);
+            console.log(xiaoming.hobbies);
+
+            // 方法二：对象[属性名]  这里的属性名是指 "属性名"
+            // 如果属性名不符合JS标识符命名规范，则必须用方括号的写法来访问
+            console.log(xiaoming["favorite-book"]);
+
+            // 属性的访问2：
+            // 属性名存储在变量中，此时想要访问这个属性就需要使用：对象[变量名]
+            var key = "sex";
+            console.log(xiaoming.key); //undefined
+
+            // 属性名存储在变量中，此时要访问这个属性
+            console.log(xiaoming[key]); //男
+
+            // 属性名不符合JS标识符命名规范,此时要访问这个属性
+            console.log(xiaoming["key"]); //undefined
+
+            // 属性的修改
+            xiaoming.age = 18;
+            console.log(xiaoming.age);
+
+            // 属性的增加
+            xiaoming["favorite-foods"] = "汉堡包";
+            console.log(xiaoming);
+
+            // 属性的删除使用delete操作符
+            console.log(xiaoming);
+            delete xiaoming["favorite-book"];
+            console.log(xiaoming);
+
+            // 方法的调用
+            xiaoming.sayHello();
+        </script>
+    </body>
+</html>

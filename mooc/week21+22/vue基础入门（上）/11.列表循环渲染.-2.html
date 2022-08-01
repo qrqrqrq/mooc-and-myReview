@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        const app = Vue.createApp({
+            // 控制样式
+            data() {
+                return {
+                    listArray: ["hello", "joe", "yee"],
+                    listObject: {
+                        firstName: "yee",
+                        lastName: "joe",
+                        job: "student",
+                    },
+                };
+            },
+
+            // 循环遍历对象
+            //循环判断不能放在一个div标签里即v-for，v-if不能在同一个标签里
+            // <template></template>作为占位符，不渲染标签
+            template: `
+                <template>
+                    <div 
+                    v-for="(value,key,index) in listObject" 
+                    :key='index' 
+                    >
+                    <div v-if="key !== 'lastName'">
+                        {{key}}---{{value}}---{{index}}
+                    </div>
+                        
+                    </div>
+                    <div v-for="item in 10">{{item}}</div>
+                </template>
+            `,
+        });
+        const vm = app.mount("#root");
+    </script>
+</html>

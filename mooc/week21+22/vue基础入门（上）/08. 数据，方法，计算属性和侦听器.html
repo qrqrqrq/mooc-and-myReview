@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hello world</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // data & methods & computed & watcher
+        // computed 和 method 都能实现的一个功能，建议使用 computed，因为有缓存
+        // computed 和 watcher 都能实现的功能，建议使用 computed 因为更加简洁
+        const app = Vue.createApp({
+            // 在控制台用vm.$data.message="hello joeyee" 或 vm.message=""修改属性的值
+            data() {
+                return {
+                    message: "hello world",
+                    count: 2,
+                    price: 5,
+                    newTotal: 10,
+                };
+            },
+            //监听数据的变化做一些异步操作
+            watch: {
+                // price 发生变化时，函数会执行
+                price(current, prev) {
+                    // setTimeout(() => {
+                    //     console.log("price changed");
+                    // }, 3000);
+                    this.newTotal = current * this.count;
+                },
+            },
+            computed: {
+                // 当计算属性依赖的内容发生变更时，才会重新执行计算
+                total() {
+                    // return this.count * this.price;
+                    return Date.now() + this.count;
+                },
+            },
+            methods: {
+                // 不要用箭头函数
+                handleClick() {
+                    console.log("click", this.message);
+                },
+                formatString(string) {
+                    return string.toUpperCase();
+                },
+                // 只要页面重新渲染，才会重新计算
+                getTotal() {
+                    return Date.now();
+                    // return this.count * this.price;
+                },
+            },
+            // methods:
+            // template: `
+            // <div @click="handleClick">{{formatString(message)}}</div>
+            // `,
+
+            // // computed:
+            // template: `
+            // <div>{{total}}</div>
+            // `,
+
+            // watch:
+            template: `
+            <div>{{newTotal}}</div>
+            `,
+        });
+        const vm = app.mount("#root");
+    </script>
+</html>

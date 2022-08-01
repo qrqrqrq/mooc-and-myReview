@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <script>
+            // 1.常见的类数组的解构赋值：①arguments   ②NodeList
+
+            // arguments:
+            function func() {
+                // 传统方法输出arguments里的值
+                console.log(arguments[0], arguments[1], arguments[2]);
+
+                // 解构赋值输出arguments里的值
+                const [a, b, c] = arguments;
+                console.log(a, b, c);
+            }
+            func(1, 2, 3);
+
+            // NodeList：
+            NodeLists = document.querySelectorAll("div");
+            // 传统方法输出NodeLists里的三个div
+            console.log(NodeLists[0], NodeLists[1], NodeLists[2]);
+            // 解构赋值输出NodeLists里的三个div
+            const [x, y, z] = NodeLists;
+            console.log(x, y, z);
+
+            // 2.函数参数的解构赋值
+
+            const arr = [1, 2];
+            // 传统方法用add()传入数组做参数并计算数组arr的值
+            // const add = (arr) => arr[0] + arr[1];
+            // console.log(add(arr));
+            // 解构赋值方法：
+            const add = ([x = 0, y = 0]) => x + y;
+            console.log(add(arr)); //arr=[1,2]--->[x,y]=[1,2]---->x+y
+            console.log(add([])); //0,undefined的时候使用默认值0
+
+            // 3.交换变量的值
+            let num1 = 1;
+            let num2 = 3;
+            // 普通交换两个值的方法：
+            let temp = num1;
+            num1 = num2;
+            num2 = temp;
+            console.log(num1, num2);
+
+            // 使用解构赋值交换变量
+            [num1, num2] = [num2, num1]; //[num1,num2]=[3,1]
+            console.log(num1, num2);
+        </script>
+    </body>
+</html>

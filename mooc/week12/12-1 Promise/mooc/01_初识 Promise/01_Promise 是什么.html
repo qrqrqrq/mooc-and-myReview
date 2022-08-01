@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+
+            #box {
+                width: 300px;
+                height: 300px;
+                background-color: red;
+                transition: all 0.5s;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box"></div>
+        <script>
+            // 1.认识 Promise,Promise 是异步操作的一种解决方案(回调函数是异步操作)
+            // document.addEventListener("click", () => {
+            //     console.log("我是异步操作");
+            // });
+            // console.log("我是同步操作");
+
+            // 2.什么时候使用 Promise？Promise 一般用来解决层层嵌套的回调函数（回调地狱 callback hell）的问题
+
+            // 一个盒子运动案例体验回调地狱
+
+            // const move = (el, { x = 0, y = 0 } = {}, end = () => {}) => {
+            //     el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+
+            //     el.addEventListener(
+            //         // transitionend 事件会在 CSS transition 结束后触发.
+            //         "transitionend",
+            //         () => {
+            //             end();
+            //         },
+            //         false
+            //     );
+            // };
+
+            // const boxEl = document.querySelector("#box");
+            // document.addEventListener(
+            //     "click",
+            //     () => {
+            //         move(boxEl, { x: 150 }, () => {
+            //             move(boxEl, { x: 150, y: 150 }, () => {
+            //                 move(boxEl, { y: 150 }, () => {
+            //                     move(boxEl, { x: 0, y: 0 });
+            //                 });
+            //             });
+            //         });
+            //     },
+            //     false
+            // );
+
+            // 使用 Promise 解决回调地狱
+            const move = (el, { x = 0, y = 0 } = {}, end = () => {}) => {
+                el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+
+                el.addEventListener(
+                    // transitionend 事件会在 CSS transition 结束后触发.
+                    "transitionend",
+                    () => {
+                        end();
+                    },
+                    false
+                );
+            };
+
+            const boxEl = document.querySelector("#box");
+
+            const movePromise = (el, point) => {
+                return new Promise((resolve) => {
+                    move(el, point, () => {
+                        resolve();
+                    });
+                });
+            };
+
+            document.addEventListener(
+                "click",
+                () => {
+                    movePromise(boxEl, { x: 150 })
+                        .then(() => {
+                            return movePromise(boxEl, { x: 150, y: 150 });
+                        })
+                        .then(() => {
+                            return movePromise(boxEl, { y: 150 });
+                        })
+                        .then(() => {
+                            return movePromise(boxEl, { x: 0, y: 0 });
+                        });
+                },
+                false
+            );
+        </script>
+    </body>
+</html>

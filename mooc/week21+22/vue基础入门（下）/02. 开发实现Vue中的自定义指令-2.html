@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 29</title>
+        <style>
+            .header {
+                position: absolute;
+            }
+        </style>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // // 自定义指令 directive
+
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             top: 150,
+        //         };
+        //     },
+        //     template: `
+        //             <div>
+        //                 <div v-pos="top" class="header">
+        //                 <input/>
+        //                 </div>
+        //             </div>
+        // `,
+        // });
+
+        // // 定义一个全局自定义指令
+        // app.directive("pos", {
+        //     mounted(el, binding) {
+        //         el.style.top = binding.value + "px";
+        //     },
+        //     updated(el, binding) {
+        //         el.style.top = binding.value + "px";
+        //     },
+        // });
+
+        // // 等价于：
+        // app.directive("pos", (el, binding) => {
+        //     el.style.top = binding.value + "px";
+        // });
+
+        // const vm = app.mount("#root");
+
+        // 自定义指令 directive
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    distance: 110,
+                };
+            },
+            template: `
+                    <div>
+                        <div v-pos:right="distance" class="header">
+                        <input />
+                        </div>
+                    </div>
+                    `,
+        });
+
+        app.directive("pos", (el, binding) => {
+            // el.style.right = 110 + "px";
+            el.style[binding.arg] = binding.value + "px";
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

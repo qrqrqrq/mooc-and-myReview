@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 修饰符                  意义
+            // i                不区分大小写搜索
+            // g                全局搜索
+
+            // 修饰符的使用：
+
+            // （1）在正则表达式的第二个/后面写修饰符，可以多个连写
+            var re = /m/gi;
+
+            // （2）new RegExp()形式的正则表达式，以字符串形式写在第二个参数
+            var re = new RegExp("m", "gi");
+        </script>
+    </body>
+</html>

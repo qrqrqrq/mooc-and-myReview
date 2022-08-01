@@ -1,0 +1,15 @@
+@import "mixin";
+.text {
+    // width: 600px;
+    @include singleline-ellipsis(600px);
+    // overflow: hidden;
+    // word-spacing: nowrap;
+    // text-overflow: ellipsis;
+}
+.content-text {
+    @include singleline-ellipsis(1000px);
+    // width: 1000px;
+    // overflow: hidden;
+    // word-spacing: nowrap;
+    // text-overflow: ellipsis;
+}

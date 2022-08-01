@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="box">
+            <p id="fpara">我是段落fpara</p>
+            <p>我是段落A</p>
+            <p id="para">
+                我是段落para
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+            </p>
+            <p>我是段落C</p>
+        </div>
+        <script>
+            var box = document.getElementById("box");
+            var para = document.getElementById("para");
+            var fpara = document.getElementById("fpara");
+
+            // 书写IE6也能兼容的“寻找所有元素子节点”函数,类似children()的功能
+            function getChildren(node) {
+                // 结果数组
+                var children = [];
+                // 遍历node这个节点的所有子节点，判断每一个子节点的nodeType属性是不是1（即为元素节点）
+                // 是1（即为元素节点），就推入结果数组
+                for (var i = 0; i < node.childNodes.length; i++) {
+                    if (node.childNodes[i].nodeType == 1) {
+                        children.push(node.childNodes[i]);
+                    }
+                }
+                return children;
+            }
+            console.log(getChildren(box));
+            console.log(getChildren(para));
+
+            // 书写IE6也能兼容的“寻找前一个元素兄弟节点”函数 类似previousElementSibling()
+            function getElementPreviousSibling(node) {
+                var o = node;
+                // 使用while语句
+                while (o.previousSibling != null) {
+                    if (o.previousSibling.nodeType == 1) {
+                        // 找到前一个元素兄弟节点然后就退出，所以只找到一个
+                        return o.previousSibling;
+                    }
+                    // 让o成为它的前一个结点
+                    // previousSibling也会获得文本结点，所以需要赋值在进行循环
+                    // 这句有点递归的感觉
+                    o = o.previousSibling;
+                }
+                return null;
+            }
+            console.log(getElementPreviousSibling(para));
+            console.log(getElementPreviousSibling(fpara));
+
+            // 如何编写函数，获得某元素的所有的兄弟节点？previousElementSibling()+nextElementSibling()
+            function getAllElementSibling(node) {
+                // 前面的元素兄弟结点
+                var prevs = [];
+                // 后面的元素兄弟结点
+                var nexts = [];
+                var o = node;
+                while (o.previousSibling != null) {
+                    if (o.previousSibling.nodeType == 1) {
+                        prevs.unshift(o.previousSibling);
+                    }
+                    o = o.previousSibling;
+                }
+                o = node;
+                while (o.nextSibling != null) {
+                    if (o.nextSibling.nodeType == 1) {
+                        nexts.push(o.nextSibling);
+                    }
+                    o = o.nextSibling;
+                }
+
+                // 将两个数组进行合并，然后返回
+                return prevs.concat(nexts);
+            }
+            console.log(getAllElementSibling(para));
+        </script>
+    </body>
+</html>

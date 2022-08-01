@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 34</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // Composition API
+        // setup()：在created实例被完全初始化之前执行
+
+        const app = Vue.createApp({
+            template: `
+                        <div @click="handleClick">name:{{name}}</div>
+                        `,
+            methods: {
+                test() {
+                    console.log(this.$options);
+                },
+            },
+            mounted() {
+                this.test();
+            },
+            setup(props, context) {
+                // setup()里不能使用this
+                // this.test()
+                return {
+                    name: "joeyee",
+                    handleClick: () => {
+                        alert(123);
+                    },
+                };
+            },
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

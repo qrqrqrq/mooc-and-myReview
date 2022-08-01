@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <title>lesson 32</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // 对数据做校验的插件
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    name: "joeyee",
+                    age: 18,
+                };
+            },
+            rules: {
+                age: {
+                    validate: (age) => age > 25,
+                    message: "too young , to simple",
+                },
+                name: {
+                    validate: (name) => name.length > 4,
+                    message: "name too short",
+                },
+            },
+            template: `
+                            <div>name:{{name}},age:{{age}}</div>
+                            `,
+        });
+
+        // 定义插件：
+        const validatorPlugin = (app, options) => {
+            app.mixin({
+                created() {
+                    for (let key in this.$options.rules) {
+                        const item = this.$options.rules[key];
+                        this.$watch(key, (value) => {
+                            const result = item.validate(value);
+                            if (!result) {
+                                console.log(item.message);
+                            }
+                            // console.log(key + "changed");
+                        });
+                        // console.log(key, item);
+                    }
+                    // console.log(this.$options.rules);
+                    // console.log("mixin ready");
+                },
+            });
+        };
+
+        app.use(validatorPlugin);
+
+        const vm = app.mount("#root");
+    </script>
+</html>

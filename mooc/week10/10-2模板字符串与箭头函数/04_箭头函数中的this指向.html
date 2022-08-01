@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // !!!划重点箭头函数没有自己的 this
+            // 所以箭头函数中this的指向需要根据作用域链规则向外找this
+
+            // 我的易错题！！！
+            // const calc = {
+            //   add: () => {
+            //     console.log(this);
+            //   }
+            // };
+
+            // 箭头函数没有自己的 this，所以此时要向外找但【对象没有作用域】所以就去找了全局作用域中的this而全局作用域中this指向window
+            // calc.add(); // window
+
+            // 2.练习
+            // 'use strict';
+            const calc = {
+                add: function () {
+                    // this
+                    const adder = () => {
+                        console.log(this);
+                    };
+                    adder();
+                },
+            };
+            // 箭头函数没有自己的 this，向外找，找到了普通函数中作用域的this而此时calc对象调用了普通函数所以此时this指向calc对象
+
+            // calc.add(); // calc
+
+            // 同样箭头函数没有自己的 this，向外找，但这种情况下addFn()没有明确的调用者
+            // 所以在严格模式下是undefined，非严格模式下是window  (undefined->window)
+            const addFn = calc.add;
+            addFn(); // undefined->window
+        </script>
+    </body>
+</html>

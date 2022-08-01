@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0801-闭包高级，对象，构造函数，实例化</title>
+</head>
+<body>
+    <script>
+        /* var person = {
+        name:'joeyee',
+        sex:'female',
+        height:160,
+        weight:108,
+        eat:function(){
+            this.weight++;
+            console.log("eating....",this.weight);
+        },
+        study:function(){
+            this.weight--;
+            console.log("studying....",this.weight);
+        },
+        sleep:function(){
+            console.log("sleeping...");
+        }
+    }
+    // 删除属性
+    delete person.height;
+    // 删除方法：注意！！面试题
+    delete person.sleep //√
+    // delete person.sleep() //×
+
+    person.eat();
+    person.eat();
+    person.study(); */
+
+    /* var attendance  = {
+        students:[],
+        total:3,
+        join:function(name){
+            this.students.push(name);
+            if(this.students.length === this.total){
+                console.log(name + '已到，学生已到齐');
+            }else{
+                console.log(name + '已到，学生未到齐');
+            }
+            console.log(this.students);
+        },
+        leave:function(name){
+            var idx = this.students.indexOf(name);
+            if(idx !== -1){
+                this.students.splice(idx,1);
+                console.log(name + '已早退');
+            }
+            console.log(this.students);
+        },
+        classOver:function () {
+            this.students = [];
+            console.log("已下课");
+        }
+    }
+    attendance.join("joe")
+    attendance.join("yee")
+    attendance.join("joeyee")
+    attendance.leave("joe") */
+
+    // 自定义构造函数,构造函数名规范是大驼峰命名
+    /* function Person(){
+        this.name = "joeyee";
+        this.sex = "female";
+        this.height = 160;
+        this.weight = 108;
+        this.eat = function(){
+            this.weight++;
+            console.log("eating....",this.weight);
+        }
+        this.study = function(){
+            this.weight--;
+            console.log("studying....",this.weight);
+        }
+        this.sleep = function(){
+            console.log("sleeping...");
+        }
+    }
+
+    var girl1 = new Person();
+    var girl2 = new Person();
+
+    girl1.name = "joe"
+
+    console.log(girl,girl2); */
+
+
+    /* function Person(name,sex,height,weight){
+        this.name = name;
+        this.sex = sex;
+        this.height = height;
+        this.weight = weight;
+        this.eat = function(){
+            this.weight++;
+            console.log("eating....",this.weight);
+        }
+        this.study = function(){
+            this.weight--;
+            console.log("studying....",this.weight);
+        }
+        this.sleep = function(){
+            console.log("sleeping...");
+        }
+    }
+
+    var girl1 = new Person("joe","female",175,110);
+    var girl2 = new Person("joeyee","female",158,108);
+
+    console.log(girl1,girl2); */
+
+    // 传参升级版
+    function Person({name,sex,height,weight}){
+        this.name = name;
+        this.sex = sex;
+        this.height = height;
+        this.weight = weight;
+        this.eat = function(){
+            this.weight++;
+            console.log("eating....",this.weight);
+        }
+        this.study = function(){
+            this.weight--;
+            console.log("studying....",this.weight);
+        }
+        this.sleep = function(){
+            console.log("sleeping...");
+        }
+    }
+
+    var girl1 = new Person({
+        name:"joe",
+        sex:"female",
+        height:175,
+        weight:110
+    });
+    var girl2 = new Person({
+        name:"joeyee",
+        sex:"female",
+        height:158,
+        weight:108
+    });
+
+    console.log(girl1,girl2);
+    </script>
+</body>
+</html>

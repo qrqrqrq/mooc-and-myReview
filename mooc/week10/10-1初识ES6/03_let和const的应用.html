@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                padding: 50px 0 0 150px;
+            }
+
+            .btn {
+                width: 100px;
+                height: 100px;
+                margin-right: 20px;
+                font-size: 80px;
+                cursor: pointer;
+            }
+            img {
+                width: 400px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 做一个效果，点击按钮0输出0，点击按钮1输出1，点击按钮2输出2 -->
+        <button class="btn">0</button>
+        <button class="btn">1</button>
+        <button class="btn">2</button>
+        <div>
+            <!-- 方法一图片解释作用域： -->
+            <img src="./图/2.let 和 const 的应用-var.png" alt="" />
+            <!-- 方法二图片解释作用域： -->
+            <img src="./图/3.let 和 const 的应用-闭包.png" alt="" />
+            <!-- 方法三图片解释作用域： -->
+            <img src="./图/4.let 和 const 的应用-let.png" alt="" />
+        </div>
+
+        <script>
+            // 普通方法一：以为能实现效果却没想到实现不了
+            // var btns = document.querySelectorAll(".btn");
+            // for (var i = 0; i < btns.length; i++) {
+            //     btns[i].addEventListener("click", function () {
+            //         console.log(i);
+            //         // 点击每个按钮都只能输出3
+            //     });
+            // }
+            // 理由：for循环没有和let连用不构成独立的块级作用域
+            //点击按钮后click()函数执行形成函数作用域此时会执行匿名function ()函数
+            // 但输出语句中的i在匿名function ()函数没有找到，就向上去全局作用域中找i，此时经过for循环i的值已为3
+
+            // 解决方法一：闭包
+            // var btns = document.querySelectorAll(".btn");
+            // for (var i = 0; i < btns.length; i++) {
+            //     (function (index) {
+            //         btns[index].addEventListener("click", function () {
+            //             console.log(index);
+            //             // 点击按钮0输出0，点击按钮1输出1，点击按钮2输出2
+            //         });
+            //     })(i);
+            // }
+
+            // 解决办法二：let关键字
+            let btns = document.querySelectorAll(".btn");
+            // for循环和let形成了块级作用域
+            for (let i = 0; i < btns.length; i++) {
+                btns[i].addEventListener("click", function () {
+                    console.log(i);
+                    // 点击按钮0输出0，点击按钮1输出1，点击按钮2输出2
+                });
+            }
+        </script>
+    </body>
+</html>

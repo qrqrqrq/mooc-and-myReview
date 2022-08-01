@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // 按键修饰符：enter, tab, delete, esc, up, down, left, right
+        // 鼠标修饰符：left, right, middle
+        // 精确修饰符：exact
+        const app = Vue.createApp({
+            data() {
+                return {
+                    counter: 0,
+                };
+            },
+            methods: {
+                handleKeyDown() {
+                    alert("KeyDown");
+                },
+                handleClick() {
+                    alert("click");
+                },
+            },
+            //当按下enter键后才会执行handleKeyDown()
+            // tab, delete, esc, up, down, left, right同理
+            // template: `
+            //     <div>
+            //         <input @keydown.enter="handleKeyDown"/>
+            //     </div>
+            // `,
+
+            // 鼠标修饰符：left, right, middle
+            // template: `
+            //     <div>
+            //         <div @click.right="handleClick">123<div/>
+            //     </div>
+            // `,
+
+            // 精确修饰符：exact
+            // 只有按住crtl这一个键才能触发事件，按ctrl组合键则不会触发事件
+            template: `
+                <div>
+                    <div @click.ctrl.exact="handleClick">123<div/>
+                </div>
+            `,
+        });
+        const vm = app.mount("#root");
+    </script>
+</html>

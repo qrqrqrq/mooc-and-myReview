@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 函数的上下文由调用方式决定,函数只有被调用它的上下文才能被确定
+            var obj = {
+                a: 1,
+                b: 2,
+                fn: function () {
+                    console.log(this.a + this.b);
+                    console.log(this === obj);
+                    console.log(this === window);
+                },
+            };
+            var a = 4;
+            console.log(window.a == a); //true
+            var b = 9;
+
+            // 情形1：对象打点调用函数，函数中的this指代这个打点的对象
+            obj.fn(); //3，true,false
+
+            // 情形2：圆括号直接调用函数(即函数名())，函数中的this指代window对象
+            // 全局变量会成为 window 对象的属性。
+            // 将fn函数提炼出来存到变量里,此时的this.a即为window.a故结果为13
+            var fn = obj.fn; //13，false,true
+            fn();
+        </script>
+    </body>
+</html>

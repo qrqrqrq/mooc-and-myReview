@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.认识 Class:类可以看做是对象的模板，用一个类可以创建出许多不同的对象
+
+            // 2.Class 的基本用法,类名一般大写
+            // class Person{}   √
+            // class Person(){} ×
+            // class Person{};  ×
+
+            class Person {
+                // 实例化时执行构造方法，所以必须有构造方法，但可以不写出来
+                constructor(name, age) {
+                    // console.log("实例化时执行构造方法");
+
+                    // this代表实例对象，上面定义的是实例属性/方法
+                    this.name = name;
+                    this.age = age;
+
+                    // 一般在构造方法中定义属性，方法不在构造方法中定义
+                    // this.speak = () => {};
+                }
+
+                // 各实例共享的方法：
+                speak() {
+                    console.log("speak");
+                }
+            }
+            // 构造方法中定义的方法会开辟不同的内存空间
+            //console.log(zs.speak === ls.speak); //false
+
+            // 各实例共享的方法
+            console.log(zs.speak === ls.speak); //true
+
+            const zs = new Person("ZS", 18);
+            console.log(zs.name, zs.age);
+            console.log(zs.speak);
+            const ls = new Person("LS", 18);
+            console.log(ls.name, ls.age);
+            console.log(ls.speak);
+
+            // 3.Class 与构造函数
+
+            // class
+            class Person1 {
+                constructor(name, age) {
+                    this.name = name;
+                    this.age = age;
+                    // this.speak = () => {};
+                }
+                speak() {
+                    console.log("speak");
+                }
+            }
+
+            console.log(typeof Person1); //function
+            console.log(Person1.prototype.speak);
+
+            // 构造函数
+            function Person2(name, age) {
+                this.name = name;
+                this.age = age;
+                // this.speak = () => {};
+            }
+            Person2.prototype.speak = function () {
+                console.log("speak");
+            };
+        </script>
+    </body>
+</html>

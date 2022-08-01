@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 定时器、延时器直接调用函数，上下文是window对象
+            // setInterval(函数, 时间);
+            // setTimeout(函数, 时间);
+
+            // 例题一：
+            var obj = {
+                a: 1,
+                b: 2,
+                fun: function () {
+                    console.log(this.a + this.b);
+                },
+            };
+            var a = 3;
+            var b = 4;
+            // 定时器直接调用函数
+            setTimeout(obj.fun, 2000); //3+4=7
+
+            // 例题二：
+            var obj = {
+                a: 1,
+                b: 2,
+                fun: function () {
+                    console.log(this.a + this.b);
+                },
+            };
+            var a = 3;
+            var b = 4;
+            // 定时器直接调用了匿名函数，匿名函数执行后调用了obj.fun()
+            // 所以此时obj.fun()不是直接由定时器调用的
+            // 此题符合的是规则一
+            setTimeout(function () {
+                obj.fun();
+            }, 2000); //1+2=3
+        </script>
+    </body>
+</html>

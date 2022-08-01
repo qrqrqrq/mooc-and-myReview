@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>lesson 19</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // // 父模版里调用的数据属性，使用的都是父模版里的数据
+        // // 子模版里调用的数据属性，使用的都是子模版里的数据
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             text: "提交-父模板数据",
+        //         };
+        //     },
+        //     // slot插槽
+        //     template: `
+        //         <myform>
+        //             <div>{{text}}</div>
+        //         </myform>
+        //         <myform>
+        //             <button>{{text}}</button>
+        //         </myform>
+        //         <myform>
+        //         </myform>
+        //     `,
+        // });
+
+        // app.component("myform", {
+        //     methods: {
+        //         handleClick() {
+        //             alert(123);
+        //         },
+        //     },
+        //     // slot插槽上不能绑定事件，解决办法，将slot用span包裹，在span上绑定事件
+        //     // slot插槽默认值设置：<slot>default value</slot>
+        //     template: `
+        //         <div>
+        //             <input/>
+        //             <span @click="handleClick">
+        //                 <slot>default value</slot>
+        //             </span>
+        //         </div>
+        //         `,
+        // });
+
+        // 具名插槽；将大插槽拆分成几部分并命名。每个小部分就是具名插槽
+        // const vm = app.mount("#root");
+        // 父模版里调用的数据属性，使用的都是父模版里的数据
+        // 子模版里调用的数据属性，使用的都是子模版里的数据
+        const app = Vue.createApp({
+            // slot插槽
+            template: `
+                <layout>
+                    <template v-slot:header>
+                        <div>header</div>
+                    </template>
+                    <template v-slot:footer>
+                        <div>footer</div>
+                    </template>
+                </layout>
+            `,
+        });
+
+        app.component("layout", {
+            // slot插槽上不能绑定事件，解决办法，将slot用span包裹，在span上绑定事件
+            // slot插槽默认值设置：<slot>default value</slot>
+            template: `
+                <div>
+                    <slot name="header"></slot>
+                    <div>content</div>
+                    <slot name="footer"></slot>
+                </div>
+                `,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

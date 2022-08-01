@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>export 和对应的 import</title>
+    </head>
+    <body>
+        <script type="module">
+            /// export 声明或语句
+            // 导出方法一：
+            // export const age = 18;
+
+            // 导出方法二：
+            // const age = 18;
+            // export { age }; //√
+            // // export age;//×
+
+            // 导入方法：
+
+            // age  不能随便命名，要和导出的名字对上
+            // import { age } from "./module.js";
+            // console.log(age);
+
+            // import aaa from "./module.js";//对应 export default
+
+            // 多个分别导入
+            // import { fn } from "./module.js";
+            // console.log(fn);
+            // import { className } from "./module.js";
+            // console.log(className);
+
+            // 多个一起导入
+            // import { age, fn, className } from "./module.js";
+            // console.log(age, fn, className); //18 ƒ fn() {} class className {}
+
+            // 导入导出时起别名
+            // export { fn as func, className, age };
+            // import { age, func, className as Person } from "./module.js";
+            // console.log(age, func, Person);
+
+            // 整体导入（export和export default导出都是存在的）
+            // import obj from "./module.js"; //Uncaught SyntaxError: The requested module './module.js' does not provide an export named 'default'
+
+            // import * as obj from "./module.js";
+            // console.log(obj);
+
+            // 同时导入
+
+            // import { age, func, className } from "./module.js";
+            // import age2 from "./module.js";
+
+            // 等价于：
+            // 一定是 export default 的在前
+            import age2, { age, func, className } from "./module.js";
+            // import { func, age, className },age2 from './module.js'; ×
+            console.log(age2);
+        </script>
+    </body>
+</html>

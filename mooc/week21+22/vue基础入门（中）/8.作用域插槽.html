@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>lesson 19</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // const app = Vue.createApp({
+        //     // 具名插槽的简写：v-slot:header--->#header
+        //     template: `
+        //         <layout>
+        //             <template v-slot:header>
+        //                 <div>header</div>
+        //             </template>
+        //             <template #footer>
+        //                 <div>footer</div>
+        //             </template>
+        //         </layout>
+        //     `,
+        // });
+
+        // app.component("layout", {
+        //     template: `
+        //         <div>
+        //             <slot name="header"></slot>
+        //             <div>content</div>
+        //             <slot name="footer"></slot>
+        //         </div>
+        //         `,
+        // });
+
+        // const vm = app.mount("#root");
+
+        // 作用域插槽
+
+        const app = Vue.createApp({
+            template: `
+                <list v-slot="slotProps">
+                    <span>{{slotProps.item}}</span>
+                <list/>
+                `,
+        });
+
+        app.component("list", {
+            data() {
+                return { list: [1, 2, 3] };
+            },
+            template: `
+                <div>
+                    <slot v-for="item in list" :item="item"/>
+                </div>
+                `,
+        });
+
+        const vm = app.mount("#root");
+    </script>
+</html>

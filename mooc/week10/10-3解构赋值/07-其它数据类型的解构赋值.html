@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.字符串的解构赋值:字符串既可以按数组形式来解构赋值，也可以按对象形式来解构赋值
+            // 数组形式来解构赋值:
+            const [a, b, , , c] = "Hello";
+            console.log(a, b, c); //H e o
+            // 对象形式来解构赋值:
+            const { 0: d, 1: e, length } = "Hello";
+            console.log(d, e, length); //H e 5
+
+            // 2.数值和布尔值的解构赋值:先将等号右边的值转为对象
+            // console.log(new Number(123));
+            // const { a = 1, toString } = 123;
+            // console.log(a, toString);
+
+            // const { b = 2, toString } = true;
+            // console.log(b, toString);
+
+            // 3.undefined 和 null 的解构赋值:由于 undefined 和 null 无法转为对象，所以对它们进行解构赋值，都会报错
+            // const { toString } = undefined;
+            const { toString } = null;
+        </script>
+    </body>
+</html>

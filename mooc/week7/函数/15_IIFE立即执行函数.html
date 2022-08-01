@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // IIFE（Immediately Invoked Function Expression，立即
+            // 调用函数表达式）是一种特殊的JavaScript函数写法，一旦
+            // 被定义，就立即被调用。
+
+            // IIFE的作用1 - 为变量赋值
+            // 为变量赋值：当给变量赋值需要一些较为复杂的计算时（如if语句），使用IIFE显得语法更紧凑。
+            var age = 12;
+            var sex = "男";
+            var title;
+            if (age < 18) {
+                title = "小朋友";
+            } else {
+                if (sex == "男") {
+                    title = "男士";
+                } else {
+                    title = "女士";
+                }
+            }
+            console.log(title);
+
+            // 改进
+            var age = 12;
+            var sex = "男";
+            var title = (function () {
+                if (age < 18) {
+                    return "小朋友";
+                } else {
+                    if (sex == "男") {
+                        return "男士";
+                    } else {
+                        return "女士";
+                    }
+                }
+            })();
+            console.log(title);
+
+            // IIFE的作用2 - 将全局变量变为局部变量
+            // IIFE可以在一些场合（如for循环中）将全局变量变为局部变量，语法显得紧凑。
+            var arr = [];
+            for (var i = 0; i < 5; i++) {
+                arr.push(function () {
+                    // 变量i是全局变量，所有函数都共享内存中的同一个变量i
+                    alert(i);
+                });
+            }
+            arr[0](); //5
+            arr[2](); //5
+            console.log(arr);
+
+            // 改进
+            var arr = [];
+            for (var i = 0; i < 5; i++) {
+                (function (i) {
+                    // push() 方法用来在数组末尾推入新项，参数就是要推入的项。
+                    // 调用 push()方法后，数组会立即改变，不需要赋值。
+                    // 每次循环推入一个函数
+                    arr.push(function () {
+                        // 变量i是全局变量，所有函数都共享内存中的同一个变量i
+                        alert(i);
+                    });
+                })(i);
+            }
+            arr[0](); //0
+            arr[2](); //2
+        </script>
+    </body>
+</html>

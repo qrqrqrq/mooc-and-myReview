@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script src="https://unpkg.com/vue@next"></script>
+        <style>
+            .red {
+                color: red;
+            }
+            .green {
+                color: greenyellow;
+            }
+            .brown {
+                color: brown;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        const app = Vue.createApp({
+            // 控制样式
+            data() {
+                return {
+                    classString: "red",
+                    classObject: { red: false, green: true },
+                    classArray: ["red", "green", { brown: true }],
+                };
+            },
+            // 父组件，调用者
+            // 子组件最外层只有一个节点，样式写法②
+            // template: `
+            // <div v-bind:class="classString">Hello joeyee<demo class="green"/></div>
+            // `,
+
+            // 子组件最外层不仅有一个节点，这样写样式不生效
+            // template: `
+            // <div v-bind:class="classString">Hello joeyee<demo class="green"/></div>
+            // `,
+
+            // 子组件最外层不仅有一个节点，样式写法②  第二步：
+            template: `
+            <div v-bind:class="classString">Hello joeyee<demo class="green"/></div>
+            `,
+        });
+        // 子组件，被调用
+        // 子组件最外层只有一个节点，样式写法①
+        // app.component("demo", {
+        //     template: `<div class="green">single</div>`,
+        // });
+
+        // 子组件最外层不仅一个节点，样式写法①
+        // app.component("demo", {
+        //     template: `
+        //     <div class="green">one</div>
+        //     <div class="green">two</div>
+        //     `,
+        // });
+
+        // 子组件最外层不仅有一个节点，样式写法②  第一步：
+        app.component("demo", {
+            template: `
+            <div :class="$attrs.class">one</div>
+            <div v-bind:class="$attrs.class">two</div>
+            `,
+        });
+        const vm = app.mount("#root");
+    </script>
+</html>

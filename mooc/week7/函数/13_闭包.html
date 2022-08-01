@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 创建一个函数
+            function fun() {
+                // 定义局部变量
+                var name = "慕课网";
+                // 返回一个局部函数
+                return function () {
+                    alert(name);
+                };
+            }
+            // 调用外部函数，就能得到内部函数，用变量inn来接收
+            var inn = fun();
+            // 执行inn函数，就相当于在fun函数的外部，执行了内部函数
+            inn();
+
+            // 闭包的功能：记忆性、模拟私有变量。
+            // 1.闭包用途1-闭包的记忆性:
+            // 当闭包产生时，函数所处环境的状态会始终保持在内存中，不会在外层函数调用后被自动清除。
+
+            // 案例：
+            // 创建体温检测函数checkTemp(n)，可以检查体温n是否正常，函数会返回布尔值。
+            // 但是，不同的小区有不同的体温检测标准，比如A小区体温合格线是37.1℃，而B小区体温合格线是37.3℃，应该怎么编程呢？
+
+            function createCheckTemp(standardTemp) {
+                function checkTemp(n) {
+                    if (n <= standardTemp) {
+                        alert("你的体温正常");
+                    } else {
+                        alert("你的体温偏高");
+                    }
+                }
+                return checkTemp;
+            }
+            // A小区体温合格线是37.1℃
+            var checkTempA = createCheckTemp(37.1);
+            // B小区体温合格线是37.3℃
+            var checkTempB = createCheckTemp(37.3);
+            checkTempA(36.5);
+            checkTempA(37.5);
+            checkTempB(37.2);
+            checkTempB(37.5);
+
+            // 2.闭包用途2 -模拟私有变量
+
+            // 案例：
+            // 请定义一个变量a，要求是能保证这个a只能被进行指定操作（如加1、乘2），而不能进行其他操作，应该怎么编程呢
+            // 封装一个函数，功能是私有化变量
+
+            function fun() {
+                // 定义一个局部变量a
+                var a = 0;
+                return function () {
+                    return a;
+                };
+            }
+            var funA = fun();
+            console.log(funA());
+
+            // 改进
+            function fun() {
+                // 定义一个局部变量a
+                var a = 7;
+                // 返回一个对象
+                return {
+                    getA: function () {
+                        return a;
+                    },
+                    add: function () {
+                        return a++;
+                    },
+                    pow: function () {
+                        return (a *= 2);
+                    },
+                };
+            }
+            var obj = fun();
+            console.log(obj.getA());
+            console.log(obj.pow());
+        </script>
+    </body>
+</html>

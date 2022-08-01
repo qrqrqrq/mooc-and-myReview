@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script>
+        // const app = Vue.createApp({
+        //     data() {
+        //         return {
+        //             message: "未选中",
+        //         };
+        //     },
+        //     template: `
+        //         <div>
+        //             {{message}}
+        //             <input type="checkbox" v-model="message" true-value="选中了" false-value="未选中"/>
+        //         </div>
+        //     `,
+        // });
+        // const vm = app.mount("#root");
+
+        // 修饰符 lazy, number, trim
+        const app = Vue.createApp({
+            data() {
+                return {
+                    // message:"未选中"
+                    // message: "123",
+                    message: "joeyee",
+                };
+            },
+            // lazy:默认情况下，v-model在每个事件之后将输入与数据同步（上述inputIME 组合除外）。您可以添加修饰符以改为在事件后同步
+            // template: `
+            //     <div>
+            //         {{message}}
+            //         <input v-model.lazy="message"/>
+            //     </div>
+            // `,
+
+            // number:如果您希望用户输入自动转换为数字，您可以将number修饰符添加到v-model托管输入
+            // template: `
+            //     <div>
+            //         {{typeof message}}
+            //         <input v-model.number="message" type="number"/>
+            //     </div>
+            // `,
+
+            //trim:如果您希望自动修剪用户输入前后的空白，您可以将trim修饰符添加到您的v-model-managed 输入中：
+            template: `
+                <div>
+                    {{message}}
+                    <input v-model.trim="message" />
+                </div>
+            `,
+        });
+        const vm = app.mount("#root");
+    </script>
+</html>

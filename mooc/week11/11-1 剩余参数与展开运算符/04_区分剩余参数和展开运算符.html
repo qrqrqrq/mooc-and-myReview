@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.根本区别:
+            // 展开运算符:[3,1,2]->3,1,2            剩余参数: 3,1,2->[3,1,2]
+
+            // 2.区分剩余参数和展开运算符
+            // 剩余参数
+            const add = (...args) => {
+                console.log(args);
+            };
+            add(1, 2, 3); //[1,2,3]
+
+            // 展开运算符
+            console.log([...[1, 2, 3], 4]); //[1,2,3,4]
+        </script>
+    </body>
+</html>

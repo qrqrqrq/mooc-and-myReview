@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 量词                                意义
+            // *                   匹配前一个表达式0次或多次。等价于{0,}
+            // +                   匹配前面一个表达式1次或者多次。等价于{1,}
+            // ?                   匹配前面一个表达式0次或者1次。等价于{0,1}
+            // {n}                 n是一个正整数，匹配了前面一个字符刚好出现了n次
+            // {n,}                n是一个正整数，匹配前一个字符至少出现了n次
+            // {n,m}               n和m都是整数。匹配前面的字符至少n次，最多m次
+
+            // 题目1：请验证字符串是否符合手机号码的规则：11位数字 ，并且肯定以1开头
+            var regexp1 = /^1\d{10}$/;
+            var str1 = "13625847541";
+            var str11 = "136258475413";
+            console.log(regexp1.test(str1)); //true
+            console.log(regexp1.test(str11)); //false
+            // 题目2：请验证某字符串是否是这样的：以字母开头，中间是任意位数字（最少1位）构成，并以字母结尾
+            // {1,}==+
+            var regexp2 = /^[A-Za-z]\d{1,}[A-Za-z]$/;
+            var str2 = "r12p";
+            var str22 = "r12po";
+            console.log(regexp2.test(str2)); //true
+            console.log(regexp2.test(str22)); //false,结尾只匹配一位字母
+
+            // 题目3：请验证某字符串是否符合网址规则：以www.开头，中间是任意位的字符（字母数字下划线,至少一位），最后以.com结尾 ，也可以以.com.cn结尾
+            var regexp3 = /^www\.\w+\.com(\.cn)?$/;
+            var str3 = "www.baidu.com";
+            var str33 = "www.sina.com.cn";
+            var str333 = "www.753_.cn";
+
+            console.log(regexp3.test(str3)); //true
+            console.log(regexp3.test(str33)); //true
+            console.log(regexp3.test(str333)); //false
+        </script>
+    </body>
+</html>

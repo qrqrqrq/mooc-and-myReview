@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .warning {
+                color: red;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <p>
+                请输入中文姓名：
+                <input type="text" id="nameField" />
+                <span class="warning" id="nameWarning">您输入的姓名不合法</span>
+            </p>
+            <p>
+                请输入手机号码：
+                <input type="text" id="telField" />
+                <span class="warning" id="telWarning">您输入的手机号码不合法</span>
+            </p>
+            <p>
+                请输入E-mail地址：
+                <input type="text" id="emailField" />
+                <span class="warning" id="emailWarning">您输入的邮箱地址不合法</span>
+            </p>
+        </div>
+        <script>
+            var nameField = document.querySelector("#nameField");
+            var nameWarning = document.querySelector("#nameWarning");
+            var telField = document.querySelector("#telField");
+            var telWarning = document.querySelector("#telWarning");
+            var emailField = document.querySelector("#emailField");
+            var emailWarning = document.querySelector("#emailWarning");
+
+            nameField.addEventListener("blur", function () {
+                var name = nameField.value;
+                // 通过校验
+                if (/^[\u4e00-\u9fa5]{2,4}$/.test(name)) {
+                    nameWarning.style.display = "none";
+                } else {
+                    nameWarning.style.display = "inline";
+                }
+            });
+
+            telField.addEventListener("blur", function () {
+                var name = telField.value;
+                // 通过校验
+                if (/^1\d{10}$/.test(name)) {
+                    telWarning.style.display = "none";
+                } else {
+                    telWarning.style.display = "inline";
+                }
+            });
+
+            emailField.addEventListener("blur", function () {
+                var name = emailField.value;
+                // 通过校验
+                if (/^\w{2,}\@\w{2,}\.[a-z]{2,4}(\.[a-z]{2,4})?$/.test(name)) {
+                    emailWarning.style.display = "none";
+                } else {
+                    emailWarning.style.display = "inline";
+                }
+            });
+        </script>
+    </body>
+</html>

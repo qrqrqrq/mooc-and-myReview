@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>双飞翼布局</title>
+        <style>
+            .main {
+                /* 宽度100% */
+                width: 100%;
+                background-color: blueviolet;
+            }
+            /* margin要加这里！ */
+            .main-wrap {
+                margin: 0 150px;
+            }
+            .left {
+                width: 150px;
+                background-color: aquamarine;
+                margin-left: -100%;
+            }
+            .right {
+                width: 150px;
+                background-color: pink;
+                /* 这里要注意！！ */
+                margin-left: -150px;
+            }
+            /* main里的 column加的位置要注意 */
+            .colmun {
+                float: left;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main colmun">
+            <div class="main-wrap">This is main</div>
+        </div>
+        <div class="left colmun">This is left</div>
+        <div class="right colmun">This is right</div>
+    </body>
+</html>

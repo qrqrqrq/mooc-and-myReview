@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.展开对象:对象不能直接展开，必须在 {} 中展开
+            const apple = {
+                color: "红色",
+                shape: "圆形",
+                taste: "甜",
+            };
+            console.log({ ...apple });
+            // 对象的展开：把属性罗列出来，用逗号分隔，放到一个 {} 中，构成新对象
+            // console.log({ ...apple });
+            // console.log({ ...apple } === apple);
+
+            // 2.合并对象,新对象拥有全部属性，相同属性，后者覆盖前者
+            const pen = {
+                color: "黑色",
+                shape: "圆柱形",
+                use: "写字",
+            };
+            console.log({ ...apple, ...pen });
+            // {
+            //     "color": "黑色",
+            //     "shape": "圆柱形",
+            //     "taste": "甜",
+            //     "use": "写字"
+            // }
+        </script>
+    </body>
+</html>

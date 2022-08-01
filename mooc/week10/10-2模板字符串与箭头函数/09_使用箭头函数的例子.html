@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                padding: 50px 0 0 250px;
+                font-size: 30px;
+            }
+
+            #btn {
+                width: 100px;
+                height: 100px;
+                margin-right: 20px;
+                font-size: 30px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="btn">开始</button>
+        <span id="result">0</span>
+        <script>
+            const btn = document.getElementById("btn");
+            const result = document.getElementById("result");
+
+            // const timer = {
+            //     time: 0,
+            //     start: function () {
+            //         btn.addEventListener(
+            //             "click",
+            //             function () {
+            //                 setInterval(function () {
+            //                     console.log(this); //window
+            //                     // 我们想要的是this指向timer，timer.time++
+            //                     this.time++;
+            //                     result.innerHTML = this.time; //NaN
+            //                 }, 1000);
+            //             },
+            //             false
+            //         );
+            //     },
+            // };
+            // timer.start();
+
+            //改进方法一：
+            // const timer = {
+            //     time: 0,
+            //     start: function () {
+            //         //console.log(this);//timer对象
+            //         var self = this;//timer对象保存一下
+            //         btn.addEventListener(
+            //             "click",
+            //             function () {
+            //                 setInterval(function () {
+            //                     console.log(this); //window
+            //                     // 我们想要的是this指向timer，timer++
+            //                     self.time++;
+            //                     result.innerHTML = self.time; //成功！！
+            //                 }, 1000);
+            //             },
+            //             false
+            //         );
+            //     },
+            // };
+            // timer.start();
+
+            // 改进方法二：利用箭头函数没有自己this指向这一点！！
+            const timer = {
+                time: 0,
+                start: function () {
+                    btn.addEventListener(
+                        "click",
+                        () => {
+                            setInterval(() => {
+                                //箭头函数没有this指向，向上找还是箭头函数没有this指向，向上找，找到start(),是timer调用的可以！！就是我们要的this
+                                console.log(this);
+                                // 我们想要的是this指向timer，timer++
+                                this.time++;
+                                result.innerHTML = this.time; //NaN
+                            }, 1000);
+                        },
+                        false
+                    );
+                },
+            };
+            timer.start();
+        </script>
+    </body>
+</html>

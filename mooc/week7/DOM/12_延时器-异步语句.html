@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <button id="btn1">2秒后弹出你好</button>
+        <button id="btn2">取消弹出你好</button>
+        <script>
+            var btn1 = document.querySelector("#btn1");
+            var btn2 = document.querySelector("#btn2");
+            var timer;
+
+            btn1.addEventListener("click", function () {
+                // setTimeout()函数可以设置一个延时器
+                // 当指定时间到了之后，会执行函数一次，不再重复执行
+                timer = setTimeout(function () {
+                    console.log("你好");
+                }, 2000);
+            });
+            btn2.addEventListener("click", function () {
+                clearTimeout(timer);
+            });
+        </script>
+    </body>
+</html>

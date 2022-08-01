@@ -1,0 +1,12 @@
+.header {
+    span {
+        color: aqua;
+        // 父选择器的标识符&
+        &:active {
+            color: green;
+        }
+        &:hover {
+            color: red;
+        }
+    }
+}

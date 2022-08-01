@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 数组（类数组对象）枚举出函数进行调用(即数组[下标]())，上下文是这个数组（类数组对象）
+
+            // 例题一：
+            var arr = [
+                "A",
+                "B",
+                "C",
+                function () {
+                    console.log(this[0]);
+                },
+            ];
+            arr[3](); //'A'
+
+            // 例题二：类数组对象 arguments
+
+            // 定义fun函数
+            function fun() {
+                // 此处使用arguments对象
+                arguments[3]();
+            }
+            // 调用fun函数时，传四个参数
+            fun("A", "B", "C", function () {
+                console.log(this[1]); //'B'
+            });
+        </script>
+    </body>
+</html>

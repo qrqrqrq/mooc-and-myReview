@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 写一个构造函数，函数名大写是约定熟成
+            // 任何函数都可以是构造函数，只需要用new调用它
+            function People(name, age, sex) {
+                // 构造函数中的this不是函数本身
+
+                // 构造函数用new调用时：
+                // 1.会先创建一个空对象，
+                // 2.this会指向这个空对象
+                // 3.然后构造函数体内语句执行
+                // 4.函数会自动返回上下文对象，即使函数没有return语句
+                this.name = name;
+                this.age = age;
+                this.sex = sex;
+                this.sayHello = function () {
+                    console.log("你好，我是" + this.name + "我今年" + this.age + "岁了" + "我是" + this.sex + "生");
+                };
+                this.sleep = function () {
+                    console.log(this.name + "开始睡觉zzzzz");
+                };
+            }
+            var xiaoming = new People("小明", 15, "男");
+            var xiaohong = new People("小红", 16, "女");
+            var xiaogang = new People("小刚", 17, "男");
+
+            xiaogang.sayHello();
+            xiaohong.sleep();
+        </script>
+    </body>
+</html>

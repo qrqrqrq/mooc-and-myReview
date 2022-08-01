@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h2 id="info"></h2>
+        <script>
+            var info = document.getElementById("info");
+            var td = new Date("2022-6-7 00:00:00");
+            down();
+            // 定时器
+            setInterval(down, 1000);
+
+            function down() {
+                // 现在的日期
+                var nd = new Date();
+                // 目标的日期，5表示六月
+                // var td = new Date(2022,5,7);
+                // 秒差
+                var diff = (td - nd) / 1000;
+
+                // 任务很简单，就是把diff换算为天、小时、分钟、秒
+                // 换算为多少天，除以一天的总毫秒数，不就是换算为多少天么
+                var day = parseInt(diff / 60 / 60 / 24);
+                day = day < 10 ? "0" + day : day;
+                // 零多少小时呢？
+                var hours = parseInt((diff / 60 / 60) % 24);
+                hours = hours < 10 ? "0" + hours : hours;
+                // 零多少分钟呢？
+                var minutes = parseInt((diff / 60) % 60);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                // 零多少秒呢？
+                var seconds = parseInt(diff % 60);
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                info.innerHTML = day + "天" + hours + "时" + minutes + "分" + seconds + "秒";
+            }
+        </script>
+    </body>
+</html>

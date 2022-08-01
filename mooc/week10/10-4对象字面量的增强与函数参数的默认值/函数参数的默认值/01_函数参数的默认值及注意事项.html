@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 1.认识函数参数的默认值:调用函数的时候传参了，就用传递的参数；如果没传参，就用默认值
+
+            // 2.函数参数默认值的基本用法；
+
+            // 旧写法
+            // const multiply = (x, y) => {
+            //   if (typeof y === 'undefined') {
+            //     y = 1;
+            //   }
+
+            //   return x * y;
+            // };
+
+            // 新写法：
+            const multiply = (x, y = 1) => x * y;
+            console.log(multiply(2));
+
+            // 3.默认值的生效条件：不传参数，或者明确的传递 undefined 作为参数，只有这两种情况下，默认值才会生效
+            const add = (a, b = 1) => a + b;
+            console.log(add(5, 3)); //8
+            console.log(add(5, 0)); //5
+            console.log(add(5, undefined)); //6
+            console.log(add(5)); //6
+
+            // 4.默认值表达式:如果默认值是表达式，默认值表达式是惰性求值的
+            const func = () => 4;
+            const add1 = (c, d = 1) => c + d;
+            console.log(add1(5, func())); //9
+            console.log(add1(5)); //6
+
+            // 5.设置默认值的小技巧：函数参数的默认值，最好从参数列表的右边开始设置,这样方便省略undefined
+            // const multiply = (x = 1, y) => x * y;
+            // console.log(multiply(undefined, 2));
+
+            // const multiply = (x, y = 1) => x * y;
+            // console.log(multiply(2));
+        </script>
+    </body>
+</html>

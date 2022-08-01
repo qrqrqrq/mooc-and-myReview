@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 回顾01_认识对象做的笔记！！！
+            // 属性名的访问方式2中：属性名存储在变量中，此时想要访问这个属性就需要使用：对象[变量名]
+            const person = {};
+            const prop = "age";
+            person[prop] = 18; //age:18 √ 是想要的效果
+            person.prop = 18; //prop:18 ×
+            console.log(person);
+
+            // 方括号语法可以写在对象字面量中
+            // const person = {
+            //   [prop]: 18
+            // };
+
+            // 方括号中可以放什么？ [值或通过计算可以得到值的（表达式）]
+            const prop1 = "age";
+            const func = () => "age1";
+            const person1 = {
+                [prop1]: 18,
+                [func()]: 20,
+                ["s" + "ex"]: "female",
+            };
+            console.log(person1);
+
+            // 3.方括号语法和点语法的区别
+            // 当你的属性或方法名是合法标识符(由数字、字母、下划线以及 $ 构成，并且数字还不能打头)时，可以使用点语法，其他情况下请使用方括号语法
+
+            let prop2 = "sex";
+            const person2 = {};
+            // person2["age2"] = "18";
+            person2.age2 = 18; //和person2["age2"]=18等价
+            person2["favourite-book"] = "西游记"; //属性名不符合JS标识符命名规范,此时要访问这个属性
+            person2[prop2] = "female"; //属性名存储在变量中，此时想要访问这个属性就需要使用
+            console.log(person2);
+        </script>
+    </body>
+</html>
