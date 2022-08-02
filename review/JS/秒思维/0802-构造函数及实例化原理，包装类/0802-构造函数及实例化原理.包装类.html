@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0802-构造函数及实例化原理，包装类</title>
+</head>
+<body>
+    <script>
+        //构造函数没有实例化时,this指向的是window;
+        // 构造函数实例化后，this指向实例化后的对象而非构造函数
+        function Car(color,brand) {
+            this.color = color;
+            this.brand = brand;
+        }
+
+        var car1 = new Car('red','Benz');
+        var car2 = new Car('black','Mazda');
+        console.log(car1.color);
+        console.log(car2.color);
+    </script>
+</body>
+</html>

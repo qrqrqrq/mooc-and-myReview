@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="myGet">get</button>
+    <button id="myPost">post</button>
+    <button id="myPut">put</button>
+    <button id="myPatch">patch</button>
+    <button id="myDelete">delete</button>
+
+
+    <script>
+    // GET请求
+        document.getElementById('myGet').onclick = function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://localhost:3000/users", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(JSON.parse(xhr.responseText));
+                }
+            }
+            xhr.send();
+        }
+    // Post请求
+        document.getElementById('myPost').onclick = function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:3000/users", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(JSON.parse(xhr.responseText));
+                }
+            }
+
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded")//name=joeyee&age=18
+            xhr.send(`
+                username = lisa & password = 147123
+            `);
+        }
+    </script>
+</body>
+
+</html>

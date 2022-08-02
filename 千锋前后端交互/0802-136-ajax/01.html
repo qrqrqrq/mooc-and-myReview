@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.创建XHR
+        var xhr = new XMLHttpRequest();
+        // 2.配置open(请求方式，请求地址，是否异步)
+        xhr.open("GET","http://127.0.0.1:5500/%E5%8D%83%E9%94%8B%E5%89%8D%E5%90%8E%E7%AB%AF%E4%BA%A4%E4%BA%92/136-ajax/1.json")
+        // 3.send
+        xhr.send()
+        // 4.接受数据，注册一个事件
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4 && xhr.status === 200){
+                console.log("数据解析完成",JSON.parse(xhr.responseText));
+                document.write(JSON.parse(xhr.responseText).name)
+            }
+        }
+
+        // xhr.readyState === 4 才执行xhr.onload()
+        xhr.onload = function(){
+            if(xhr.status === 200){
+                console.log("数据解析完成",JSON.parse(xhr.responseText));
+            }else if(xhr.status === 404){
+                console.log("没有找到这个页面");
+            }
+        }
+    </script>
+</body>
+</html>
