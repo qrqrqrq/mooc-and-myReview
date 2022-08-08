@@ -762,7 +762,7 @@ AO={
 注意！
 ```javascript
 function test(){}();//报错，因为表达式才可以立即执行
-function test(){}(6);//不报错，因为会把(6)看成表达式而不是立即执行符号
+function test(){}(6);//不报错但也不执行，因为会把(6)看成表达式而不是立即执行符号
 ```
 
 ## 逗号运算符：对它的每个操作数求值（从左到右），并返回最后一个操作数的值。
@@ -1055,4 +1055,317 @@ function Person({name,sex,height,weight}){
     });
 
     console.log(girl1,girl2);
+```
+
+>构造函数没有实例化时,this指向的是window;
+>构造函数实例化后，this指向实例化后的对象而非构造函数
+
+```javascript
+        /*GO = {
+            Car:function,
+            car1:{
+                color: 'red',
+                brand: 'Benz'
+            }
+        }
+        AO = {
+        // new了以后保存一个空this
+            this:{
+                color:color,
+                brand:brand
+            }
+        }*/
+
+        function Car(color,brand) {
+            this.color = color;
+            this.brand = brand;
+
+            // 隐式return this
+        }
+
+        var car1 = new Car('red','Benz');
+        var car2 = new Car('black','Mazda');
+        console.log(car1.color);
+        console.log(car2.color);
+
+```
+
+**仿一个构造函数**
+```javascript
+        function Car(color, brand) {
+            var me = {};
+            me.color = color;
+            me.brand = brand;
+
+            return me
+        }
+
+        var car1 = Car('red', 'Benz');
+        console.log(car1.color);
+```
+>当return引用类型时[],{},function(){}，this指向会被引用类型覆盖，以引用类型为准 
+```javascript
+        function Car(color, brand) {
+            this.color = color;
+            this.brand = brand;
+
+            // 当不隐式的return this时
+            return function change() {
+                console.log("this指向会被引用类型覆盖，以引用类型为准");
+            }
+        }
+
+        var car = new Car('red', 'Benz');
+        console.log(car);
+```
+## 包装类
+>包装类 new Number new String new Boolean
+>原始值没有自己的属性和方法
+>undefined 和 null 不能设置任何的属性和方法，会报错
+
+```javascript
+        var a = 123;
+        a.len = 3;
+        // a = 123 -> new Number(123).len = 3 -> 没法保存 -> delete len属性 -> undefined
+        console.log(a.len);//undefined
+
+        var a = new Number(123);
+        a.len = 3;
+        console.log(a);//3 
+
+        var str = 'abc';
+        // new String(str).length 因为new String后本身有length属性所以可以直接访问
+        // console.log(new String(str).length);
+        console.log(str.length);//3
+
+        // 数组的截断方法：
+        var arr = [1, 2, 3, 4, 5];
+        arr.length = 3;
+        console.log(arr)//[1,2,3];
+        
+        //字符串改变length不发生截断 
+        var str = 'abc'
+        str.length = 1;
+        // new String(str).length = 1 -> 没地方保存 -> delete删除 -> new String(str).length -> 3(原本的长度)
+        console.log(str.length);//3 
+```
+
+## 一些练习题
+```javascript
+        // 1.包装类+typeof
+        var name = "蓝轨迹";
+        name += 10;//"蓝轨迹10"
+        var type = typeof (name);//'string'
+        if (type.length === 6) {//true
+            // new String(type).text = 'string' -> 没地方保存 -> delete
+            type.text = 'string';
+        }
+        console.log(type.text);//undefined
+
+        // 用new String()包装一下就可以输出！
+        var name = "蓝轨迹";
+        name += 10;//"蓝轨迹10"
+        var type = new String(typeof (name));//'string'
+        if (type.length === 6) {//true
+            type.text = 'string';
+        }
+        console.log(type.text);//string
+
+        // 2.构造函数
+        function Car(brand, color) {
+            this.brand = 'Benz',
+            this.color = 'red'
+        }
+        var car = new Car("Mazda", "black")
+        console.log(car);//构造函数没参数，Car {brand: 'Benz', color: 'red'}
+
+        // 3.构造函数+闭包
+        function Test(a, b, c) {
+            var d = 1;
+            this.a = a;
+            this.b = b;
+            this.c = c;
+            function f() {
+                d++;
+                console.log(d);
+            }
+            this.g = f;
+            // return this;  ->闭包
+        }
+        var test1 = new Test();
+        test1.g();//2
+        test1.g();//3
+        var test2 = new Test();
+        test2.g();//2
+
+        // 4.GO
+        /* GO = {
+            x:undefined -> 1
+            y:undefined -> 0
+            z:undefined -> 0
+            add:add(n){ return n = n + 1; } -> add(n){ return n = n + 3; }
+        } */
+        var x = 1,
+            y = z = 0;
+
+        function add(n) {
+            return n = n + 1;
+        }
+        y = add(x);
+
+        function add(n) {
+            return n = n + 3;
+
+        }
+        z = add(x);
+        console.log(x, y, z);//1 4 4
+
+        // 5.以下三个函数，哪个能输出12345 --> 1，3可以
+        // 立即执行函数
+        function foo1(x) {
+            console.log(arguments);
+            return x;
+        }
+        foo1(1, 2, 3, 4, 5);
+
+        //函数声明后边不能跟执行符号，会报错;
+        // (1, 2, 3, 4, 5),不报错也不执行
+        function foo2(x) {
+            console.log(arguments);
+            return x;
+        } (1, 2, 3, 4, 5);
+
+        (function foo3(x) {
+            console.log(arguments);
+            return x;
+        })(1, 2, 3, 4, 5);
+
+        // 6.形参实参一一对应
+        function b(x,y,a){
+            a = 10;
+            console.log(arguments[2]);//10
+        }
+        b(1,2,3)
+```
+## 原型
+>原型prototype其实是构造对象的一个属性，打印出来看了是对象
+
+```javascript
+        //function HandPhone() {}
+        //console.log(HandPhone.prototype);//是对象
+         function Handphone(coor, brand) {
+            this.color = color;
+            this.brand = brand;
+        }
+        // 不需要修改的属性，方法放在构造函数的prototype上
+        //这个prototype是定义构造函数构造出的每个对象的公共祖先
+        //所有被该构造函数构造出的对象都可以继承原型上的属性和方法
+        Handphone.prototype.rom = '64G';
+        Handphone.prototype.ram = '6G';
+        Handphone.prototype.screen = '18:9';
+        Handphone.prototype.system = 'Android';
+
+        Handphone.prototype.call = function () {
+            console.log('I am calling somebody');
+        }
+
+        // 开发中一般会将Handphone.prototype上的属性，方法写成这样
+        // 但会把本来的Handphone.prototype对象里的属性，方法都弄没，比如原本的constructor就会消失
+        Handphone.prototype = {
+            rom: '64G',
+            ram: '6G',
+            screen: '18:9',
+            call: function () {
+                console.log('I am calling somebody');
+            }
+        }
+
+        var hp1 = new Handphone('red', '小米');
+        var hp2 = new Handphone('black', '华为');
+        console.log(hp1.rom);
+        console.log(hp2.ram);
+        console.log(hp1.screen);
+        console.log(hp2.screen);
+        hp2.call(); 
+```
+> 实例出的对象只能访问构造函数prototype上的属性,增删改均不行
+```javascript
+        function Test(){
+            // this.name = 'proto'
+        }
+        Test.prototype.name = 'prototype';
+        var test = new Test();
+        // 实例出的对象只能访问构造函数prototype上的属性
+        console.log(test.name);//prototype 
+```
+
+>修改Handphone的constructor
+```javascript
+        function Handphone(color, brand,system) {
+            this.color = color;
+            this.brand = brand;
+            this.system = system;
+        }
+        console.log(Handphone.prototype);//constructor: ƒ Handphone(color, brand,system)
+
+        function Telephone(){}
+        // 修改Handphone的constructor
+        Handphone.prototype = {
+            constructor:Telephone
+        }
+        console.log(Handphone.prototype);//constructor:  ƒ Telephone()
+```
+>__proto__属于每一个实例化后的对象
+```javascript
+        function Car(){
+            // var this = {
+            //     __proto__:Car.prototype
+            // }
+        }
+        Car.prototype.name = 'Benz';
+        // __proto__属于每一个实例化后的对象
+        var car = new Car();
+        console.log(car);
+```
+```javascript
+        function Person() {
+             // var this = {
+             //     __proto__:Car.prototype
+             // }
+        }
+        Person.prototype.name = 'joeyee';
+        var p = {
+             name: 'joe'
+        }
+        var person = new Person();
+
+         // person.__proto__可以更改
+        person.__proto__ = p;
+        console.log(person.__proto__);
+```
+
+>看代码找一个注意点：
+```javascript
+        Car.prototype.name = 'Benz';
+        function Car() { }
+         // car实例化之后改了 Car.prototype.name属性，没有用了，对实例化后的对象car不构成影响
+        var car = new Car();
+        // 对Car.prototype重新赋一个对象的方式--会把本来的Car.prototype对象里的属性，方法都弄没，比如原本的constructor就会消失
+        Car.prototype = {
+            name: 'Mazda'
+        }
+        var newCar = new Car();
+        console.log(car.name);//Benz
+        console.log(newCar.name);//Mazda
+
+        // ----------------------------------------------- 
+        
+        function Car() { }
+        Car.prototype = {
+            name: 'Mazda'
+        }
+        // 实例化之前改了 Car.prototype.name属性
+        var car = new Car();
+        console.log(car.name);//Mazda
+        Car.prototype.name = 'Benz';
 ```

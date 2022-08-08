@@ -17,10 +17,11 @@
 
 
     <script>
-    // GET请求
+        // GET请求
         document.getElementById('myGet').onclick = function () {
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://localhost:3000/users", true);
+            // GET传参
+            xhr.open("GET", "http://localhost:3000/users?username=lisa&password=123456", true);
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     console.log(JSON.parse(xhr.responseText));
@@ -28,21 +29,72 @@
             }
             xhr.send();
         }
-    // Post请求
+        // Post请求
         document.getElementById('myPost').onclick = function () {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "http://localhost:3000/users", true);
             xhr.onload = function () {
-                if (xhr.status === 200) {
+                if (/^2\d{2}$/.test(xhr.status)) {
                     console.log(JSON.parse(xhr.responseText));
                 }
             }
 
-            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded")//name=joeyee&age=18
-            xhr.send(`
-                username = lisa & password = 147123
-            `);
+            /* xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")//name=joeyee&age=18
+            xhr.send(`username=lisa&password=147123`); */
+
+            // JSON格式：
+            xhr.setRequestHeader("Content-Type", "application/json")
+            xhr.send(JSON.stringify({
+                username: "mike",
+                password: "1234789"
+            }));
         }
+
+
+
+        // Put请求
+        document.getElementById('myPut').onclick = function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open("PUT", "http://localhost:3000/users/1", true);
+            xhr.onload = function () {
+                if (/^2\d{2}$/.test(xhr.status)) {
+                    console.log(JSON.parse(xhr.responseText));
+                }
+            }
+            // JSON格式：
+            xhr.setRequestHeader("Content-Type", "application/json")
+            xhr.send(JSON.stringify({
+                username: "joeyee1111",
+                password: "1234789"
+            }));
+        }
+        // Patch请求
+        document.getElementById('myPatch').onclick = function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open("PATCH", "http://localhost:3000/users/2", true);
+            xhr.onload = function () {
+                if (/^2\d{2}$/.test(xhr.status)) {
+                    console.log(JSON.parse(xhr.responseText));
+                }
+            }
+            // JSON格式：
+            xhr.setRequestHeader("Content-Type", "application/json")
+            xhr.send(JSON.stringify({
+                username: "kevin1111",
+            }));
+        }
+        // delete请求
+        document.getElementById('myDelete').onclick = function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open("DELETE", "http://localhost:3000/users/6", true);
+            xhr.onload = function () {
+                if (/^2\d{2}$/.test(xhr.status)) {
+                    console.log(JSON.parse(xhr.responseText));
+                }
+            }
+            xhr.send();
+        }
+
     </script>
 </body>
 

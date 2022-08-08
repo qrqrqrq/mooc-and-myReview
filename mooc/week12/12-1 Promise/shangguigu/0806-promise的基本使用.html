@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1.创建一个新的promise对象
+        const p = new Promise((resolve, reject) => {
+            // 2.执行异步任务
+            setTimeout(() => {
+                // 如果当前时间是偶数就代表成功，否则代表失败
+                const time = Date.now();
+                // 3.1 成功了，调用reslove(value)
+                if (time % 2 === 0) {
+                    resolve("成功的数据，time=" + time);
+                } else {
+                    // 3.2 失败了，调用reject(error)
+                    reject("失败的数据，time=" + time)
+                }
+
+            }, 2000)
+        })
+
+        p.then(
+            value => {
+                console.log('成功的回调',value);
+            },//接受得到成功的value数据 onResolved
+            reason => {
+                console.log('失败的回调', reason);
+            }//接受得到失败的reject数据  onRejected
+        )
+    </script>
+</body>
+
+</html>

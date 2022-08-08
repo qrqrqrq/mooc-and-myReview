@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        new Promise((resolve,reject)=>{
+            setTimeout(() => {
+                resolve('success');
+                // reject('fail')
+            }, 1000);
+        }).then(
+            value =>{
+                console.log('onFulfillment');
+            }
+        ).catch(reason =>{
+            console.log('onRejection');
+        })
+
+
+        // 产生一个成功值为1的promise对象
+        const p1 = new Promise((resolve,reject)=>{
+            resolve(1)
+        })
+        const p2 = Promise.resolve(2);
+        const p3 = Promise.reject(3);
+        // p1.then(value=>console.log(value));
+        // p2.then(value=>console.log(value));
+        p3.catch(reason=>console.log(reason));
+
+        // Promise.all() 方法接收一个 promise 的 iterable 类型（注：Array，Map，Set 都属于 ES6 的 iterable 类型）的输入，并且只返回一个Promise实例， 
+        // 那个输入的所有 promise 的 resolve 回调的结果是一个数组。这个Promise的 resolve 回调执行是在所有输入的 promise 的 resolve 回调都结束，或者输入的 iterable 里没有 promise 了的时候。
+        // 它的 reject 回调执行是，只要任何一个输入的 promise 的 reject 回调执行或者输入不合法的 promise 就会立即抛出错误，并且 reject 的是第一个抛出的错误信息。F
+        // const pAll = Promise.all([p1,p2,p3]);
+        const pAll = Promise.all([p1,p2]);
+        pAll.then(
+            values =>{
+                console.log('all Fulfillment',values);
+            },
+            reason =>{
+                console.log('all onRejection',reason);
+            }
+        )
+
+        // race 函数返回一个 Promise，它将与第一个传递的 promise 相同的完成方式被完成。它可以是完成（ resolves），也可以是失败（rejects），这要取决于第一个完成的方式是两个中的哪个。
+
+        // 如果传的迭代是空的，则返回的 promise 将永远等待。
+
+        // 如果迭代包含一个或多个非承诺值和 / 或已解决 / 拒绝的承诺，则 Promise.race 将解析为迭代中找到的第一个值。
+
+        const pRace = Promise.race([p3,p2,p1]);
+        pRace.then(
+                value => {
+                    console.log('race Fulfillment', value);
+                },
+                reason => {
+                    console.log('race onRejection', reason);
+                }
+            )
+    </script>
+</body>
+</html>

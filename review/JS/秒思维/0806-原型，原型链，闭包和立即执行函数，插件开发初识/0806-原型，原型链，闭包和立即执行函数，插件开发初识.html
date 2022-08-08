@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0806-原型，原型链，闭包和立即执行函数，插件开发初识</title>
+</head>
+
+<body>
+    <script>
+        // prototype
+        // 原型prototype其实是function对象的一个属性，打印出来看了是对象
+        // function HandPhone() {}
+        // console.log(HandPhone.prototype);
+
+        /* function Handphone(coor, brand) {
+            this.color = color;
+            this.brand = brand;
+            this.screen = '18:9';
+            this.system = 'Android';
+        }
+        Handphone.prototype.rom = '64G';
+        Handphone.prototype.ram = '6G';
+        Handphone.prototype.screen = '16:9';
+
+        Handphone.prototype.call = function () {
+            console.log('I am calling somebody');
+        }
+        //这个prototype是定义构造函数构造出的每个对象的公共祖先
+        //所有被该构造函数构造出的对象都可以继承原型上的属性和方法
+        var hp1 = new Handphone('red', '小米');
+        var hp2 = new Handphone('black', '华为');
+        console.log(hp1.rom);
+        console.log(hp2.ram);
+        console.log(hp1.screen);
+        console.log(hp2.screen);
+        hp2.call(); */
+
+        /*function Test(){
+            // this.name = 'proto'
+        }
+        Test.prototype.name = 'prototype';
+        var test = new Test();
+        // 实例出的对象只能访问构造函数prototype上的属性
+        console.log(test.name);//prototype */
+
+        /*function Handphone(color, brand) {
+            this.color = color;
+            this.brand = brand;
+        }
+        // Handphone.prototype.rom = '64G';
+        // Handphone.prototype.ram = '6G';
+        // Handphone.prototype.screen = '18:9';
+
+        // Handphone.prototype.call = function () {
+        //     console.log('I am calling somebody');
+        // }
+
+        Handphone.prototype = {
+            rom: '64G',
+            ram: '6G',
+            screen: '18:9',
+            call: function () {
+                console.log('I am calling somebody');
+            }
+        }
+        //这个prototype是定义构造函数构造出的每个对象的公共祖先
+        //所有被该构造函数构造出的对象都可以继承原型上的属性和方法
+        var hp1 = new Handphone('red', '小米');
+        var hp2 = new Handphone('black', '华为');
+        console.log(hp1.screen);
+        console.log(hp2.screen);
+        hp2.call();  */
+
+        /* function Handphone(color, brand,system) {
+            this.color = color;
+            this.brand = brand;
+            this.system = system;
+        }
+        console.log(Handphone.prototype);//constructor: ƒ Handphone(color, brand,system)
+
+        function Telephone(){}
+        // 修改Handphone的constructor
+        Handphone.prototype = {
+            constructor:Telephone
+        }
+        console.log(Handphone.prototype);//constructor:  ƒ Telephone()*/
+
+
+        /* function Car(){
+            // var this = {
+            //     __proto__:Car.prototype
+            // }
+        }
+        Car.prototype.name = 'Benz';
+        // __proto__属于每一个实例化后的对象
+        var car = new Car();
+        console.log(car); */
+
+
+        // function Person() {
+        //     // var this = {
+        //     //     __proto__:Car.prototype
+        //     // }
+        // }
+        // Person.prototype.name = 'joeyee';
+        // var p = {
+        //     name: 'joe'
+        // }
+        // var person = new Person();
+
+        // // person.__proto__可以更改
+        // person.__proto__ = p;
+        // console.log(person.__proto__);
+
+        /*Car.prototype.name = 'Benz';
+        function Car() { }
+         // car实例化之后改了 Car.prototype.name属性，没有用了，对实例化后的对象car不构成影响
+        var car = new Car();
+        // 对Car.prototype重新赋一个对象的方式--会把本来的Car.prototype对象里的属性，方法都弄没，比如原本的constructor就会消失
+        Car.prototype = {
+            name: 'Mazda'
+        }
+        var newCar = new Car();
+        console.log(car.name);//Benz
+        console.log(newCar.name);//Mazda
+
+        // ----------------------------------------------- 
+        function Car() { }
+        Car.prototype = {
+            name: 'Mazda'
+        }
+        // 实例化之前改了 Car.prototype.name属性
+        var car = new Car();
+        console.log(car.name);//Mazda
+        Car.prototype.name = 'Benz';*/
+
+        function test(){
+            var a = 1;
+            function plus1() {
+                a++;
+                console.log(a);
+            }
+            return plus1;
+        }
+        var plus = test();
+        plus();
+        plus();
+        plus();
+    </script>
+
+</body>
+
+</html>
