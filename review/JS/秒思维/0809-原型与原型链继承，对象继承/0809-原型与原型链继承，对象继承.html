@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0809-原型与原型链继承，对象继承</title>
+</head>
+
+<body>
+    <script>
+        // 所有对象都有__proto__，prototype也不例外
+        /* function Car() {  }
+        var car = new Car();
+        console.log(Car.prototype);
+        console.log(car); */
+
+        // 沿着__proto__往上去找原型里的属性值这个链条就叫做原型链
+        /* Professor.prototype.tSkill = 'JAVA';
+        function Professor() {}
+        var professor = new Professor();
+
+        Teacher.prototype = professor;
+        function Teacher() {
+            this.mSkill = 'JS/JQ';
+        }
+        var teacher = new Teacher();
+
+        
+        Student.prototype = teacher;
+        function Student() {
+            this.pSkill = 'HTML/CSS';
+        }
+        var student = new Student();
+        console.log(Object); */
+
+        // 原型链的终点：Object.prototype  -->Object.prototype.__proto__是null
+
+        /* Professor.prototype.tSkill = 'JAVA';
+        function Professor() { }
+        var professor = new Professor();
+
+        Teacher.prototype = professor;
+        function Teacher() {
+            this.mSkill = 'JS/JQ';
+            this.success = {
+                alibaba: '28',
+                tencent: '30'
+            }
+        }
+        var teacher = new Teacher();
+
+
+        Student.prototype = teacher;
+        function Student() {
+            this.pSkill = 'HTML/CSS';
+        }
+        var student = new Student();
+        student.success.baidu = '40';
+        // 注意添加引用属性！！有变化，实例化的teacher,student都加上了.baidu = '40'属性
+        console.log(teacher, student, Teacher); */
+
+        /* Professor.prototype.tSkill = 'JAVA';
+        function Professor() { }
+        var professor = new Professor();
+
+        Teacher.prototype = professor;
+        function Teacher() {
+            this.mSkill = 'JS/JQ';
+            this.students = 500;
+        }
+        var teacher = new Teacher();
+
+
+        Student.prototype = teacher;
+        function Student() {
+            this.pSkill = 'HTML/CSS';
+        }
+        var student = new Student();
+        // 注意添加的属性的值是原始值，此时相当于student新添加了.students属性
+        // student.students++;无法修改teacher的students属性的值
+        student.students++;
+        console.log(student, teacher); */
+
+
+        // this指向new 出来的car ，car自己有brand 就不会到 Car.prototype上找brand属性了
+        /* function Car() {
+            this.brand = 'Benz';
+        }
+        Car.prototype = {
+            brand: 'Mazda',
+            intro: function () {
+                console.log('我是' + this.brand + '的车');
+            }
+        }
+        var car = new Car();
+        car.intro()
+        Car.prototype.intro() */
+
+
+        // 构造函数实例化后不写return返回this  普通函数不写return返回undefined
+        // function Person() {
+        //     this.smoke = function () {
+        //         this.weight--;
+        //     }
+        // }
+        // Person.prototype = {
+        //     weight: 130
+        // }
+        // var person = new Person();
+        // console.log(Person());
+
+        // Object.create()参数为对象或null 不可以不传：创建对象
+        /* var test = { num: 2 }
+        function Obj() {}
+        Obj.prototype.num = 1;
+        var obj1 = Object.create(Obj.prototype);
+        var obj2 = new Object();
+        // 自定义obj3的原型
+        var obj3 = Object.create(test);
+        console.log(obj1);
+        console.log(obj2);
+        console.log(obj3); */
+
+        // 不是所有的对象都继承于Object.prototype
+        /* var obj1 = Object.create(null)//创建obj1空对象
+        console.log(obj1);//这样的obj1不继承于Object.prototype,不能使用其身上的方法
+        obj1.num = 1;
+        obj1.__proto__ = {count:1};
+        console.log(obj1);
+        console.log(obj1.count);//undefined,自己不能造__proto__
+        var obj2 = Object.create(obj1);
+        console.log(obj2); */
+
+        // undefined,null没有包装类，没有原型 不能使用 toString()
+        // 原型方法的重写
+
+        /* var num = 1;
+        var obj ={};
+        var obj2 = Object.create(null);
+        // document.write()会将打印的内容隐式转换为string类型
+        document.write(num);
+        console.log(obj);
+        document.write(obj);//[object Object]
+        // obj2没有原型，继承不了Object.prototype上的toString()
+        console.log(obj2);
+        document.write(obj2);//Uncaught TypeError: Cannot convert object to primitive value */
+
+
+        // call()和apply():更改this指向
+
+        /* function test() {
+            console.log('a');
+        }
+
+        test()//全写为：test.call() */
+
+        /* function Car(brand, color) {
+            this.brand = brand;
+            this.color = color;
+            this.run = function () {
+                console.log('running');
+            }
+        }
+        // newCar里有Car的所有属性和方法
+        var newCar = {
+            displacement: '3.0',
+        };
+
+        // Car.call(newCar, 'Benz', 'red');//更改了this指向，Car里的this指向了newCar
+
+        // call()和apply()区别：apply()第二个参数要用数组
+
+        Car.apply(newCar, ['Benz', 'red']);//更改了this指向，Car里的this指向了newCar
+        // function Car(brand, color) {
+        //     newCar.brand = brand;
+        //     newCar.color = color;
+        // }
+        console.log(newCar); */
+
+        function Compute() {
+            this.plus = function (a, b) {
+                console.log(a + b);
+            }
+            this.minus = function (a, b) {
+                console.log(a - b);
+            }
+        }
+
+        function FullCompute() {
+            Compute.apply(this)
+            this.mul = function (a, b) {
+                console.log(a * b);
+            }
+            this.div = function (a, b) {
+                console.log(a / b);
+            }
+        }
+
+        var fulCompute = new FullCompute();
+        fulCompute.plus(1,2);
+        fulCompute.minus(1,2);
+        fulCompute.mul(1,2);
+        fulCompute.div(1,2);
+    </script>
+</body>
+
+</html>

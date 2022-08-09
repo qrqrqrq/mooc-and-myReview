@@ -9,10 +9,27 @@
 <body>
     <script src="./lib/Promise.js"></script>
     <script>
-        new Promise((resolve,reject)=>{
-            resolve(1);//value
-            // reject(2);//reason
+        const p = new Promise((resolve,reject)=>{
+            setTimeout(() => {
+                resolve(1);
+            }, 100);
         })
+        p.then(
+            value =>{
+                console.log('resolved1',value);
+            },
+            reason=>{
+                console.log('rejected1', reson);
+            }
+        )
+        p.then(
+            value => {
+                console.log('resolved2', value);
+            },
+            reason => {
+                console.log('rejected2', reson);
+            }
+        )
     </script>
 </body>
 
