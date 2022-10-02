@@ -15,21 +15,26 @@ const oldObj = {
 // console.log("newObj", newObj);
 
 // 实现深拷贝
-
 function deepClone(oldObj = {}) {
     if (typeof oldObj !== "object" || oldObj == null) {
         // obj 是 null ，或者不是对象和数组，直接返回
         return oldObj;
     }
+    // 初始化返回结果
     let result;
     if (oldObj instanceof Array) {
-        result = {};
-    } else {
         result = [];
+    } else {
+        result = {};
     }
     for (let key in oldObj) {
-        result[key] = deepClone(obj[key]);
+        //保证key不是原型的属性
+        if (oldObj.hasOwnProperty(key)) {
+            // 递归
+            result[key] = deepClone(oldObj[key]);
+        }
     }
     return result;
 }
 const newObj = deepClone(oldObj);
+console.log(newObj);

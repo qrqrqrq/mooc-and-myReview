@@ -26,12 +26,12 @@
             // throw new Error('出错了！出错了！')//抛出异常: 如果当前是pendding就会变为rejected,reason为抛出的error
             // throw 3//抛出异常: 如果当前是pendding就会变为rejected,reason为抛出的3
         })
-         p.then(
+        p.then(
             value => {
                 console.log('value1,' + value);
             },
             reason => { console.log('reason,' + reason); })
-            p.then(
+        p.then(
             value => { console.log('value2,' + value); },
             reason => {
                 console.log('reason2,' + reason);

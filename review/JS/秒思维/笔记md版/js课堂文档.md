@@ -421,15 +421,15 @@ console.log(window.a); //undefined,访问window对象上没有的属性，默认
 
 ```javascript
  function test(a) {
-                            console.log(a);//function a() {}
-                            var a = 1;
-                            console.log(a);//1
-                            function a() {}
-                            console.log(a);//1
-                            var b = function () {};
-                            console.log(b);//function () {}
-                            function d() {}
-                   }
+    console.log(a);//function a() {}
+    var a = 1;
+    console.log(a);//1
+    function a() {}
+    console.log(a);//1
+    var b = function () {};
+    console.log(b);//function () {}
+    function d() {}
+}
 test(2);
 ```
 
@@ -445,25 +445,25 @@ AO={
 
 ```javascript
 function test(a, b) {
-                            console.log(a); //3
-                            c = 0;
-                            var c;
-                            a = 5;
-                            b = 6;
-                            console.log(b); //6
-                            function b() {}
-                            function d() {}
-                            console.log(b); //6
-                      }
+    console.log(a); //3
+    c = 0;
+    var c;
+    a = 5;
+    b = 6;
+    console.log(b); //6
+    function b() {}
+    function d() {}
+    console.log(b); //6
+}
 test(1);
 ```
 
 ```javascript
  AO={
-        a:undefined -> 1 -> 5
-        b:undefined -> function b() {} -> 6
-        c:undefined -> 0
-        d:function d() {}
+    a:undefined -> 1 -> 5
+    b:undefined -> function b() {} -> 6
+    c:undefined -> 0
+    d:function d() {}
 }
 ```
 
@@ -514,9 +514,9 @@ GO={
 
 ```javascript
 function test() {
-                var a = (b = 1);
-                console.log(a);//1
-             }
+    var a = (b = 1);
+    console.log(a);//1
+    }
 test();
 ```
 

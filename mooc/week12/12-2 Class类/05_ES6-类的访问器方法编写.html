@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Person {
+        // 程序员约定：_开头的属性，方法是私有的，不在外界访问
+            constructor(name, age) {
+                this._name = name
+            }
+
+            set name (value){
+                this._name = value
+            }
+
+            get name(){
+                return this._name
+            }
+        }
+
+        var p1 = new Person('zhangsan',21)
+        p1.name = "lisa"
+    </script>
+</body>
+
+</html>

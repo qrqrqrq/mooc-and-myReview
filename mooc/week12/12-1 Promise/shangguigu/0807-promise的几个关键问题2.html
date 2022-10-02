@@ -21,7 +21,7 @@
                 ②如果先改变的状态, 那当指定回调时, 回调函数就会调用, 得到数据
         */
         // 常规是先指定回调后改变状态
-        /* new Promise((resolve, reject) => {
+        new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(1);//后改变状态（同时指定数据），异步执行回调函数
             }, 1000);
@@ -29,10 +29,10 @@
             value => {
                 console.log('value1,' + value);
             },
-            reason => { console.log('reason1,' + reason); }) */
+            reason => { console.log('reason1,' + reason); })
 
         // 如何先改状态再指定回调 ?
-        /* new Promise((resolve, reject) => {
+        new Promise((resolve, reject) => {
             resolve(1);//先改变状态（同时指定数据）
         }).then(//后回调函数，异步执行回调函数
             value => {
@@ -50,7 +50,7 @@
                     console.log('value3,' + value);
                 },
                 reason => { console.log('reason3,' + reason); })
-        }, 1000); */
+        }, 1000); 
     </script>
 </body>
 

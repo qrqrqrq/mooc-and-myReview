@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0810-对象继承深入,call,apply,圣杯模式,构造函数和闭包,企业模块化</title>
+</head>
+
+<body>
+    <script>
+        //插件写法1 
+        /* ; (function () {
+            var Compute = function (opt) {
+                this.x = opt.firstNum || 0;
+                this.y = opt.secondNum || 0;
+            }
+            Compute.prototype = {
+                plus: function () {
+                    return this.x + this.y;
+                },
+                minus: function () {
+                    return this.x - this.y;
+                },
+                mul: function () {
+                    return this.x * this.y;
+                },
+                div: function () {
+                    return this.x / this.y;
+                }
+
+            }
+            window.Compute = Compute;
+        })();
+
+        var compute = new Compute({
+            firstNum: 1,
+            secondNum: 2
+        })
+        var res = compute.plus();
+        console.log(res); */
+
+        //插件另一种写法 
+        /* ; (function () {
+            var Compute = function () {
+            }
+            Compute.prototype = {
+                plus: function (a, b) {
+                    return a + b;
+                },
+                minus: function (a, b) {
+                    return a - b;
+                },
+                mul: function (a, b) {
+                    return a * b;
+                },
+                div: function (a, b) {
+                    return a / b;
+                }
+
+            }
+            window.Compute = Compute;
+        })();
+
+        var compute = new Compute()
+        var res = compute.plus(2, 3);
+        console.log(res); */
+
+        // 实现继承的第一种方式
+        /* Professor.prototype = {
+            name: 'Mr.zhang',
+            tSkill: 'JAVA'
+        }
+        function Professor() { }
+
+        var professor = new Professor();
+        Teacher.prototype = professor;
+
+        function Teacher() {
+            this.name = 'Mr.wang';
+            this.mSkill = 'JS/JQ';
+        }
+        var teacher = new Teacher();
+
+        Student.prototype = teacher;
+        function Student() {
+            this.name = 'Mr.Li';
+            this.mSkill = 'HTML/CSS';
+        }
+        var student = new Student();
+        console.log(student); */
+
+        // 二：使用call/apply实现继承
+        /*         function Teacher(name,mSkill) {
+                    this.name = name;
+                    this.mSkill = mSkill;
+                }
+                function Student(name, mSkill,age,major) {
+                    // 使用apply改变this指向
+                    // 将Teacher构造函数里的this改为new的student实例的this
+                    Teacher.apply(this,[name,mSkill])
+                    this.age = age;
+                    this.major = major;
+                }
+                var student = new Student(
+                    'joeyee','HTML',18,'Computer'
+                );
+                console.log(student); */
+
+        // 三：原型链的圣杯模式
+        /* function Teacher() {
+            this.name = 'Mr.wang';
+            this.tSkill = 'Java';
+        }
+        Teacher.prototype = {
+            pSkill: 'JS/JQ',
+        }
+        var t = new Teacher();
+        console.log(t);
+
+        function Student() {
+            this.name = 'Mr.Li';
+        }
+
+        function Buffer() { }
+        Buffer.prototype = Teacher.prototype;
+        var buffer = new Buffer();
+        Student.prototype = buffer;
+        Student.prototype.age = 18;
+
+        var s = new Student();
+        console.log(s); */
+
+        Teacher.prototype.name = "zhangsan"
+        function Teacher() {  }
+        function Student() {  }
+        function Buffer() {  }
+        // Buffer.prototype = Teacher.prototype;
+        // var buffer = new Buffer();
+        // Student.prototype = buffer;
+        inherit(Student,Teacher);
+        var s  = new Student();
+        var t = new  Teacher();
+        console.log(s);
+        console.log(t);
+        
+
+        function inherit (Target,Origin) {
+            function Buffer() {  }
+            Buffer.prototype = Origin.prototype;
+            Target.prototype = new Buffer();
+            Target.prototype.constructor = Target;
+            Target.prototype.super_class = Origin;
+
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* // 类
+        class Student {
+            constructor(name, number) {
+                this.name = name;
+                this.number = number;
+            }
+            sayHi() {
+                console.log(`姓名：${this.name},学号${this.number}`);
+            }
+        }
+
+        // 通过类声明对象
+        const s = new Student('xiaoming', '0001');
+        console.log(s.name);
+        console.log(s.sayHi()); */
+
+        // 父类
+        class People {
+            constructor(name) {
+                this.name = name;
+            }
+            eat() {
+                console.log(`${this.name}正在吃东西！`);
+            }
+        }
+
+        // 子类
+        class Student extends People {
+            constructor(name, number) {
+                super(name)
+                this.number = number
+            }
+            sayHi() {
+                console.log(`姓名：${this.name},学号${this.number}`);
+            }
+        }
+
+        // 子类
+        class Teacher extends People {
+            constructor(name, skill) {
+                super(name)
+                this.skill = skill;
+            }
+            teach() {
+                console.log(`${this.name}老师教授${this.skill}课程`);
+            }
+        }
+        const s = new Student('joeyee', '0001');
+        console.log(s.name);
+        s.sayHi();
+        s.eat();
+        const t = new Teacher('白梦', 'javascript');
+        console.log(t.name);
+        t.teach();
+        t.eat();
+
+    </script>
+</body>
+
+</html>

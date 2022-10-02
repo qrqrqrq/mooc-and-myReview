@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>11_Promise相关面试题1</title>
-</head>
-<body>
 
+<head>
+    <meta charset="UTF-8">
+    <title>11_Promise相关面试题1</title>
+</head>
+
+<body>
+    <script>
+        setTimeout(() => {
+            console.log(1)
+        }, 0)//宏队列
+        Promise.resolve().then(() => {
+            console.log(2)
+        })//微队列
+        Promise.resolve().then(() => {
+            console.log(4)
+        })//微队列
+        console.log(3)//同步任务
+        // 执行顺序：同步任务 -> 微队列里的微任务依次执行 -> 宏队列里的宏任务依次执行（若宏队列里又有微任务则先执行微任务再执行宏任务）
+        // 结果：
+        // 3
+        // 2 
+        // 4 
+        // 1
+    </script>
 </body>
+
 </html>

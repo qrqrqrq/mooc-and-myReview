@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Person {
+            // 当我们通过new关键字调用Person类时，默认调用class中的constructor方法
+            // 1.类中的构造函数，一个类只能写一个constructor
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+            }
+
+            // 2.类的实例方法
+            // 本质还是将实例方法放在了Person.prototype上
+            running(){
+                console.log(this.name+"running，running正在跑步！");
+            }
+            sayHello(){
+                console.log(`你好，我是+this.name,我今年this.age岁了`);
+            }
+        }
+
+        // 根据类创建实例对象
+        var p1 = new Person("zhangsan", 18)
+        var p2 = new Person("lisi", 20)
+        console.log(p1, p2);
+    </script>
+</body>
+
+</html>

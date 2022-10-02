@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // const p1 = new Promise((resolve, reject) => {
+        // })
+        // console.log('p1', p1);//pending
+        // const p2 = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         resolve()
+        //         console.log('p2', p2);//fulfilled
+        //     }, 0);
+        // })
+
+        // --------------------------
+
+        // for...of异步遍历
+        function muti (num) {
+            return new Promise(resolve=>{
+                setTimeout(() => {
+                    resolve(num*num)
+                }, 1000);
+            })
+        }
+
+        const arr  = [1,2,3]
+        // arr.forEach(async (i)=>{
+        //     const res = await muti(i)
+        //     console.log(res);
+        // })
+
+        ;(async function () {
+            for (let i of arr) {
+                const res = await muti(i)
+                console.log(res);
+            }
+        })()
+    </script>
+</body>
+
+</html>

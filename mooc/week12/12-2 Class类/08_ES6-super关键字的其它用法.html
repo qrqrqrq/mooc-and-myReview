@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // super的使用位置有三个：子类的构造方法，实例方法，静态方法
+        class Animal {
+            running() {
+                console.log("running");
+            }
+            eating() {
+                console.log("eating");
+            }
+
+            static sleep(){
+                console.log("static animal sleep");
+            }
+        }
+
+        class Dog extends Animal {
+            // 子类对从父类继承过来的方法不满意，可以重写
+            running() {
+                console.log("小狗在running");
+                // 这句话在父类写过了，不想重复写可以用super调用父类里的方法
+                // console.log("running");
+
+                // 用super调用父类里的方法
+                super.running()
+            }
+
+            static sleep(){
+                console.log("小狗在趴着");
+                super.sleep()
+            }
+        }
+        var dog = new Dog()
+        dog.running()
+        Dog.sleep()
+    </script>
+</body>
+
+</html>

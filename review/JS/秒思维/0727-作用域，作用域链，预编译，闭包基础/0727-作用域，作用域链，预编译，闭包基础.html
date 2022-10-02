@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>0727-作用域，作用域链，预编译，闭包基础</title>
 </head>
+
 <body>
     <script>
         // 作用域和作用域链
@@ -61,17 +63,20 @@
         闭包：当内部函数被返回到外部并保存时，一定会产生闭包。
         闭包会产生原来的作用域链不释放。
         过度的闭包可能会导致内存泄漏或加载过慢*/
-        function test1(){
-            function test2(){
+        function test1() {
+            function test2() {
                 var b = 2;
                 console.log(a);
             }
             var a = 1;
-            return test2();
+            return test2;
         }
         var c = 3;
         var test3 = test1();
+
         test3();
+
     </script>
 </body>
+
 </html>

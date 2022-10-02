@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // GET请求
+        // const xhr = new XMLHttpRequest()
+        // xhr.open('GET', 'http://localhost:8080/review/JS/mooc-job/%E7%AC%AC12%E7%AB%A0Web-API-Ajax/data/test.json', false)
+        // xhr.onreadystatechange = function () {
+        //     if (xhr.readyState === 4) {
+        //         if (xhr.status === 200) {
+        //             console.log(JSON.parse(xhr.responseText));
+        //             alert(xhr.responseText)
+        //         } else {
+        //             console.log('其它情况');
+        //         }
+        //     }
+        // }
+        // xhr.send(null)
+
+        // POST请求
+        // const xhr = new XMLHttpRequest()
+        // xhr.open("POST", "/login", true)//true代表异步请求
+        // xhr.onreadystatechange = function () {
+        //     if (xhr.readyState === 4) {
+        //         if (xhr.status === 200) {
+        //             alert(xhr.responseText)
+        //         } else {
+        //             console.log('其它情况');
+        //         }
+        //     }
+        // }
+        // const postData = {
+        //     userName: "zhangsan",
+        //     password: "123456"
+        // }
+        // xhr.send(
+        //     JSON.stringfy(postData)
+        // )
+
+        function ajax(url) {
+            const p = new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            resolve(
+                                JSON.parse(xhr.responseText)
+                            )
+                        } else if (xhr.status === 404) {
+                            reject(new Error('404 not found'))
+                        }
+                    }
+                }
+                xhr.send(null)
+            })
+            return p
+        }
+        const url = 'http://localhost:8080/review/JS/mooc-job/%E7%AC%AC12%E7%AB%A0Web-API-Ajax/data/test.json'
+        ajax(url)
+            .then(res => console.log(res))
+            .catch((error) => { console.log(error); })
+    </script>
+</body>
+
+</html>
